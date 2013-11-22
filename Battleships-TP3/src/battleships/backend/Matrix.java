@@ -1,7 +1,7 @@
 /**
- * Classe qui appartient à la logique derrière l'application visuelle. Cette classe va construire le champ de mines, et
- * qui va gérer toute la logique appartenant au champ de mines. Elle contient les méthodes ayant rapport à l'information nécéssaire
- * à la matrice du champ de mines.
+ * Classe qui appartient ï¿½ la logique derriï¿½re l'application visuelle. Cette classe va construire le champ de mines, et
+ * qui va gï¿½rer toute la logique appartenant au champ de mines. Elle contient les mï¿½thodes ayant rapport ï¿½ l'information nï¿½cï¿½ssaire
+ * ï¿½ la matrice du champ de mines.
  * 
  * @author Kevin Tanguay
  */
@@ -35,13 +35,12 @@ public class Matrix
 
 	public MatrixTiles[][] SetSize(MatrixTiles[][] matrix) 
 	{
-		MatrixTiles[][] newGame = new MatrixTiles[10][10];
-		matrix = newGame;
+		matrix = new MatrixTiles[10][10];
 		return matrix;
 	}
 
 	/** 
-	 * Retourne la matrice présentement en jeu.
+	 * Retourne la matrice prï¿½sentement en jeu.
 	 * @return 	La matrice en question.
 	 */
 
@@ -51,10 +50,10 @@ public class Matrix
 	}
 	
 	/**
-	 * Retourne le numéro de la case selon son emplacement spécifique sur la grille.
-	 * @param x		La coordonnée en X de la case spécifiée.
-	 * @param y		La coordonnée en Y de la case spécifiée.
-	 * @return		le numéro de la case spécifique.
+	 * Retourne le numï¿½ro de la case selon son emplacement spï¿½cifique sur la grille.
+	 * @param x		La coordonnï¿½e en X de la case spï¿½cifiï¿½e.
+	 * @param y		La coordonnï¿½e en Y de la case spï¿½cifiï¿½e.
+	 * @return		le numï¿½ro de la case spï¿½cifique.
 	 * 
 	 * @see MatrixTiles.getNumber()
 	 */
@@ -65,12 +64,12 @@ public class Matrix
 	}
 	
 	/**
-	 * Retourne la condition de la case spécifique, si elle est déjà cochée ou pas. Ceci est
-	 * vérifié par un boolean.
+	 * Retourne la condition de la case spï¿½cifique, si elle est dï¿½jï¿½ cochï¿½e ou pas. Ceci est
+	 * vï¿½rifiï¿½ par un boolean.
 	 * 
-	 * @param x		La coordonnée en X de la case spécifiée.
-	 * @param y		La coordonnée en Y de la case spécifiée.
-	 * @return		vrai si déjà cochée, false le cas échéant.
+	 * @param x		La coordonnï¿½e en X de la case spï¿½cifiï¿½e.
+	 * @param y		La coordonnï¿½e en Y de la case spï¿½cifiï¿½e.
+	 * @return		vrai si dï¿½jï¿½ cochï¿½e, false le cas ï¿½chï¿½ant.
 	 * 
 	 * @see MatrixTiles.isClicked()
 	 */
@@ -81,10 +80,10 @@ public class Matrix
 	}
 	
 	/**
-	 * Place l'information dans la case spécifique de la grille. Soit un numéro, et la condition cochée.
-	 * @param x			L'emplacement X de la case désirée.
-	 * @param y			L'emplacement Y de la case désirée.
-	 * @param boat		le numéro du bateau de la case spécifique.
+	 * Place l'information dans la case spï¿½cifique de la grille. Soit un numï¿½ro, et la condition cochï¿½e.
+	 * @param x			L'emplacement X de la case dï¿½sirï¿½e.
+	 * @param y			L'emplacement Y de la case dï¿½sirï¿½e.
+	 * @param boat		le numï¿½ro du bateau de la case spï¿½cifique.
 	 */
 
 	public void setSquareContent(int x, int y, int boat)
@@ -94,12 +93,12 @@ public class Matrix
 	}
 	
 	/** 
-	 * Change la condition boolean de la case spécifique. Elle rends la case cochée ou pas, dépendamment du boolean
-	 * en paramètre. Cette case deviens donc révélée, ou pas, visuellement.
+	 * Change la condition boolean de la case spï¿½cifique. Elle rends la case cochï¿½e ou pas, dï¿½pendamment du boolean
+	 * en paramï¿½tre. Cette case deviens donc rï¿½vï¿½lï¿½e, ou pas, visuellement.
 	 * 
 	 * @param x			L'emplacement X de la case.
 	 * @param y			L'emplacement Y de la case.
-	 * @param check		Le boolean qui décide si la case est cochée ou pas.
+	 * @param check		Le boolean qui dï¿½cide si la case est cochï¿½e ou pas.
 	 */
 
 	public void setSquareCheck(int x, int y, boolean check)
