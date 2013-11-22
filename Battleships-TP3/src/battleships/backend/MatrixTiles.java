@@ -3,25 +3,25 @@
  * Chaque MatrixTiles est une tuile, une case de la matrice "Matrix". Cette classe contient les méthodes nécéssaires à 
  * l'obtention des informations de chaque case.
  * 
- * Chaque case contient un Integer, et un Boolean. L'Integer est le numéro relié au nombre de mines autour de lui-même, et le boolean
- * vérifie sa condition de si elle est révélée ou pas sur l'application visuelle.
+ * Chaque case contient un Integer, et un Boolean. L'Integer est le numéro relié type de bateau, et le boolean
+ * vérifie la condition de si la case est révélée ou pas sur l'application visuelle.
  * 
  * @author Kevin Tanguay
  */
 
-package gameField.backend;
+package battleships.backend;
 
 public class MatrixTiles
 {
 	private int tileNumber = 0;
 	private boolean clicked = false;
 	
-	/**k
+	/**
 	 * Construit chaque case et les initialise par rapport au numéro et au boolean entrés en paramètre.
 	 * @param tileNumber	Le numéro de la case, par rapport aux bateaux sur la grille.
-	 * @param check			La condition boolean si elle est révélée ou pas sur le champ visuel.
+	 * @param check			La condition boolean si la case est révélée ou pas sur le champ visuel.
 	 */
-	public MatrixTiles(int tileNumber, boolean check)
+	public MatrixTiles(int tileNumber, boolean check) 
 	{
 		this.tileNumber = tileNumber;
 		this.setClicked(check);

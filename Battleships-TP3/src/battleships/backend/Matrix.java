@@ -6,10 +6,10 @@
  * @author Kevin Tanguay
  */
 
-package gameField.backend;
+package battleships.backend;
 
 
-public class Matrix 
+public class Matrix
 {
 	private MatrixTiles[][] gameMatrix;
 	 
@@ -18,40 +18,33 @@ public class Matrix
 	 * 
 	 * @param level		Le niveau de jeu choisi.
 	 */
-	public Matrix(Level level)
+	public Matrix()
 	{
 		this.gameMatrix = null;
-		this.gameMatrix = setDifficulty(this.gameMatrix, level);
-		 
-			for(int i=0;i<level.GetX();i++)
-			{
-				for(int j=0;j<level.GetY();j++)
-				{
-					MatrixTiles gameTile = new MatrixTiles(9, false);
-					this.gameMatrix[i][j] = gameTile;
-				}
-			}
-	}
-	
-	/**
-	 * Classe qui va créer la matrice appropriée dépendamment du niveau de difficulté, soit Facile, Moyen, ou Expert.
-	 * 
-	 * @param gameMatrix	La matrice qui est entrain d'être créee.
-	 * @param level			Le niveau de difficulté.
-	 * @return 				la matrice fraichement créee.
-	 */
-	public MatrixTiles[][] setDifficulty(MatrixTiles[][] gameMatrix, Level level)
-	{
+		this.gameMatrix = SetSize(this.gameMatrix);
 		
-		MatrixTiles[][] newGameMatrix = new MatrixTiles[level.GetX()][level.GetY()];
-		gameMatrix = newGameMatrix;
-		return gameMatrix;
+		for(int x = 0; x < 10; x++)
+		{
+			for(int y= 0 ; y < 10; y++)
+			{
+				MatrixTiles gameTile = new MatrixTiles(0, false);
+				this.gameMatrix[x][y] = gameTile;
+			}
+		}
 	}
-	
+
+	public MatrixTiles[][] SetSize(MatrixTiles[][] matrix) 
+	{
+		MatrixTiles[][] newGame = new MatrixTiles[10][10];
+		matrix = newGame;
+		return matrix;
+	}
+
 	/** 
 	 * Retourne la matrice présentement en jeu.
 	 * @return 	La matrice en question.
 	 */
+
 	public MatrixTiles[][] getMatrix()
 	{
 		return this.gameMatrix;
@@ -65,6 +58,7 @@ public class Matrix
 	 * 
 	 * @see MatrixTiles.getNumber()
 	 */
+
 	public int getSquareContentNumber(int x, int y)
 	{
 		return this.gameMatrix[x][y].getNumber();
@@ -80,6 +74,7 @@ public class Matrix
 	 * 
 	 * @see MatrixTiles.isClicked()
 	 */
+
 	public boolean getSquareContentCheck(int x, int y)
 	{
 		return this.gameMatrix[x][y].isClicked();
@@ -89,11 +84,12 @@ public class Matrix
 	 * Place l'information dans la case spécifique de la grille. Soit un numéro, et la condition cochée.
 	 * @param x			L'emplacement X de la case désirée.
 	 * @param y			L'emplacement Y de la case désirée.
-	 * @param bomb		le numéro de la case spécifique.
+	 * @param boat		le numéro du bateau de la case spécifique.
 	 */
-	public void setSquareContent(int x, int y, int bomb)
+
+	public void setSquareContent(int x, int y, int boat)
 	{
-		MatrixTiles newTile = new MatrixTiles(bomb, false);
+		MatrixTiles newTile = new MatrixTiles(boat, false);
 		this.gameMatrix[x][y] = newTile;
 	}
 	
@@ -105,8 +101,25 @@ public class Matrix
 	 * @param y			L'emplacement Y de la case.
 	 * @param check		Le boolean qui décide si la case est cochée ou pas.
 	 */
+
 	public void setSquareCheck(int x, int y, boolean check)
 	{
 		this.gameMatrix[x][y].setClicked(check);	
 	}
+	
+	public static void main(String[] args)
+	{
+		
+		Matrix game = new Matrix();
+		for(int i = 0; i < 10; i++)
+		   {
+		      for(int j = 0; j < 10; j++)
+		      {
+		         System.out.printf("%5d ", game.getSquareContentNumber(i, j));
+		      }
+		      System.out.println();
+		   }
+	}
+
+	
 }
