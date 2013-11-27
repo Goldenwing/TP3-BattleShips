@@ -1,4 +1,4 @@
-package gameField.backend;
+package battleships.backend;
 
 /**
  * TODO Compléter...

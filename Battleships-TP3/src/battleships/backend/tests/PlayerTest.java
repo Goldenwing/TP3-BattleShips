@@ -1,4 +1,4 @@
-package gameField.backend.tests;
+package battleships.backend.tests;
 
 /**
  * Classe de tests des classes HumanPlayer et ComputerPlayer

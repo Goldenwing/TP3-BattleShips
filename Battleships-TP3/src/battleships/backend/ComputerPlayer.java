@@ -1,4 +1,5 @@
-package gameField.backend;
+package battleships.backend;
+
 
 /**
  * Extension de la super-classe Player qui permet d'instancier une intelligence artificielle simulant
@@ -9,8 +10,10 @@ package gameField.backend;
  */
 public class ComputerPlayer extends Player {
 	
-	public ComputerPlayer() {
-		
+	private String playerName;
+	
+	public ComputerPlayer(String name) {
+		this.playerName = name;
 	}
 
 	@Override

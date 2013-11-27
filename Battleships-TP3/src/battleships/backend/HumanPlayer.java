@@ -1,4 +1,5 @@
-package gameField.backend;
+package battleships.backend;
+
 
 /**
  * Extension de la super-classe Player qui permet d'instancier un joueur humain (joueur interagissant
@@ -11,7 +12,7 @@ public class HumanPlayer extends Player {
 	private String playerName;
 	
 	public HumanPlayer(String name) {
-		
+		this.playerName = name;
 	}
 
 	@Override
