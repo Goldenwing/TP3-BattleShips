@@ -6,12 +6,12 @@ import org.junit.Test;
 import battleships.backend.*;
 
 /**
- * Classe de tests des classes HumanPlayer et ComputerPlayer
+ * Classe de tests de HumanPlayer et ComputerPlayer
  * @author Annie Belzile
  *
  */
 public class PlayerTest {
-	
+	//Constructors tests
 	@Test
 	public void NewHumanPlayerConstructor() {
 		HumanPlayer player = new HumanPlayer("Annie");
@@ -22,6 +22,13 @@ public class PlayerTest {
 	public void NewComputerPlayerConstructor() {
 		ComputerPlayer player = new ComputerPlayer("HAL-9000");
 		Assert.assertEquals("HAL-9000", player.getPlayerName());
+	}
+	
+	//SetBoats() methods tests
+	@Test
+	public void GenerateRandomCoordinatesComputerPlayerTest() {
+		
+		
 	}
 
 }

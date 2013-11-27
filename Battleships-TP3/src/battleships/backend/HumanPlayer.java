@@ -3,7 +3,7 @@ package battleships.backend;
 
 /**
  * Extension de la super-classe Player qui permet d'instancier un joueur humain (joueur interagissant
- * avec l'interface pour jouer)
+ * avec l'interface graphique pour jouer)
  * @author Annie Belzile
  *
  */

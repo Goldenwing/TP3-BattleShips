@@ -5,7 +5,7 @@ import java.util.Random;
 
 /**
  * Extension de la super-classe Player qui permet d'instancier une intelligence artificielle simulant
- * un joueur. ComputerPlayer utilise majoritairement de fonctions aléatoires afin de placer les bateaux
+ * un joueur. ComputerPlayer utilise majoritairement de fonctions aleatoires afin de placer les bateaux
  *  et tirer sur l'ennemi.
  * @author Annie Belzile
  *
