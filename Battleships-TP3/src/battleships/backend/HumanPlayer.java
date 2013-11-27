@@ -16,15 +16,19 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public void setBoats() {
+	public void setBoats(Matrix gameGrid) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void shootEnemy() {
+	public void shootEnemy(Matrix gameGrid) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public String getPlayerName() {
+		return this.playerName;
 	}
 
 }

@@ -12,9 +12,9 @@ public abstract class Player {
 	 * Méthode permettant de placer les bateaux dans la grille de jeu en mémoire. La source peut
 	 * être à partir de l'interface pour HumanPlayer ou aléatoire pour ComputerPlayer 
 	 */
-	public abstract void setBoats();
+	public abstract void setBoats(Matrix gameGrid);
 	/**
 	 * TODO 
 	 */
-	public abstract void shootEnemy();
+	public abstract void shootEnemy(Matrix gameGrid);
 }

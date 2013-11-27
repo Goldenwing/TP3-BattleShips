@@ -1,5 +1,7 @@
 package battleships.backend;
 
+import java.util.Random;
+
 
 /**
  * Extension de la super-classe Player qui permet d'instancier une intelligence artificielle simulant
@@ -17,15 +19,27 @@ public class ComputerPlayer extends Player {
 	}
 
 	@Override
-	public void setBoats() {
+	public void setBoats(Matrix gameGrid) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void shootEnemy() {
+	public void shootEnemy(Matrix gameGrid) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public String getPlayerName() {
+		return this.playerName;
+	}
+	
+	/////////////////////private methods
+
+	private int genenrateRandomNumber(int minValue, int maxValue) {
+		//Returns an random integer included between the two specified values 
+		Random rand = new Random();
+		return rand.nextInt(maxValue - minValue + 1) + minValue;
 	}
 
 }
