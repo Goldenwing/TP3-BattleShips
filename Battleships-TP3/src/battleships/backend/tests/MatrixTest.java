@@ -1,4 +1,4 @@
-package gameField.backend.tests;
+package battleships.backend.tests;
 
 public class MatrixTest 
 {

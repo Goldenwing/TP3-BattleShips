@@ -1,4 +1,4 @@
-package gameField.backend;
+package battleships.backend;
 
 public class Game 
 {
@@ -8,6 +8,7 @@ public class Game
 		AIRCRAFT(5),
 		BATTLESHIP(4),
 		DESTROYER(3),
+		SUBMARINE(3),
 		PATROL(2);
 		
 		private int size = 0;
@@ -22,4 +23,8 @@ public class Game
 			return this.size;
 		}
 	}
+
+	private static final int   GAME_SIZE = 10;
+	
+	
 }
