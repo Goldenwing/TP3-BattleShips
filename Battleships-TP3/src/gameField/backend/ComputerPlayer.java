@@ -8,6 +8,10 @@ package gameField.backend;
  *
  */
 public class ComputerPlayer extends Player {
+	
+	public ComputerPlayer() {
+		
+	}
 
 	@Override
 	public void setBoats() {
