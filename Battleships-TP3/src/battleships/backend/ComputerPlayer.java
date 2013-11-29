@@ -14,13 +14,14 @@ public class ComputerPlayer extends Player {
 	
 	private String playerName;
 	
-	public ComputerPlayer(String name) {
-		this.playerName = name;
+	public ComputerPlayer() {
+		this.playerName = "HAL-9000";
 	}
 
 	@Override
 	public void setBoats(Matrix gameGrid) {
 		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -34,7 +35,7 @@ public class ComputerPlayer extends Player {
 		return this.playerName;
 	}
 	
-	/////////////////////private methods
+	//private methods
 
 	private int genenrateRandomNumber(int minValue, int maxValue) {
 		//Returns an random integer included between the two specified values 
