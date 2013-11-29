@@ -20,7 +20,7 @@ public class PlayerTest {
 	
 	@Test
 	public void NewComputerPlayerConstructor() {
-		ComputerPlayer player = new ComputerPlayer("HAL-9000");
+		ComputerPlayer player = new ComputerPlayer();
 		Assert.assertEquals("HAL-9000", player.getPlayerName());
 	}
 	

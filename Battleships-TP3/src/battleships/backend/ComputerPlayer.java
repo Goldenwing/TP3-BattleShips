@@ -15,12 +15,12 @@ import battleships.backend.Game.Boats;
 public class ComputerPlayer extends Player 
 {
 		private final int GAME_SIZE = 10;
-        private String playerName;
+		String playerName;
         Random PCBoatPlacer = new Random();
         
-        public ComputerPlayer(String name) 
+        public ComputerPlayer() 
         {
-                this.playerName = name;
+                this.playerName = "HAL-9000";
         }
 
         @Override
@@ -60,14 +60,6 @@ public class ComputerPlayer extends Player
         
         public String getPlayerName() {
                 return this.playerName;
-        }
-        
-        /////////////////////private methods
-
-        private int genenrateRandomNumber(int minValue, int maxValue) {
-                //Returns an random integer included between the two specified values 
-                Random rand = new Random();
-                return rand.nextInt(maxValue - minValue + 1) + minValue;
         }
 
 }

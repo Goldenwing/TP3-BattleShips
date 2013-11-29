@@ -195,3 +195,4 @@ public class Matrix
 	{
 		this.gameMatrix[x][y].setClicked(check);	
 	}
+}

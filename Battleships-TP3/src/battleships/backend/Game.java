@@ -39,7 +39,7 @@ public class Game
 		this.playerMatrix = new Matrix();
 		this.computerMatrix = new Matrix(true);
 		
-		ComputerPlayer enemy = new ComputerPlayer("Ganondorf");
+		ComputerPlayer enemy = new ComputerPlayer();
 		HumanPlayer gamer = new HumanPlayer("Link");
 		
 		enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.AIRCRAFT);
