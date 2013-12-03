@@ -12,41 +12,36 @@ import battleships.backend.Game.Boats;
  * @author Annie Belzile
  *
  */
-public class ComputerPlayer extends Player 
-{
+public class ComputerPlayer extends Player {
+	
 		private final int GAME_SIZE = 10;
 		String playerName;
-        Random PCBoatPlacer = new Random();
+        Random coordinateNumber = new Random();
         
-        public ComputerPlayer() 
-        {
-                this.playerName = "HAL-9000";
+        public ComputerPlayer() {
+        	
+            this.playerName = "HAL-9000";
         }
 
-        @Override
-        public void setBoats(Matrix gameGrid, boolean direction, Boats boat) 
-        {
-        	int randomX = PCBoatPlacer.nextInt(this.GAME_SIZE -1);
-    		int randomY = PCBoatPlacer.nextInt(this.GAME_SIZE -1);
+        public void setBoats(Matrix gameGrid, boolean direction, Boats boat) {
+        	
+        	int randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);
+    		int randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
     		
-    		while(!gameGrid.checkSpace(boat, direction, randomX, randomY))
-    		{
-    			randomX = PCBoatPlacer.nextInt(this.GAME_SIZE -1);
-    			randomY = PCBoatPlacer.nextInt(this.GAME_SIZE -1);
+    		while(!gameGrid.checkSpace(boat, direction, randomX, randomY)) {
+    			
+    			randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);
+    			randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
     		}
 
-    		if(direction) //si horizontal
-    		{
-    			for(int x = randomX; x < randomX + boat.getSize(); x++)
-    			{
+    		if(direction) {	//si horizontal
+    			for(int x = randomX; x < randomX + boat.getSize(); x++)	{
     				gameGrid.setSquareContent(x, randomY, boat.getSize(), true);
     			}
-    		}
-    		else // si vertical
-    		{
-    			for(int y = randomY; y < randomY + boat.getSize(); y++)
-    			{
-    					gameGrid.setSquareContent(randomX, y, boat.getSize(), true);
+    		} 
+    		else { // si vertical
+    			for(int y = randomY; y < randomY + boat.getSize(); y++)	{
+    				gameGrid.setSquareContent(randomX, y, boat.getSize(), true);
     			}
     		}
                 
@@ -61,5 +56,11 @@ public class ComputerPlayer extends Player
         public String getPlayerName() {
                 return this.playerName;
         }
+
+		@Override
+		public void setBoats() {
+			// TODO Auto-generated method stub
+			
+		}
 
 }
