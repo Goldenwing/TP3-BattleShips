@@ -7,10 +7,7 @@
 
 package battleships.backend;
 
-import java.util.Random;
-
 import battleships.backend.Game.Boats;
-
 
 public class Matrix
 {

@@ -48,13 +48,13 @@ public class ComputerPlayer extends Player {
     }
 
     @Override
-    public boolean shootEnemy(Matrix gameGrid) {
+    public boolean shootEnemy(Matrix gameGrid) { //"Supposée" intelligence artificielle O_o
     	
     	boolean isMyTurn = true; //Signale que c'est a l'autre joueur a jouer
     	int randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);
     	int randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
     	
-    	if(!gameGrid.getSquareContentCheck(randomX, randomY, true)) {
+    	if(!gameGrid.getSquareContentCheck(randomX, randomY, true)) { //Verifie si la case a deja ete cliquee
     		randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);
         	randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
     	}
@@ -65,10 +65,18 @@ public class ComputerPlayer extends Player {
 				isMyTurn = false;
 			}
 			else {
+				if(gameGrid.getSquareContentNumber(randomX + 1, randomY, true) == 0) {
+					isMyTurn = false;
+				} else if(gameGrid.getSquareContentNumber(randomX - 1, randomY, true) == 0) {
+					isMyTurn = false;
+				} else if(gameGrid.getSquareContentNumber(randomX, randomY + 1, true) == 0) {
+					isMyTurn = false;
+				} else if(gameGrid.getSquareContentNumber(randomX, randomY - 1, true) == 0) {
+					isMyTurn = false;
+				}
 				
 			}
     	}
-    
     	return isMyTurn;
     }
         
