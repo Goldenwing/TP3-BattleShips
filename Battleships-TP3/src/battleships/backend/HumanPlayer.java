@@ -17,13 +17,15 @@ public class HumanPlayer extends Player {
                 this.playerName = name;
         }
 
-        public void setBoats(Matrix gameGrid, int[][] humanBoatsCoordinates) {
-                
-                
-        }
-
         @Override
-        public void shootEnemy(Matrix gameGrid) {
+		public void setBoats(Matrix gameGrid, boolean direction, Boats boat) {
+			// TODO Auto-generated method stub
+			
+		}
+        
+        @Override
+        public boolean shootEnemy(Matrix gameGrid) {
+			return false;
                 // TODO Auto-generated method stub
                 
         }
@@ -35,18 +37,4 @@ public class HumanPlayer extends Player {
         public void setPlayerName(String name) {
                 this.playerName = name;
         }
-
-        public void setBoats() {
-                // TODO Auto-generated method stub
-                
-        }
-
-		@Override
-		public void setBoats(Matrix gameGrid, boolean direction, Boats boat) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		
-
 }

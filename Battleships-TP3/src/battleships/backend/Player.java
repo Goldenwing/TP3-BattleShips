@@ -20,5 +20,5 @@ public abstract class Player
         /**
          * TODO 
          */
-        public abstract void shootEnemy(Matrix gameGrid);
+        public abstract boolean shootEnemy(Matrix gameGrid);
 }

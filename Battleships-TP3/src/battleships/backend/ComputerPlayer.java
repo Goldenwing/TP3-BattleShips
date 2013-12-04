@@ -14,52 +14,65 @@ import battleships.backend.Game.Boats;
  */
 public class ComputerPlayer extends Player {
         
-                private final int GAME_SIZE = 10;
-                String playerName;
-        Random coordinateNumber = new Random();
+    private final int GAME_SIZE = 10;
+    String playerName;
+    Random coordinateNumber = new Random();
         
-        public ComputerPlayer() {
-                
-            this.playerName = "HAL-9000";
+    public ComputerPlayer() {
+    	
+        this.playerName = "HAL-9000";
         }
 
-        public void setBoats(Matrix gameGrid, boolean direction, Boats boat) {
-                
-                int randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);
-                    int randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
-                    
-                    while(!gameGrid.checkSpace(boat, direction, randomX, randomY)) {
-                            
-                            randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);
-                            randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
-                    }
 
-                    if(direction) {        //si horizontal
-                            for(int x = randomX; x < randomX + boat.getSize(); x++)        {
-                                    gameGrid.setSquareContent(x, randomY, boat.getSize(), true);
-                            }
-                    } 
-                    else { // si vertical
-                            for(int y = randomY; y < randomY + boat.getSize(); y++)        {
-                                    gameGrid.setSquareContent(randomX, y, boat.getSize(), true);
-                            }
-                    }
-                
-        }
+    public void setBoats(Matrix gameGrid, boolean direction, Boats boat) {
 
-        @Override
-        public void shootEnemy(Matrix gameGrid) {
-                // TODO Auto-generated method stub
-                
-        }
+    	int randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);
+    	int randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
+
+    	while(!gameGrid.checkSpace(boat, direction, randomX, randomY)) {
+    
+    		randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);         
+    		randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
+    	}
+    	
+    	if(direction) {        //si horizontal
+    		for(int x = randomX; x < randomX + boat.getSize(); x++)        {
+    			gameGrid.setSquareContent(x, randomY, boat.getSize(), true);   
+    		}
+    	} 
+    	else { // si vertical
+    		for(int y = randomY; y < randomY + boat.getSize(); y++)        {      
+    			gameGrid.setSquareContent(randomX, y, boat.getSize(), true);
+    		}
+    	}   
+    }
+
+    @Override
+    public boolean shootEnemy(Matrix gameGrid) {
+    	
+    	boolean isMyTurn = true; //Signale que c'est a l'autre joueur a jouer
+    	int randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);
+    	int randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
+    	
+    	if(!gameGrid.getSquareContentCheck(randomX, randomY, true)) {
+    		randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);
+        	randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
+    	}
+    	
+    	while(isMyTurn) {
+			if(gameGrid.getSquareContentNumber(randomX, randomY, true) == 0) {
+				gameGrid.setSquareCheck(randomX, randomY, true);
+				isMyTurn = false;
+			}
+			else {
+				
+			}
+    	}
+    
+    	return isMyTurn;
+    }
         
-        public String getPlayerName() {
-                return this.playerName;
-        }
-
-                public void setBoats() {
-                        // TODO Auto-generated method stub
-                        
-                }
-
+    public String getPlayerName() {
+    	return this.playerName;
+    }
 }

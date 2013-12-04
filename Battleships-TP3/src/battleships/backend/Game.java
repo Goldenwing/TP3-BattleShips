@@ -65,12 +65,11 @@ public class Game
 	
 	public void setPlayerShips(String boat, int size, boolean direction)
 	{
-		this.gamer.setBoats();
+		this.gamer.setBoats(this.playerMatrix, direction, null);
 	}
 	
 	public static void main(String[] args)
 	{
-		
 		Game game = new Game();
 		Matrix computerMatrix = game.getComputerMatrix();
 		for(int i = 0; i < 10; i++)
