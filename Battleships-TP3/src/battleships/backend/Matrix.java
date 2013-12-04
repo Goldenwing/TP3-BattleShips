@@ -1,6 +1,6 @@
-/** Classe qui appartient Ã  la logique derriÃ¨re l'application visuelle. Cette classe va construire le champ de mines, et
- * qui va gÃ©rer toute la logique appartenant au champ de mines. Elle contient les mÃ©thodes ayant rapport Ã  l'information nÃ©cÃ©ssaire
- * Ã  la matrice du champ de mines.
+/** Classe qui appartient à la logique derrière l'application visuelle. Cette classe va construire le champ de mines, et
+ * qui va gérer toute la logique appartenant au champ de mines. Elle contient les méthodes ayant rapport à l'information nécéssaire
+ * à la matrice du champ de mines.
  * 
  * @author Kevin Tanguay
  */
@@ -63,6 +63,7 @@ public class Matrix
 		int size = boat.getSize();
 		boolean valid = true;
 		
+		
 		if(x + size > 10 || y + size > 10)
 		{
 			valid = false;
@@ -109,7 +110,7 @@ public class Matrix
 	}
 
 	/** 
-	 * Retourne la matrice prÃ©sentement en jeu.
+	 * Retourne la matrice présentement en jeu.
 	 * @return 	La matrice en question.
 	 */
 
@@ -119,10 +120,10 @@ public class Matrix
 //	}
 	
 	/**
-	 * Retourne le numÃ©ro de la case selon son emplacement spÃ©cifique sur la grille.
-	 * @param x		La coordonnÃ©e en X de la case spÃ©cifiÃ©e.
-	 * @param y		La coordonnÃ©e en Y de la case spÃ©cifiÃ©e.
-	 * @return		le numÃ©ro de la case spÃ©cifique.
+	 * Retourne le numéro de la case selon son emplacement spécifique sur la grille.
+	 * @param x		La coordonnée en X de la case spécifiée.
+	 * @param y		La coordonnée en Y de la case spécifiée.
+	 * @return		le numéro de la case spécifique.
 	 * 
 	 * @see MatrixTiles.getNumber()
 	 */
@@ -138,12 +139,12 @@ public class Matrix
 	}
 	
 	/**
-	 * Retourne la condition de la case spÃ©cifique, si elle est dÃ©jÃ  cochÃ©e ou pas. Ceci est
-	 * vÃ©rifiÃ© par un boolean.
+	 * Retourne la condition de la case spécifique, si elle est déjà cochée ou pas. Ceci est
+	 * vérifié par un boolean.
 	 * 
-	 * @param x		La coordonnÃ©e en X de la case spÃ©cifiÃ©e.
-	 * @param y		La coordonnÃ©e en Y de la case spÃ©cifiÃ©e.
-	 * @return		vrai si dÃ©jÃ  cochÃ©e, false le cas Ã©chÃ©ant.
+	 * @param x		La coordonnée en X de la case spécifiée.
+	 * @param y		La coordonnée en Y de la case spécifiée.
+	 * @return		vrai si déjà cochée, false le cas échéant.
 	 * 
 	 * @see MatrixTiles.isClicked()
 	 */
@@ -161,10 +162,10 @@ public class Matrix
 
 	
 	/**
-	 * Place l'information dans la case spÃ©cifique de la grille. Soit un numÃ©ro, et la condition cochÃ©e.
-	 * @param x			L'emplacement X de la case dÃ©sirÃ©e.
-	 * @param y			L'emplacement Y de la case dÃ©sirÃ©e.
-	 * @param boat		le numÃ©ro du bateau de la case spÃ©cifique.
+	 * Place l'information dans la case spécifique de la grille. Soit un numéro, et la condition cochée.
+	 * @param x			L'emplacement X de la case désirée.
+	 * @param y			L'emplacement Y de la case désirée.
+	 * @param boat		le numéro du bateau de la case spécifique.
 	 */
 
 	public void setSquareContent(int x, int y, int boat, boolean computer)
@@ -183,16 +184,33 @@ public class Matrix
 
 	
 	/** 
-	 * Change la condition boolean de la case spÃ©cifique. Elle rends la case cochÃ©e ou pas, dÃ©pendamment du boolean
-	 * en paramÃ¨tre. Cette case deviens donc rÃ©vÃ©lÃ©e, ou pas, visuellement.
+	 * Change la condition boolean de la case spécifique. Elle rends la case cochée ou pas, dépendamment du boolean
+	 * en paramètre. Cette case deviens donc révélée, ou pas, visuellement.
 	 * 
 	 * @param x			L'emplacement X de la case.
 	 * @param y			L'emplacement Y de la case.
-	 * @param check		Le boolean qui dÃ©cide si la case est cochÃ©e ou pas.
+	 * @param check		Le boolean qui décide si la case est cochée ou pas.
 	 */
 
 	public void setSquareCheck(int x, int y, boolean check)
 	{
 		this.gameMatrix[x][y].setClicked(check);	
 	}
+	
+//	public static void main(String[] args)
+//	{
+//		
+//		Matrix game = new Matrix();
+//		for(int i = 0; i < 10; i++)
+//		   {
+//		      for(int j = 0; j < 10; j++)
+//		      {
+//		         System.out.printf("%5d ", game.getSquareContentNumber(i, j));
+//		      }
+//		      System.out.println();
+//		   }
+//	}
+
+	
 }
+

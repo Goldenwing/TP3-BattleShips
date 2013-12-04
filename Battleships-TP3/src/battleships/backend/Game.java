@@ -29,6 +29,9 @@ public class Game
 	private final int GAME_SIZE = 10;
 	private Matrix playerMatrix;
 	private Matrix computerMatrix;
+	private Random PCBoatPlacer = new Random();
+	private ComputerPlayer enemy;
+	private HumanPlayer gamer;
 	
 	public Game()
 	{
@@ -39,8 +42,15 @@ public class Game
 		this.computerMatrix = new Matrix(true);
 		
 		ComputerPlayer enemy = new ComputerPlayer();
+		this.enemy = enemy;
 		HumanPlayer gamer = new HumanPlayer("Link");
-
+		this.gamer = gamer;
+		
+		enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.AIRCRAFT);
+		enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.BATTLESHIP);
+		enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.DESTROYER);
+		enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.SUBMARINE);
+		enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.PATROL);
 	}
 	
 	 public Matrix getMatrix()
@@ -52,4 +62,24 @@ public class Game
 	 {
 		 return this.computerMatrix;
 	 }
+	
+	public void setPlayerShips(String boat, int size, boolean direction)
+	{
+		this.gamer.setBoats();
+	}
+	
+	public static void main(String[] args)
+	{
+		
+		Game game = new Game();
+		Matrix computerMatrix = game.getComputerMatrix();
+		for(int i = 0; i < 10; i++)
+		   {
+		      for(int j = 0; j < 10; j++)
+		      {
+		         System.out.printf("%5d ", computerMatrix.getSquareContentNumber(i, j, true));
+		      }
+		      System.out.println();
+		   }
+	}
 }

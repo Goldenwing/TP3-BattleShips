@@ -2,18 +2,28 @@ package battleships;
 
 
 
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class MyGameGrid
 
 {
+	
+	
 	public MyGameGrid()
 	
 	
+	{
+		
+	}
+	
+	
+	public void setBoats()
 	{
 		
 	}
@@ -55,9 +65,13 @@ public class MyGameGrid
 			}
 		}
 		
+		
+		
 		myRoot.getChildren().add(name);
 		
 		return myRoot;
 		
 	}
+	
+	
 }

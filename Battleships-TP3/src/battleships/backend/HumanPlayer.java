@@ -10,36 +10,43 @@ import battleships.backend.Game.Boats;
  *
  */
 public class HumanPlayer extends Player {
-	
-	private String playerName;
-	
-	public HumanPlayer(String name) {
-		this.playerName = name;
-	}
+        
+        private String playerName;
+        
+        public HumanPlayer(String name) {
+                this.playerName = name;
+        }
 
-	public void setBoats(Matrix gameGrid, int[][] humanBoatsCoordinates) {
-		
-		
-	}
+        public void setBoats(Matrix gameGrid, int[][] humanBoatsCoordinates) {
+                
+                
+        }
 
-	@Override
-	public void shootEnemy(Matrix gameGrid) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public String getPlayerName() {
-		return this.playerName;
-	}
-	
-	public void setPlayerName(String name) {
-		this.playerName = name;
-	}
+        @Override
+        public void shootEnemy(Matrix gameGrid) {
+                // TODO Auto-generated method stub
+                
+        }
+        
+        public String getPlayerName() {
+                return this.playerName;
+        }
+        
+        public void setPlayerName(String name) {
+                this.playerName = name;
+        }
 
-	@Override
-	public void setBoats() {
-		// TODO Auto-generated method stub
+        public void setBoats() {
+                // TODO Auto-generated method stub
+                
+        }
+
+		@Override
+		public void setBoats(Matrix gameGrid, boolean direction, Boats boat) {
+			// TODO Auto-generated method stub
+			
+		}
 		
-	}
+		
 
 }

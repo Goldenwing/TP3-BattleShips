@@ -1,10 +1,10 @@
 /**
- * Classe qui gÃ¨re les cases de la matrice gÃ©nÃ©rale.
- * Chaque MatrixTiles est une tuile, une case de la matrice "Matrix". Cette classe contient les mÃ©thodes nÃ©cÃ©ssaires Ã  
+ * Classe qui gère les cases de la matrice générale.
+ * Chaque MatrixTiles est une tuile, une case de la matrice "Matrix". Cette classe contient les méthodes nécéssaires à 
  * l'obtention des informations de chaque case.
  * 
- * Chaque case contient un Integer, et un Boolean. L'Integer est le numÃ©ro reliÃ© type de bateau, et le boolean
- * vÃ©rifie la condition de si la case est rÃ©vÃ©lÃ©e ou pas sur l'application visuelle.
+ * Chaque case contient un Integer, et un Boolean. L'Integer est le numéro relié type de bateau, et le boolean
+ * vérifie la condition de si la case est révélée ou pas sur l'application visuelle.
  * 
  * @author Kevin Tanguay
  */
@@ -17,9 +17,9 @@ public class MatrixTiles
 	private boolean clicked = false;
 	
 	/**
-	 * Construit chaque case et les initialise par rapport au numÃ©ro et au boolean entrÃ©s en paramÃ¨tre.
-	 * @param tileNumber	Le numÃ©ro de la case, par rapport aux bateaux sur la grille.
-	 * @param check			La condition boolean si la case est rÃ©vÃ©lÃ©e ou pas sur le champ visuel.
+	 * Construit chaque case et les initialise par rapport au numéro et au boolean entrés en paramètre.
+	 * @param tileNumber	Le numéro de la case, par rapport aux bateaux sur la grille.
+	 * @param check			La condition boolean si la case est révélée ou pas sur le champ visuel.
 	 */
 	public MatrixTiles(int tileNumber, boolean check) 
 	{
@@ -28,8 +28,8 @@ public class MatrixTiles
 	}
 
 	/**
-	 * Retourne le numÃ©ro spÃ©cifique de la case.
-	 * @return		Le numÃ©ro de la case.
+	 * Retourne le numéro spécifique de la case.
+	 * @return		Le numéro de la case.
 	 */
 	public int getNumber() 
 	{
@@ -37,8 +37,8 @@ public class MatrixTiles
 	}
 
 	/**
-	 * VÃ©rifie si la case est cochÃ©e ou pas.
-	 * @return	vraie si cochÃ©e, false le cas Ã©chÃ©ant.
+	 * Vérifie si la case est cochée ou pas.
+	 * @return	vraie si cochée, false le cas échéant.
 	 */
 	public boolean isClicked() 
 	{

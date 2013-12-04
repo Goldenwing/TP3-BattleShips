@@ -42,7 +42,7 @@ public class GameMenu
 		MenuItem itemHelp  = new MenuItem("Aide");
 		itemHelp.setOnAction(new menuListenerHelp());
 		
-		MenuItem itemSeeMore  = new MenuItem("Ã€ propos");
+		MenuItem itemSeeMore  = new MenuItem("À propos");
 		itemSeeMore.setOnAction(new menuListenerSeeMore());
 		
 		menuGame.getItems().addAll(itemNewGame,itemBestScores, itemSeeBoats, itemEndGame);

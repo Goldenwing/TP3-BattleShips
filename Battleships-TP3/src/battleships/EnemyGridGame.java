@@ -1,14 +1,21 @@
 package battleships;
 
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class EnemyGridGame 
 {
+	
+	
+	
+	private ImageView[][] tabImage;
+	
 	public EnemyGridGame()
 	
 	{
@@ -47,6 +54,8 @@ public class EnemyGridGame
 				ImageView waterTiles = new ImageView(new Image("file:Images/water.png"));
 				waterTiles.setX(xSquare);
 				waterTiles.setY(ySquare);
+				waterTiles.setOnMouseClicked(new MouseListener());
+				this.tabImage[i][j] = waterTiles;
 				rootEnemy.getChildren().add(waterTiles);
 			
 			}
@@ -56,5 +65,19 @@ public class EnemyGridGame
 		
 		return rootEnemy;
 		
+	}
+	
+	private class MouseListener implements EventHandler<MouseEvent>
+	{
+
+		@Override
+		public void handle(MouseEvent arg0) 
+		{
+//			if clicked && boat, if clicked != boat, not clicked, already clicked
+			
+			
+			
+			
+		}
 	}
 }

@@ -3,39 +3,38 @@ package battleships;
 import java.io.File;
 import java.util.List;
 
-import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
-import battleships.backend.tests.GameTest;
-import battleships.backend.tests.MatrixTest;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class BattleGame extends Application
 {
-	
+//	private List<TextField> listField;
 	private Group root;
-	
+	private Stage stagePosition;
+	private ModalWindow modal;
+	private String name;
+	private ImageView[] tabImage;
 	
 	public void start(Stage stage)
 	{
 		this.root = new Group();
 		Scene scene = new Scene(this.root, 1920, 1000, Color.LIGHTGRAY);
-		this.setGrids();
-		this.setPieces();
+		
+		
 		this.setMenu();
 		stage.setTitle("Jeu de simulation de combat en territoire navale.  (Annie Belzile, Laurie Lavoie, Kevin Tanguay)"); 
         stage.setScene(scene); 
@@ -49,60 +48,35 @@ public class BattleGame extends Application
 	
 	public void askPositionBoats()
 	{
-		Stage stagePosition = new Stage();
-		Group groupPosition = new Group();
 		
-//		AIRCRAFT(5), Aircraft carrier  , porte-avions
-//		BATTLESHIP(4), cruiser, croiseur
-//		DESTROYER(3), , destroyer, contre-torpilleur
-//		SUBMARINE(3),
-//		PATROL(2);
-		
-		
-		Text nameText = new Text("Veuillez entrer votre nom");
-		TextField nameField = new TextField(); 
-		
-		Text cruiserText = new Text("Veuillez entrer les coordonnées de votre croiseur (4)");
-		TextField xcruiserField = new TextField(); 
-		TextField ycruiserField = new TextField(); 
-		
-		Text aircraftText = new Text("Veuillez entrer les coordonnées de votre porte-avions (5)");
-		TextField xAircraftField = new TextField(); 
-		TextField yAircraftField = new TextField(); 
-		
-		Text destroyerText = new Text("Veuillez entrer les coordonnées de votre contre-torpilleur (3)");
-		TextField xDestroyerField = new TextField(); 
-		TextField yDestroyerField = new TextField(); 
-		
-		Text submarineText = new Text("Veuillez entrer les coordonnées de votre sous-marin (3)");
-		TextField xSubmarineField = new TextField(); 
-		TextField ySubmarineField = new TextField(); 
-		
-		
-		Text patrolText = new Text("Veuillez entrer les coordonnées de votre patrouilleur (2)");
-		TextField xPatrolField = new TextField(); 
-		TextField yPatrolField = new TextField(); 
-		
-		
-		
+		GridPane gridPosition = new GridPane();
+		this.modal = new ModalWindow();
+		gridPosition = modal.setItemModal();
+		this.stagePosition = new Stage();
+	
 		Button okBtn = new Button("Ok");
-//		okBtn.setOnAction(new ButtonListenerBoard(9));
-		
-		
-		stagePosition.initModality(Modality.WINDOW_MODAL);
-        Scene scenePosition = new Scene(groupPosition, 400, 400, Color.WHITE);
-        stagePosition.setTitle("Nouvelle Partie");
-        stagePosition.setScene(scenePosition);
-        stagePosition.show();
+		okBtn.setOnAction(new ButtonListener());
+		gridPosition.add(okBtn, 1, 7);
+		this.stagePosition.initModality(Modality.WINDOW_MODAL);
+        Scene scenePosition = new Scene(gridPosition, Color.WHITE);
+        this.stagePosition.setTitle("Nouvelle Partie");
+        this.stagePosition.setScene(scenePosition);
+        this.stagePosition.show();
+        
+    	
+ 
+     
+    		
 	}
 	
 	public void setGrids()
-	{
+	{	
+		this.setPieces();
 		MyGameGrid myGrid = new MyGameGrid();
 		
 		EnemyGridGame enemyGrid = new EnemyGridGame();
 		this.root.getChildren().add(enemyGrid.setGrid());
-		this.root.getChildren().add(myGrid.setGrid("Joueur"));
+		this.root.getChildren().add(myGrid.setGrid(this.name));
 	}
 	
 	public void setPieces()
@@ -118,8 +92,6 @@ public class BattleGame extends Application
 		this.root.getChildren().add(redPieces);
 		
 	}
-	
-	
 	
 	public void setMenu()
 	{
@@ -155,7 +127,7 @@ public class BattleGame extends Application
 		else
 		{
 			List<Failure> listeEchecs = result.getFailures();
-			System.out.println("Voici les tests qui échouent: ");
+			System.out.println("Voici les tests qui �chouent: ");
 			
 			for (Failure f: listeEchecs)
 			{
@@ -163,5 +135,79 @@ public class BattleGame extends Application
 			}		    
 			return false;
 		}     	
+	}
+
+	private class ButtonListener implements EventHandler<ActionEvent>
+	{
+		
+		int [][] tableXY  = new int[2][5];
+		
+		@Override
+		public void handle(ActionEvent arg0)
+		{
+			boolean verified = true;
+			int compteur = 1;
+			
+			BattleGame.this.modal.getErrorText().setVisible(false);
+			if(BattleGame.this.modal.getListField().get(0).getText().isEmpty())
+			{
+				BattleGame.this.modal.getErrorText().setVisible(true);
+				verified = false;
+			}
+			else
+			{
+					
+			BattleGame.this.name = BattleGame.this.modal.getListField().get(0).getText();
+		
+			
+			for(int j = 0; j < 5; j++)
+			{
+				for(int i = 0; i < 2; i++)
+				{
+					int textLenght = BattleGame.this.modal.getListField().get(compteur).getText().length();
+					if(textLenght == 1 )
+					{
+						char checkIfnumber = BattleGame.this.modal.getListField().get(compteur).getText().charAt(0);
+						if(checkIfnumber > 47 && checkIfnumber < 58)
+						{
+							this.tableXY[i][j] = Integer.parseInt(BattleGame.this.modal.getListField().get(compteur).getText());
+							compteur++;
+							
+				;
+						}
+						else
+						{
+							BattleGame.this.modal.getErrorText().setVisible(true);
+							verified = false;
+						}
+					}
+					else
+					{
+						BattleGame.this.modal.getErrorText().setVisible(true);
+						verified = false;
+					}
+					
+					
+					
+					
+					
+					
+				}
+			}
+			
+			}
+			
+			if(verified == true)
+			{
+				 BattleGame.this.stagePosition.close();
+				 BattleGame.this.modal.getErrorText().setVisible(false);
+				
+					BattleGame.this.setGrids();
+					
+			}
+			
+			
+		}
+	
 	}
 }
