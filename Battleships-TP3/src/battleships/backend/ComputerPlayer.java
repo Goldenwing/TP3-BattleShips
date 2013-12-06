@@ -58,7 +58,7 @@ public class ComputerPlayer extends Player {
     	int coordX = 0;
     	int coordY = 0;
     	
-    	if (lastGoodShot == null) { //un coup random ou le dernier bon coup
+    	if (lastGoodShot == null) { //Partir d'un coup random ou du dernier bon coup
     		do {
     			coordX = coordinateNumber.nextInt(this.GAME_SIZE -1);
             	coordY = coordinateNumber.nextInt(this.GAME_SIZE -1);
@@ -68,22 +68,18 @@ public class ComputerPlayer extends Player {
     		coordY = lastGoodShot.getCoordY();
     	}
     	
-    	while(isMyTurn) {
+    	//On shoot des bombes!
+    	do {
 			if(gameGrid.getSquareContentNumber(coordX, coordY, true) == 0) {
 				isMyTurn = false;
 			}
 			else {
 				
-				currentGoodShot = new GoodShot(coordX, coordY, gameGrid.get)
 				goodShotsStack.push(currentGoodShot);
-				if (checkSquareUp(coordX, coordY, gameGrid)) {
-					
-				}
-				
-				
+
 			}
 			gameGrid.setSquareCheck(coordX, coordY, true);
-    	}
+    	} while(isMyTurn);
     	return isMyTurn;
     }
         
@@ -97,39 +93,43 @@ public class ComputerPlayer extends Player {
     
     ///////private methods
     
-    private boolean checkSquareUp(int x, int y, Matrix gameGrid) {
+    private GoodShot checkSquareUp(int x, int y, Matrix gameGrid) {
     	if (gameGrid.getSquareContentNumber(x, y + 1, true) == 0) {
-    		return false;
+    		return null;
     	}
     	else {
-    		return true;
+    		GoodShot newGoodShot = new GoodShot(x, y + 1, null);
+    		return newGoodShot;
     	}
     }
     
-    private boolean checkSquareDown(int x, int y, Matrix gameGrid) {
+    private GoodShot checkSquareDown(int x, int y, Matrix gameGrid) {
     	if (gameGrid.getSquareContentNumber(x, y - 1, true) == 0) {
-    		return false;
+    		return null;
     	}
     	else {
-    		return true;
+    		GoodShot newGoodShot = new GoodShot(x, y - 1, null);
+    		return newGoodShot;
     	}
     }
     
-    private boolean checkSquareLeft(int x, int y, Matrix gameGrid) {
+    private GoodShot checkSquareLeft(int x, int y, Matrix gameGrid) {
     	if (gameGrid.getSquareContentNumber(x - 1, y, true) == 0) {
-    		return false;
+    		return null;
     	}
     	else {
-    		return true;
+    		GoodShot newGoodShot = new GoodShot(x - 1, y, null);
+    		return newGoodShot;
     	}
     }
     
-    private boolean checkSquareRight(int x, int y, Matrix gameGrid) {
+    private GoodShot checkSquareRight(int x, int y, Matrix gameGrid) {
     	if (gameGrid.getSquareContentNumber(x + 1, y, true) == 0) {
-    		return false;
+    		return null;
     	}
     	else {
-    		return true;
+    		GoodShot newGoodShot = new GoodShot(x + 1, y, null);
+    		return newGoodShot;
     	}
     }
     
