@@ -6,6 +6,8 @@ import java.util.List;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
+import battleships.backend.Game;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -34,8 +36,10 @@ public class BattleGame extends Application
 		this.root = new Group();
 		Scene scene = new Scene(this.root, 1920, 1000, Color.LIGHTGRAY);
 		
+		Game game = new Game();
 		
-		this.setMenu();
+		GameMenu gameMenu = new GameMenu(game);
+		this.root.getChildren().add(gameMenu);
 		stage.setTitle("Jeu de simulation de combat en territoire navale.  (Annie Belzile, Laurie Lavoie, Kevin Tanguay)"); 
         stage.setScene(scene); 
        
@@ -62,11 +66,6 @@ public class BattleGame extends Application
         this.stagePosition.setTitle("Nouvelle Partie");
         this.stagePosition.setScene(scenePosition);
         this.stagePosition.show();
-        
-    	
- 
-     
-    		
 	}
 	
 	public void setGrids()
@@ -95,10 +94,7 @@ public class BattleGame extends Application
 	
 	public void setMenu()
 	{
-		GameMenu gameMenu = new GameMenu();
-		MenuBar menuBar = new MenuBar();
-		menuBar = gameMenu.setMenu();
-		this.root.getChildren().add(menuBar);
+		
 	}
 	public static void main(String[] args)
 	{
@@ -127,7 +123,7 @@ public class BattleGame extends Application
 		else
 		{
 			List<Failure> listeEchecs = result.getFailures();
-			System.out.println("Voici les tests qui échouent: ");
+			System.out.println("Voici les tests qui Ã©chouent: ");
 			
 			for (Failure f: listeEchecs)
 			{
@@ -186,12 +182,6 @@ public class BattleGame extends Application
 						BattleGame.this.modal.getErrorText().setVisible(true);
 						verified = false;
 					}
-					
-					
-					
-					
-					
-					
 				}
 			}
 			
@@ -202,7 +192,7 @@ public class BattleGame extends Application
 				 BattleGame.this.stagePosition.close();
 				 BattleGame.this.modal.getErrorText().setVisible(false);
 				
-					BattleGame.this.setGrids();
+				 BattleGame.this.setGrids();
 					
 			}
 			

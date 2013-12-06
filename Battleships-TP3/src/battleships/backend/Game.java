@@ -47,10 +47,12 @@ public class Game
 		this.playerMatrix = new Matrix();
 		this.computerMatrix = new Matrix(true);
 		
-		ComputerPlayer enemy = new ComputerPlayer();
-		this.enemy = enemy;
-		HumanPlayer gamer = new HumanPlayer("Link");
-		this.gamer = gamer;
+		this.enemy = null;
+		this.gamer = null;
+		
+		this.enemy = new ComputerPlayer();
+		this.gamer = new HumanPlayer("Link");
+
 		
 		enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.AIRCRAFT);
 		enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.BATTLESHIP);
@@ -59,23 +61,46 @@ public class Game
 		enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.PATROL);
 	}
 	
-	 public Matrix getMatrix()
-	 {
-		 return this.playerMatrix;
-	 }
+	public Matrix getMatrix()
+	{
+		return this.playerMatrix;
+	}
 	 
-	 public Matrix getComputerMatrix()
-	 {
-		 return this.computerMatrix;
-	 }
+
+	public Matrix getComputerMatrix()
+	{
+		return this.computerMatrix;
+	}
+	 
+	public ComputerPlayer getEnemy() 
+	{
+		return enemy;
+	}
+
+	public void setEnemy(ComputerPlayer enemy) 
+	{
+		this.enemy = enemy;
+	}
+
+	public HumanPlayer getGamer() 
+	{
+		return gamer;
+	}
+
+	public void setGamer(HumanPlayer gamer) 
+	{
+		this.gamer = gamer;
+	}
+
 	
 	public void setPlayerShips(String boat, int size, boolean direction)
 	{
-		this.gamer.setBoats(this.playerMatrix, direction, null);
+		this.gamer.setBoats();
 	}
 	
 	public static void main(String[] args)
 	{
+		
 		Game game = new Game();
 		Matrix computerMatrix = game.getComputerMatrix();
 		for(int i = 0; i < 10; i++)
