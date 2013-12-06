@@ -39,18 +39,18 @@ public class ComputerPlayer extends Player {
     	
     	if(direction) {        //si horizontal
     		for(int x = randomX; x < randomX + boat.getSize(); x++) {
-    			gameGrid.setSquareContent(x, randomY, boat.getSize(), true);   
+    			gameGrid.setSquareContent(x, randomY, boat, true, boat.getBoatName());   
     		}
     	} 
     	else { // si vertical
     		for(int y = randomY; y < randomY + boat.getSize(); y++) {      
-    			gameGrid.setSquareContent(randomX, y, boat.getSize(), true);
+    			gameGrid.setSquareContent(randomX, y, boat, true, boat.getBoatName());
     		}
     	}   
     }
 
     @Override
-    public boolean shootEnemy(Matrix gameGrid) { //"Supposée" intelligence artificielle O_o
+    public boolean shootEnemy(Matrix gameGrid) { //"Supposï¿½e" intelligence artificielle O_o
     	
     	boolean isMyTurn = true; //Signale que c'est a l'autre joueur a jouer
     	GoodShot lastGoodShot = goodShotsStack.peek();
