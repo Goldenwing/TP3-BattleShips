@@ -55,29 +55,34 @@ public class ComputerPlayer extends Player {
     public boolean shootEnemy(Matrix gameGrid) { //"Supposée" intelligence artificielle O_o
     	
     	boolean isMyTurn = true; //Signale que c'est a l'autre joueur a jouer
-    	int randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);
-    	int randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
+    	GoodShot lastGoodShot;
+    	int coordX = 0;
+    	int coordY = 0;
     	
-    	if(gameGrid.getSquareContentCheck(randomX, randomY, true)) { //Verifie si la case a deja ete cliquee
-    		randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);
-        	randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
+    	if (goodShotsStack.peek() == null) {
+    		coordX = coordinateNumber.nextInt(this.GAME_SIZE -1);
+        	coordY = coordinateNumber.nextInt(this.GAME_SIZE -1);
+    	} else {
+    		lastGoodShot = goodShotsStack.peek();
+    		coordX = lastGoodShot.getCoordX();
+    		coordY = lastGoodShot.getCoordY();
+    	}
+    	
+    	if(gameGrid.getSquareContentCheck(coordX, coordY, true)) { //Verifie si la case a deja ete cliquee
+    		coordX = coordinateNumber.nextInt(this.GAME_SIZE -1);
+        	coordY = coordinateNumber.nextInt(this.GAME_SIZE -1);
     	}
     	
     	while(isMyTurn) {
-			if(gameGrid.getSquareContentNumber(randomX, randomY, true) == 0) {
-				gameGrid.setSquareCheck(randomX, randomY, true);
+			if(gameGrid.getSquareContentNumber(coordX, coordY, true) == 0) {
+				gameGrid.setSquareCheck(coordX, coordY, true);
 				isMyTurn = false;
 			}
 			else {
-				if(gameGrid.getSquareContentNumber(randomX + 1, randomY, true) == 0) {
-					isMyTurn = false;
-				} else if(gameGrid.getSquareContentNumber(randomX - 1, randomY, true) == 0) {
-					isMyTurn = false;
-				} else if(gameGrid.getSquareContentNumber(randomX, randomY + 1, true) == 0) {
-					isMyTurn = false;
-				} else if(gameGrid.getSquareContentNumber(randomX, randomY - 1, true) == 0) {
-					isMyTurn = false;
+				if (checkSquareUp(coordX, coordY, gameGrid)) {
+					
 				}
+				
 				
 			}
     	}
@@ -88,5 +93,42 @@ public class ComputerPlayer extends Player {
     	return this.playerName;
     }
     
+    ///////private methods
+    
+    private boolean checkSquareUp(int x, int y, Matrix gameGrid) {
+    	if (gameGrid.getSquareContentNumber(x, y + 1, true) == 0) {
+    		return false;
+    	}
+    	else {
+    		return true;
+    	}
+    }
+    
+    private boolean checkSquareDown(int x, int y, Matrix gameGrid) {
+    	if (gameGrid.getSquareContentNumber(x, y - 1, true) == 0) {
+    		return false;
+    	}
+    	else {
+    		return true;
+    	}
+    }
+    
+    private boolean checkSquareLeft(int x, int y, Matrix gameGrid) {
+    	if (gameGrid.getSquareContentNumber(x - 1, y, true) == 0) {
+    		return false;
+    	}
+    	else {
+    		return true;
+    	}
+    }
+    
+    private boolean checkSquareRight(int x, int y, Matrix gameGrid) {
+    	if (gameGrid.getSquareContentNumber(x + 1, y, true) == 0) {
+    		return false;
+    	}
+    	else {
+    		return true;
+    	}
+    }
     
 }
