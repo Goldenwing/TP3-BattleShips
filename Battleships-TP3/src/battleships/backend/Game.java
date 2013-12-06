@@ -95,7 +95,7 @@ public class Game
 	
 	public void setPlayerShips(String boat, int size, boolean direction)
 	{
-		this.gamer.setBoats();
+		//this.gamer.setBoats();
 	}
 	
 	public static void main(String[] args)
