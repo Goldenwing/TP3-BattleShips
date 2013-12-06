@@ -22,6 +22,6 @@ public class GameTest
 	{
 		Game test = new Game();
 		
-		test.getGamer().setBoats();
+		//test.getGamer().setBoats();
 	}
 }

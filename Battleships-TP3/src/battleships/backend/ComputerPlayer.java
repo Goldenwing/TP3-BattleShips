@@ -1,5 +1,7 @@
 package battleships.backend;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Random;
 
 import battleships.backend.Game.Boats;
@@ -15,12 +17,14 @@ import battleships.backend.Game.Boats;
 public class ComputerPlayer extends Player {
         
     private final int GAME_SIZE = 10;
-    String playerName;
-    Random coordinateNumber = new Random();
+    private String playerName;
+    private Random coordinateNumber = new Random();
+    private Deque<GoodShot> goodShotsStack = new ArrayDeque<GoodShot>();
         
     public ComputerPlayer() {
     	
         this.playerName = "HAL-9000";
+        this.goodShotsStack = null;
         }
 
 
@@ -83,4 +87,6 @@ public class ComputerPlayer extends Player {
     public String getPlayerName() {
     	return this.playerName;
     }
+    
+    
 }
