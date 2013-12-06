@@ -192,7 +192,7 @@ public class BattleGame extends Application
 				 BattleGame.this.stagePosition.close();
 				 BattleGame.this.modal.getErrorText().setVisible(false);
 				
-				 BattleGame.this.setGrids();
+				 BattleGame.this.setGrids(BattleGame.this.game);
 					
 			}
 			

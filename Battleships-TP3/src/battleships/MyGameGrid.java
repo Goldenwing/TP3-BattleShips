@@ -2,37 +2,42 @@ package battleships;
 
 
 
+import java.util.List;
+
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.layout.GridPane;
 
 public class MyGameGrid
+
 {
-	GridPane gameGrid;
+	private ImageView[][] imageViewTab;
 	
 	public MyGameGrid()
 	
 	
 	{
-		
+		this.imageViewTab = new ImageView[11][11];	
 	}
 	
+	public ImageView[][] getImageTabViewMyGrid()
+	{
+		return this.imageViewTab;
+	}
 	
 	public void setBoats()
 	{
 		
 	}
 	
-	public GridPane setGrid(String nom)
+	public Group setGrid(String nom)
 	{
-		this.gameGrid = new GridPane();
-
+		Group myRoot = new Group();
+		
 		Text name = new Text(nom);
 		name.setX(1240);
 		name.setY(870);
@@ -40,61 +45,60 @@ public class MyGameGrid
 
 		int nbSquare = 11;
 		
-//		int xSquare = 875; // coordonnees x de l'image
-//		int ySquare = 70; // coordonnees y de l'image
-				
-//		for(int i = 0; i < nbSquare; i++)
-//		{
-//			if( i > 0)
-//			{
-//				xSquare += 70;
-//				ySquare = 70;
-//			}
-//			for(int j = 0; j <  nbSquare; j++)
-//			{
-//				
-//				if(j > 0)
-//				{
-//					ySquare += 70;
-//				}
-//				ImageView waterTiles = new ImageView(new Image("file:Images/water.png"));
-//				waterTiles.setX(xSquare);
-//				waterTiles.setY(ySquare);
-//				myRoot.getChildren().add(waterTiles);
-//			}
-//		}
-//		myRoot.getChildren().add(name);
+		int xSquare = 875; // coordonnees x de l'image
+		int ySquare = 70; // coordonnees y de l'image
+		ImageList imageList =  new ImageList();
 		
+		List<Image> imageListNumber = imageList.imageListNumbers();
+        List<Image> imageListLetter = imageList.imageListLetters();
+                           
+				
 		for(int i = 0; i < nbSquare; i++)
 		{
-			for(int j = 0; j < nbSquare; j++)
+			if( i > 0)
 			{
-				Image image = new Image("file:Images/water.png");
-				ImageView imageView = new ImageView();
-				imageView.setImage(image);
-				
-				imageView.setOnMouseClicked(new ImageViewClickListener());
-					
-				this.gameGrid.add(imageView, i, j);
-				
-//				this.imageBoard[i][j] = imageView;
+				xSquare += 70;
+				ySquare = 70;
 			}
-		}
-		
-		return this.gameGrid;
-	}
-		
-		private class ImageViewClickListener implements EventHandler<MouseEvent>
-		{
+			for(int j = 0; j <  nbSquare; j++)
+			{
+				
+				ImageView waterTiles = new ImageView(new Image("file:Images/water.png"));
+                
+                if(j > 0 && i > 0)
+                {
+                        ySquare += 70;
+                        waterTiles = new ImageView(new Image("file:Images/water.png"));
+                }
+                else if(j == 0 && i > 0)
+                {
+                	 waterTiles = new ImageView(imageListNumber.get(i - 1));
+                }
+                
+                else if(j > 0 && i == 0)
+                {
+                	 ySquare += 70;
+                	 waterTiles = new ImageView(imageListLetter.get(j - 1));
+                }
+				waterTiles.setX(xSquare);
+				waterTiles.setY(ySquare);
+				
 
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				// TODO Auto-generated method stub
-				
-			}
+				this.imageViewTab[i][j] = waterTiles;
+
+				myRoot.getChildren().add(waterTiles);
 			
+
+			}
 		}
+		
+		
+		
+		myRoot.getChildren().add(name);
+		
+		return myRoot;
+		
+	}
 	
 	
 }
