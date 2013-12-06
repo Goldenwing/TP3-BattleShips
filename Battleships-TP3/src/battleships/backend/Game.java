@@ -7,22 +7,28 @@ public class Game
 
 	public enum Boats
 	{
-		AIRCRAFT(5),
-		BATTLESHIP(4),
-		DESTROYER(3),
-		SUBMARINE(3),
-		PATROL(2);
+		AIRCRAFT(5, "Porte-avions"),
+		BATTLESHIP(4, "Croiseur"),
+		DESTROYER(3, "Torpilleur"),
+		SUBMARINE(3, "Sous-marin"),
+		PATROL(2, "Patrouilleur");
 		
 		private int size = 0;
+		private String nameBoat = "";
 		
-		private Boats(int size)
+		private Boats(int size, String name)
 		{
 			this.size = size;
+			this.nameBoat = name;
 		}
 		
 		public int getSize()
 		{
 			return this.size;
+		}
+		
+		public String getBoatName() {
+			return this.nameBoat;
 		}
 	}
 

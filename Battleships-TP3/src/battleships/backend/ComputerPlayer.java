@@ -54,7 +54,7 @@ public class ComputerPlayer extends Player {
     	int randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);
     	int randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
     	
-    	if(!gameGrid.getSquareContentCheck(randomX, randomY, true)) { //Verifie si la case a deja ete cliquee
+    	if(gameGrid.getSquareContentCheck(randomX, randomY, true)) { //Verifie si la case a deja ete cliquee
     		randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);
         	randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
     	}
