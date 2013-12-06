@@ -73,8 +73,7 @@ public class MyGameGrid
 				ImageView imageView = new ImageView();
 				imageView.setImage(image);
 				
-				ImageViewClickListener imageViewClick = new ImageViewClickListener();
-					imageView.setOnMouseClicked(imageViewClick);
+				imageView.setOnMouseClicked(new ImageViewClickListener());
 					
 				this.gameGrid.add(imageView, i, j);
 				
