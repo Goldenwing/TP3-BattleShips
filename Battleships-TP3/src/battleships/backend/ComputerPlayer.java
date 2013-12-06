@@ -22,11 +22,9 @@ public class ComputerPlayer extends Player {
     private Deque<GoodShot> goodShotsStack = new ArrayDeque<GoodShot>();
         
     public ComputerPlayer() {
-    	
         this.playerName = "HAL-9000";
-        this.goodShotsStack = null;
+        this.resetGoodShotsStack();
         }
-
 
     public void setBoats(Matrix gameGrid, boolean direction, Boats boat) {
 
@@ -40,12 +38,12 @@ public class ComputerPlayer extends Player {
     	}
     	
     	if(direction) {        //si horizontal
-    		for(int x = randomX; x < randomX + boat.getSize(); x++)        {
+    		for(int x = randomX; x < randomX + boat.getSize(); x++) {
     			gameGrid.setSquareContent(x, randomY, boat.getSize(), true);   
     		}
     	} 
     	else { // si vertical
-    		for(int y = randomY; y < randomY + boat.getSize(); y++)        {      
+    		for(int y = randomY; y < randomY + boat.getSize(); y++) {      
     			gameGrid.setSquareContent(randomX, y, boat.getSize(), true);
     		}
     	}   
@@ -55,42 +53,46 @@ public class ComputerPlayer extends Player {
     public boolean shootEnemy(Matrix gameGrid) { //"Supposée" intelligence artificielle O_o
     	
     	boolean isMyTurn = true; //Signale que c'est a l'autre joueur a jouer
-    	GoodShot lastGoodShot;
+    	GoodShot lastGoodShot = goodShotsStack.peek();
+    	GoodShot currentGoodShot = null;
     	int coordX = 0;
     	int coordY = 0;
     	
-    	if (goodShotsStack.peek() == null) {
-    		coordX = coordinateNumber.nextInt(this.GAME_SIZE -1);
-        	coordY = coordinateNumber.nextInt(this.GAME_SIZE -1);
+    	if (lastGoodShot == null) { //un coup random ou le dernier bon coup
+    		do {
+    			coordX = coordinateNumber.nextInt(this.GAME_SIZE -1);
+            	coordY = coordinateNumber.nextInt(this.GAME_SIZE -1);
+    		} while(gameGrid.getSquareContentCheck(coordX, coordY, true));
     	} else {
-    		lastGoodShot = goodShotsStack.peek();
     		coordX = lastGoodShot.getCoordX();
     		coordY = lastGoodShot.getCoordY();
     	}
     	
-    	if(gameGrid.getSquareContentCheck(coordX, coordY, true)) { //Verifie si la case a deja ete cliquee
-    		coordX = coordinateNumber.nextInt(this.GAME_SIZE -1);
-        	coordY = coordinateNumber.nextInt(this.GAME_SIZE -1);
-    	}
-    	
     	while(isMyTurn) {
 			if(gameGrid.getSquareContentNumber(coordX, coordY, true) == 0) {
-				gameGrid.setSquareCheck(coordX, coordY, true);
 				isMyTurn = false;
 			}
 			else {
+				
+				currentGoodShot = new GoodShot(coordX, coordY, gameGrid.get)
+				goodShotsStack.push(currentGoodShot);
 				if (checkSquareUp(coordX, coordY, gameGrid)) {
 					
 				}
 				
 				
 			}
+			gameGrid.setSquareCheck(coordX, coordY, true);
     	}
     	return isMyTurn;
     }
         
     public String getPlayerName() {
     	return this.playerName;
+    }
+    
+    public void resetGoodShotsStack() {
+    	this.goodShotsStack = null;
     }
     
     ///////private methods

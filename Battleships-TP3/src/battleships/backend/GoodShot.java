@@ -13,13 +13,12 @@ public class GoodShot {
 	private int coordX = 0;
 	private int coordY = 0;
 	private String boatName = "";
-	private boolean boatDirection = false;
+
 	private int boatSize = 0;
 	
-	public GoodShot(int x, int y, boolean direction, Boats boat) {
+	public GoodShot(int x, int y, Boats boat) {
 		this.coordX = x;
 		this.coordY = y;
-		this.boatDirection = direction;
 		this.boatName = boat.getBoatName();
 		this.boatSize = boat.getSize();
 	}
@@ -46,14 +45,6 @@ public class GoodShot {
 
 	public void setBoatName(String boatName) {
 		this.boatName = boatName;
-	}
-
-	public boolean isBoatDirection() {
-		return boatDirection;
-	}
-
-	public void setBoatDirection(boolean boatDirection) {
-		this.boatDirection = boatDirection;
 	}
 
 	public int getBoatSize() {
