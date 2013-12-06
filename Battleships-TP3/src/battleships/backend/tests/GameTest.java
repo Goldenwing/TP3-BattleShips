@@ -16,4 +16,12 @@ public class GameTest
 		Assert.assertNotNull(test.getMatrix());
 		Assert.assertNotNull(test.getComputerMatrix());
 	}
+	
+	@Test
+	public void testSetPlayerBoats()
+	{
+		Game test = new Game();
+		
+		test.getGamer().setBoats();
+	}
 }
