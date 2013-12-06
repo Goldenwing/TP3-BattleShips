@@ -30,6 +30,12 @@ public class ComputerPlayer extends Player {
 
     	int randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);
     	int randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
+    	
+    	while( randomX == 0 || randomY == 0)
+                    {
+                    	randomX = coordinateNumber.nextInt(this.GAME_SIZE -1);
+                        randomY = coordinateNumber.nextInt(this.GAME_SIZE -1);
+                    }
 
     	while(!gameGrid.checkSpace(boat, direction, randomX, randomY)) {
     
