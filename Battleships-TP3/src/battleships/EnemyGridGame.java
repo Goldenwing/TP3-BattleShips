@@ -1,4 +1,3 @@
-
 package battleships;
 
 import java.util.List;
@@ -92,18 +91,77 @@ public class EnemyGridGame
         }
         
         private class MouseListener implements EventHandler<MouseEvent>
-        {
+	{
 
-                @Override
-                public void handle(MouseEvent arg0)
-                {
-//                        if clicked && boat, if clicked != boat, not clicked, already clicked
-                        
-                        
-                        
-                        
-                }
-        }
+		@Override
+		public void handle(MouseEvent arg0) 
+		{
+//			if clicked && boat, if clicked != boat, not clicked, already clicked
+			Matrix gameMatrix = EnemyGridGame.this.game.getComputerMatrix();
+			
+			ImageView imageView = (ImageView) arg0.getSource();
+			
+			int quickX = EnemyGridGame.this.getSquareX(imageView);
+			int quickY = EnemyGridGame.this.getSquareY(imageView);
+			
+			if(gameMatrix.getSquareContentCheck(quickX, quickY, true) == true)
+			{
+				
+			}
+			else
+			{
+				gameMatrix.setSquareCheck(quickX, quickY, true, true);
+				Image imageRedX = new Image("file:Images/water-red.png");
+				Image imageWhiteX = new Image("file:Images/water-white.png");
+				
+				switch(gameMatrix.getSquareContentNumber(quickX, quickY, true))
+				{
+					case 0:
+					{
+						imageView.setImage(imageWhiteX);
+						
+						break;
+					}
+					case 2: case 3: case 4: case 5:
+					{
+						imageView.setImage(imageRedX);
+					}
+				}
+			}
+		}
+	}
+	
+	private int getSquareX(ImageView imageView)
+	{
+		int x = 0;
+		
+		for(int i = 0; i< 11;i++)
+		{
+			for(int j = 0; j< 11;j++)
+			{
+				if(this.imageViewTab[i][j] == imageView)
+				{
+					x = i;
+				}
+			}
+		}
+		return x;
+	}
+	
+	private int getSquareY(ImageView imageView)
+	{
+		int y = 0;
+		
+		for(int i = 0; i< 11;i++)
+		{
+			for(int j = 0; j< 11;j++)
+			{
+				if(this.imageViewTab[i][j] == imageView)
+				{
+					y = j;
+				}
+			}
+		}
+		return y;
+	}
 }
-
-
