@@ -27,9 +27,9 @@ public class Matrix
 		this.gameMatrix = null;
 		this.gameMatrix = setSize();
 		
-		for(int x = 0; x < 10; x++)
+		for(int x = 1; x < 11; x++)
 		{
-			for(int y= 0 ; y < 10; y++)
+			for(int y= 1 ; y < 11; y++)
 			{
 				MatrixTiles gameTile = new MatrixTiles(0, false, null);
 				this.gameMatrix[x][y] = gameTile;
@@ -42,9 +42,9 @@ public class Matrix
 		this.computerGameMatrix = null;
 		this.computerGameMatrix = setSize();
 		
-		for(int x = 0; x < 10; x++)
+		for(int x = 1; x < 11; x++)
 		{
-			for(int y= 0 ; y < 10; y++)
+			for(int y= 1 ; y < 11; y++)
 			{
 				MatrixTiles gameTile = new MatrixTiles(0, false, null);
 				this.computerGameMatrix[x][y] = gameTile;
