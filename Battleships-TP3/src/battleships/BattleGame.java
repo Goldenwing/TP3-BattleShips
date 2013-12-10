@@ -41,7 +41,8 @@ public class BattleGame extends Application
 		
 		GameMenu gameMenu = new GameMenu(game);
 		this.root.getChildren().add(gameMenu);
-		stage.setTitle("Jeu de simulation de combat en territoire navale.  (Annie Belzile, Laurie Lavoie, Kevin Tanguay)"); 
+		
+		stage.setTitle("BattleShips  (Annie Belzile, Laurie Lavoie, Kevin Tanguay)"); 
         stage.setScene(scene); 
        
 //        stage.setResizable(false);
@@ -69,12 +70,12 @@ public class BattleGame extends Application
         this.stagePosition.show();
 	}
 	
-	public void setGrids()
+	public void setGrids(Game game)
 	{	
 		this.setPieces();
 		MyGameGrid myGrid = new MyGameGrid();
 		
-		EnemyGridGame enemyGrid = new EnemyGridGame(this.game);
+		EnemyGridGame enemyGrid = new EnemyGridGame(game);
 		this.root.getChildren().add(enemyGrid.setGrid());
 		this.root.getChildren().add(myGrid.setGrid(this.name));
 	}
@@ -193,7 +194,7 @@ public class BattleGame extends Application
 				 BattleGame.this.stagePosition.close();
 				 BattleGame.this.modal.getErrorText().setVisible(false);
 				
-				 BattleGame.this.setGrids();
+				 BattleGame.this.setGrids(BattleGame.this.game);
 					
 			}
 			
