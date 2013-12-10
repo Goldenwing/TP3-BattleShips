@@ -1,3 +1,4 @@
+
 package battleships;
 
 import java.util.List;
@@ -7,11 +8,16 @@ import battleships.backend.Matrix;
 
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class EnemyGridGame
 {
@@ -133,6 +139,11 @@ public class EnemyGridGame
 						imageView.setImage(imageRedX);
 					}
 				}
+				
+				if(DidWeWin(imageRedX))
+				{
+					VictoryPanel();
+				}
 			}
 		}
 	}
@@ -170,5 +181,49 @@ public class EnemyGridGame
 		}
 		return y;
 	}
+	
+	private boolean DidWeWin(Image redImage)
+	{
+		int redCounter = 0;
+		boolean victory = false;
+		ImageView red = new ImageView(redImage);
+		
+		for(int i = 0; i<11; i++)
+		{
+			for(int j = 0; j<11; j++)
+			{
+				if(this.imageViewTab[i][j] == red)
+				{
+					redCounter++;
+				}
+			}
+		}
+		
+		if(redCounter == 17)
+		{
+			victory = true;
+		}
+		
+		return victory;
+	}
+	
+	private void VictoryPanel()
+	{
+		Group scoreRoot = new Group();
+		Stage scoreDialog = new Stage();
+		scoreDialog.initModality(Modality.WINDOW_MODAL);
+		Scene scoreScene = new Scene(scoreRoot, 300,200, Color.LIGHTGRAY);
+		
+		Label infoLabel = new Label("VOUS ETES LE CHAMPION!!!");
+			infoLabel.setLayoutX(5);
+			infoLabel.setLayoutY(10);
+		
+		scoreRoot.getChildren().add(infoLabel);
+		
+		scoreDialog.setTitle("Victoire!!");
+		scoreDialog.setScene(scoreScene);
+		scoreDialog.setResizable(false);
+		scoreDialog.show(); ;
+			scoreDialog.show();
+	}
 }
-
