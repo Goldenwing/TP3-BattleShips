@@ -134,7 +134,8 @@ public class Game
     				if ((y >= 1) && ((y + tableSizeBoats[j]) <= 11) && (x >= 1) && (x <= 10) && (verified == true))
     				{
     					 verified = true;
-    					 this.gamer.setBoats(x,  y, false, boat);
+    					 Boats boatSended = boat.getBoatByNumber(j);
+    					 this.gamer.setBoats(x,  y, false, boatSended);
     				}
     				else
     				{
