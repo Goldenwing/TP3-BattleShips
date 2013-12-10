@@ -23,6 +23,15 @@ public class GoodShot {
 		this.boatSize = boat.getSize();
 		this.shotsRemaining = boat.getSize();
 	}
+	
+	public GoodShot(int x, int y) {
+		this.coordX = x;
+		this.coordY = y;
+		this.boatName = "";
+		this.boatSize = 0;
+		this.shotsRemaining = 0;
+	}
+	
     /**
      * Retourne la coordonnee en X d'un coup reussi
      * @return un entier contenant la coordonnee en X
