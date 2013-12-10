@@ -32,7 +32,7 @@ public class ComputerPlayer extends Player {
     	do {
     		randomX = coordinateNumber.nextInt(this.GAME_SIZE - 1);
             randomY = coordinateNumber.nextInt(this.GAME_SIZE - 1);
-    	} while(randomX == 1 || randomY == 1 || !gameGrid.checkSpace(boat, direction, randomX, randomY));
+    	} while(randomX == 0 || randomY == 0 || !gameGrid.checkSpace(boat, direction, randomX, randomY));
                     
     	
     	if(direction) { //si horizontal
