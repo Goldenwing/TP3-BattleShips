@@ -22,6 +22,7 @@ public class PlayerTest {
 	public void NewComputerPlayerConstructor() {
 		ComputerPlayer player = new ComputerPlayer();
 		Assert.assertEquals("HAL-9000", player.getPlayerName());
+		Assert.assertEquals(null, player.getLastGoodShot());
 	}
 	
 	//SetBoats() methods tests

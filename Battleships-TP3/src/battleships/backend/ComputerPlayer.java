@@ -73,7 +73,7 @@ public class ComputerPlayer extends Player {
     	do {
 			if(gameGrid.getSquareContentNumber(coordX, coordY, true) == 0) { //Coup dans l'eau
 				isMyTurn = false;
-				this.lastGoodShot = null;
+				this.setLastGoodShot(null);
 				gameGrid.setSquareCheck(coordX, coordY, true, true);
 			}
 			else { //Hit!
@@ -83,7 +83,7 @@ public class ComputerPlayer extends Player {
 					goodShotAttempt = checkSquareUp(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), gameGrid);
 					if (goodShotAttempt != null) {
 						isMyTurn = true;
-						this.lastGoodShot = goodShotAttempt;
+						this.setLastGoodShot(goodShotAttempt);
 						this.lastGoodShot.setShotsRemaining(this.lastGoodShot.getShotsRemaining() - 1);
 						gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, true);
 					}
@@ -94,7 +94,7 @@ public class ComputerPlayer extends Player {
 					goodShotAttempt = checkSquareDown(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), gameGrid);
 					if (goodShotAttempt != null) {
 						isMyTurn = true;
-						this.lastGoodShot = goodShotAttempt;
+						this.setLastGoodShot(goodShotAttempt);
 						this.lastGoodShot.setShotsRemaining(this.lastGoodShot.getShotsRemaining() - 1);
 						gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, true);
 					}
@@ -105,7 +105,7 @@ public class ComputerPlayer extends Player {
 					goodShotAttempt = checkSquareLeft(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), gameGrid);
 					if (goodShotAttempt != null) {
 						isMyTurn = true;
-						this.lastGoodShot = goodShotAttempt;
+						this.setLastGoodShot(goodShotAttempt);
 						this.lastGoodShot.setShotsRemaining(this.lastGoodShot.getShotsRemaining() - 1);
 						gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, true);
 					}
@@ -116,7 +116,7 @@ public class ComputerPlayer extends Player {
 					goodShotAttempt = checkSquareRight(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), gameGrid);
 					if (goodShotAttempt != null) {
 						isMyTurn = true;
-						this.lastGoodShot = goodShotAttempt;
+						this.setLastGoodShot(goodShotAttempt);
 						this.lastGoodShot.setShotsRemaining(this.lastGoodShot.getShotsRemaining() - 1);
 						gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, true);
 					}
@@ -130,9 +130,17 @@ public class ComputerPlayer extends Player {
     	return this.playerName;
     }
     
-    ///////private methods
-    
-    private GoodShot checkSquareUp(int x, int y, Matrix gameGrid) {
+
+    public GoodShot getLastGoodShot() {
+		return lastGoodShot;
+	}
+
+	public void setLastGoodShot(GoodShot lastGoodShot) {
+		this.lastGoodShot = lastGoodShot;
+	}
+	
+///////private methods
+	private GoodShot checkSquareUp(int x, int y, Matrix gameGrid) {
     	if (gameGrid.getSquareContentNumber(x, y + 1, true) == 0) {
     		return null;
     	}
