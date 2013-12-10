@@ -19,7 +19,8 @@ public class ComputerPlayer extends Player {
     private final int GAME_SIZE = 10;
     private String playerName;
     private Random coordinateNumber = new Random();
-    private Deque<GoodShot> goodShotsStack = new ArrayDeque<GoodShot>();
+    private GoodShot lastGoodShot;
+    private GoodShot currentGoodShot;
         
     public ComputerPlayer() {
         this.playerName = "HAL-9000";
@@ -56,11 +57,11 @@ public class ComputerPlayer extends Player {
     }
 
     @Override
-    public boolean shootEnemy(Matrix gameGrid) { //"Suppos�e" intelligence artificielle O_o
+    public boolean shootEnemy(Matrix gameGrid) { //"intelligence" artificielle O_o
     	
     	boolean isMyTurn = true; //Signale que c'est a l'autre joueur a jouer
-    	GoodShot lastGoodShot = goodShotsStack.peek();
-    	GoodShot currentGoodShot = null;
+    	//GoodShot lastGoodShot = new GoodShot();
+    	//GoodShot currentGoodShot = null;
     	int coordX = 0;
     	int coordY = 0;
     	
