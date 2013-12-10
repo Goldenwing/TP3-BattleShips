@@ -45,6 +45,17 @@ public class ComputerPlayer extends Player {
     			gameGrid.setSquareContent(randomX, y, boat, true, boat.getBoatName());
     		}
     	}   
+    	
+            if(direction) { //si horizontal
+                    for(int x = randomX; x < randomX + boat.getSize(); x++) {
+                            gameGrid.setSquareContent(x, randomY, boat, true, boat.getBoatName());   
+                    }
+            } 
+            else { // si vertical
+                    for(int y = randomY; y < randomY + boat.getSize(); y++) {      
+                            gameGrid.setSquareContent(randomX, y, boat, true, boat.getBoatName());
+                    }
+            }   
     }
 
     @Override

@@ -64,7 +64,7 @@ public class Matrix
 		boolean valid = true;
 		
 		
-		if(x + size > 10 || y + size > 10)
+		if(x + size >= 11 || y + size >= 11)
 		{
 			valid = false;
 		}
