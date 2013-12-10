@@ -101,18 +101,18 @@ public class Game
 	public static void main(String[] args)
 	{
 		
-		Game game = new Game();
-		Matrix computerMatrix = game.getComputerMatrix();
+		//Game game = new Game();
+		//Matrix computerMatrix = game.getComputerMatrix();
 		/* do {
 			//Jouer chacun son tour jusqu'a ce que le nombre de bateaux coulés pour un des joueurs = 5
 		} while(); */
-		for(int i = 0; i < 10; i++)
+		/*for(int i = 0; i < 10; i++)
 		   {
 		      for(int j = 0; j < 10; j++)
 		      {
 		         System.out.printf("%5d ", computerMatrix.getSquareContentNumber(i, j, true));
 		      }
 		      System.out.println();
-		   }
+		   }*/
 	}
 }
