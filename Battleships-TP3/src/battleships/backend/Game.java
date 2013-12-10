@@ -103,6 +103,9 @@ public class Game
 		
 		Game game = new Game();
 		Matrix computerMatrix = game.getComputerMatrix();
+		/* do {
+			//Jouer chacun son tour jusqu'a ce que le nombre de bateaux coulés pour un des joueurs = 5
+		} while(); */
 		for(int i = 0; i < 10; i++)
 		   {
 		      for(int j = 0; j < 10; j++)

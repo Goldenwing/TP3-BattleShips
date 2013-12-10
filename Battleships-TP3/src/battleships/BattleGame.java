@@ -30,13 +30,14 @@ public class BattleGame extends Application
 	private ModalWindow modal;
 	private String name;
 	private ImageView[] tabImage;
+	private Game game;
 	
 	public void start(Stage stage)
 	{
 		this.root = new Group();
 		Scene scene = new Scene(this.root, 1920, 1000, Color.LIGHTGRAY);
 		
-		Game game = new Game();
+		this.game = new Game();
 		
 		GameMenu gameMenu = new GameMenu(game);
 		this.root.getChildren().add(gameMenu);
@@ -73,7 +74,7 @@ public class BattleGame extends Application
 		this.setPieces();
 		MyGameGrid myGrid = new MyGameGrid();
 		
-		EnemyGridGame enemyGrid = new EnemyGridGame();
+		EnemyGridGame enemyGrid = new EnemyGridGame(this.game);
 		this.root.getChildren().add(enemyGrid.setGrid());
 		this.root.getChildren().add(myGrid.setGrid(this.name));
 	}
@@ -192,7 +193,7 @@ public class BattleGame extends Application
 				 BattleGame.this.stagePosition.close();
 				 BattleGame.this.modal.getErrorText().setVisible(false);
 				
-				 BattleGame.this.setGrids(BattleGame.this.game);
+				 BattleGame.this.setGrids();
 					
 			}
 			
