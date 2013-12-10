@@ -98,6 +98,7 @@ public class Game
 	{
 		//this.gamer.setBoats();
 	}
+}
 	
 //	public static void main(String[] args)
 //	{
