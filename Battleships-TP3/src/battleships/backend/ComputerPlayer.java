@@ -26,19 +26,13 @@ public class ComputerPlayer extends Player {
     @Override
     public void setBoats(Matrix gameGrid, boolean direction, Boats boat) {
 
-            int randomX = 0;
-            int randomY = 0;
-            
-            while(randomX == 0 || randomY == 0)
-            {
-            	randomX = coordinateNumber.nextInt(this.GAME_SIZE) +1;
-                randomY = coordinateNumber.nextInt(this.GAME_SIZE) +1;
-            }
-            while(!gameGrid.checkSpace(boat, direction, randomX, randomY))
-            {
-            	randomX = coordinateNumber.nextInt(this.GAME_SIZE) +1;
-                randomY = coordinateNumber.nextInt(this.GAME_SIZE) +1;
-            }
+        int randomX = 0;
+    	int randomY = 0;
+    	
+    	do {
+    		randomX = coordinateNumber.nextInt(this.GAME_SIZE - 1);
+                randomY = coordinateNumber.nextInt(this.GAME_SIZE - 1);
+    	} while(randomX == 1 || randomY == 1 || !gameGrid.checkSpace(boat, direction, randomX, randomY));
             
             if(direction) { //si horizontal
                     for(int x = randomX; x < randomX + boat.getSize(); x++) {
