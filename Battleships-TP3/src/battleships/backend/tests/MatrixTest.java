@@ -93,7 +93,7 @@ public class MatrixTest
 		
 		for(int x = 0; x<5; x++)
 		{
-			test.setSquareContent(x, 0, Boats.AIRCRAFT.getSize(), true);
+			test.setSquareContent(x, 0, Boats.AIRCRAFT, true, Boats.AIRCRAFT.getBoatName());
 		}
 		
 		boolean valid = test.checkSpace(Boats.AIRCRAFT, true, 0,0);

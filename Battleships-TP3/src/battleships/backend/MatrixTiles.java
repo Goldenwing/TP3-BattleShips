@@ -1,4 +1,4 @@
-* Classe qui gère les cases de la matrice générale.
+/** Classe qui gère les cases de la matrice générale.
  * Chaque MatrixTiles est une tuile, une case de la matrice "Matrix". Cette classe contient les méthodes nécéssaires à 
  * l'obtention des informations de chaque case.
  * 
