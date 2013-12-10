@@ -98,6 +98,56 @@ public class Game
 	{
 		//this.gamer.setBoats();
 	}
+	
+	  public boolean checkBoatsUser(int[][] tableXY, List<RadioButton> listRbuttonChecked)
+    	{
+    		 int []tableSizeBoats =  {5,4,3,3,2};
+    		
+    		 int x;
+    		 int y;
+    		 String textRb;
+    		 boolean verified = true;
+    		 Boats boat = Boats.AIRCRAFT;
+    		for(int j = 0; j < 5; j++)
+    		{
+    			
+    			x = tableXY[0][j];
+    			y = tableXY[1][j];
+    			textRb = listRbuttonChecked.get(j).getText();
+    	
+    			if(textRb.equals("Horizontal"))
+    			{
+    				if ((x >= 1) && ((x + tableSizeBoats[j]) <= 11) && (y >= 1) && (y <= 10) && (verified == true))
+    				{
+    						
+    					 verified = true;
+    					 Boats boatSended = boat.getBoatByNumber(j);
+    					 this.gamer.setBoats(x,  y, true, boatSended);
+    				}
+    				else
+    				{
+    					verified = false;
+    				}
+    			}
+    			else if (textRb == "Vertical")
+    			{
+    				if ((y >= 1) && ((y + tableSizeBoats[j]) <= 11) && (x >= 1) && (x <= 10) && (verified == true))
+    				{
+    					 verified = true;
+    					 this.gamer.setBoats(x,  y, false, boat);
+    				}
+    				else
+    				{
+    					verified = false;
+    				}
+    			}
+    			
+    			
+    		}
+    		
+    		return verified;
+    	}
+        
 }
 	
 //	public static void main(String[] args)
