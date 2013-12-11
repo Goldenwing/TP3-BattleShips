@@ -8,6 +8,7 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
 import battleships.backend.Game;
+import battleships.backend.Matrix;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,6 +24,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Classe JavaFx principal du jeu qui contient la méthode start, les objets graphiques de l'application et une partie.
+ * Cette classe lance les tests au démarrage de l'application
+ * 
+ * @author Laurie
+ *
+ */
 public class BattleGame extends Application
 {
 //	private List<TextField> listField;
@@ -31,10 +39,14 @@ public class BattleGame extends Application
 	private ModalWindow modal;
 	private String name;
 	private ImageView[] tabImage;
-	public Game game;
+	private Game game;
 	int [][] tableXY;
-	public List<RadioButton> listRbuttonChecked;
+	private List<RadioButton> listRbuttonChecked;
 	
+	
+	/**
+	 * Configuration du stage lors du lancement de l'application
+	 */
 	public void start(Stage stage)
 	{
 		this.root = new Group();
@@ -54,7 +66,9 @@ public class BattleGame extends Application
 	
 	}
 	
-	
+	/**
+	 * Affiche une fenêtre modale qui demande le nom et les coordonnées des bateaux
+	 */
 	public void askPositionBoats()
 	{
 		
@@ -73,18 +87,27 @@ public class BattleGame extends Application
         this.stagePosition.show();
 	}
 
-	
+	/**
+	 * Crée un objet MyGameGrid et un objet EnemyGridGame qui sont les grilles graphiques
+	 * des matrices des joueurs.
+	 * 
+	 * @param game2 partie du jeu courant
+	 */
 	public void setGrids(Game game2)
 	{	
 		this.setPieces();
 		MyGameGrid myGrid = new MyGameGrid();
 		Group myGroup = myGrid.setGrid(this.name);
 		myGrid.ifBoats(this.game.getMatrix().getGameMatrix());
-		EnemyGridGame enemyGrid = new EnemyGridGame();
+		EnemyGridGame enemyGrid = new EnemyGridGame(this.game);
 		this.root.getChildren().add(enemyGrid.setGrid());
 		this.root.getChildren().add(myGroup);
 	}
 	
+	
+	/**
+	 * Place deux images à droite dans l'interface
+	 */
 	public void setPieces()
 	{
 		ImageView whitePieces = new ImageView(new Image("file:Images/white.png"));
@@ -104,6 +127,10 @@ public class BattleGame extends Application
 		
 	}
 	
+	/**
+	 * Appelle une fonction de Game qui vérifie si les données entrées par l'utilisateur sont correctes.
+	 * @return verified vrai, si les données de l'utilisateurs sont correctes ou sinon faux
+	 */
 	public boolean verifiedSettingBoats()
 	{
 //		boolean verified = this.game.checkBoatsUser(this.tableXY, this.listRbuttonChecked);
@@ -111,6 +138,12 @@ public class BattleGame extends Application
 		return verified;
 	}
 	
+	
+	/**
+	 * Le main de l'application
+	 * Lance les tests lors du démarrage
+	 * @param args
+	 */
 	public static void main(String[] args)
 	{
 //		JUnitCore junit = new JUnitCore(); 
@@ -127,6 +160,11 @@ public class BattleGame extends Application
 //		}   
 	}
 	
+	/**
+	 * Lance les test JUnit des classes du backend
+	 * @param result
+	 * @return
+	 */
 	public static boolean runTests(Result result)
 	{			
 		if (result.getFailureCount() == 0)
@@ -148,6 +186,11 @@ public class BattleGame extends Application
 		}     	
 	}
 
+	/**
+	 * Classe contenant les actions du bouton ok de la fenêtre modal où l'utilisateur entre ses donneés
+	 * @author Laurie
+	 *
+	 */
 	private class ButtonListener implements EventHandler<ActionEvent>
 	{
 		
@@ -225,7 +268,13 @@ public class BattleGame extends Application
 			
 			if(!BattleGame.this.verifiedSettingBoats())
 			{
+				
 				BattleGame.this.modal.getErrorText().setVisible(true);
+				if(BattleGame.this.name != null)
+				{
+					BattleGame.this.game.setMatrix(new Matrix()) ;
+				}
+				
 				verified = false;
 				
 			}
@@ -237,7 +286,7 @@ public class BattleGame extends Application
 				
 				 BattleGame.this.stagePosition.close();
 				 BattleGame.this.modal.getErrorText().setVisible(false);
-				
+				 
 				 BattleGame.this.setGrids(BattleGame.this.game);
 					
 			}
