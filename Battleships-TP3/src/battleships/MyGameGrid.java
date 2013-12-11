@@ -13,12 +13,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+
+/**
+ * Grille JavaFX de l'utilisateur contenant ses bateaux
+ * @author Laurie
+ *
+ */
 public class MyGameGrid
 
 {
 	private ImageView[][] imageViewTab;
 	private Group myRoot;
 	
+	/**
+	 * Constructeur, initialise le tableau d'images
+	 */
 	public MyGameGrid()
 	
 	
@@ -26,16 +35,20 @@ public class MyGameGrid
 		this.imageViewTab = new ImageView[11][11];	
 	}
 	
+	/**
+	 * retourne le tableau d'images
+	 * @return
+	 */
 	public ImageView[][] getImageTabViewMyGrid()
 	{
 		return this.imageViewTab;
 	}
 	
-	public void setBoats()
-	{
-		
-	}
-	
+
+	/**
+	 * Parcours le tableau pour vérifier s'il y a des bateaux dans la matrice. S'il en a, il a un changement d'image
+	 * @param matrix Tableau de MatrixTiles du joueur utilisateur
+	 */
 	public void ifBoats(MatrixTiles matrix[][])
 	{
 		
@@ -53,7 +66,10 @@ public class MyGameGrid
 		} 
 				
 	}
-	
+	/**
+     * Configure le visuel de  la grille de l'ordinateur en ajoutant des imageView dans le groupe.
+     * @return le group contenant les éléments graphiques de la grille
+     */
 	public Group setGrid(String nom)
 	{
 		this.myRoot = new Group();
