@@ -1,4 +1,3 @@
-
 package battleships;
 
 import java.util.List;
@@ -19,22 +18,43 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Classe JavaFX de la grille qui contient les coordonnées des bateaux de l'ordinateur.
+ * L'utilisateur doit cliquer dessus pour trouver les bateaux
+ * @author Laurie
+ *
+ */
 public class EnemyGridGame
 {
 	private ImageView[][] imageViewTab;
 	Game game;
         
+	
+	/**
+	 * Constructeur de EnemyGridGame
+	 * @param game
+	 */
     public EnemyGridGame(Game game)
     {
     	this.game = game;
         this.imageViewTab = new ImageView[11][11];        
     }
-        
+     
+    
+    /**
+     * Retourne le tableau d'image de la grille
+     * @return
+     */
     public ImageView[][] getImageTab()
     {
     	return this.imageViewTab;
     }
         
+    
+    /**
+     * Configure le visuel de  la grille de l'ordinateur en ajoutant des imageView dans le groupe.
+     * @return
+     */
      public Group setGrid()
      {
         Group rootEnemy = new Group();
@@ -102,6 +122,13 @@ public class EnemyGridGame
         return rootEnemy;      
      }
 	
+     
+     
+     /**
+ 	 * Classe contenant les actions lorsqu'un utilisateur clique sur la grille de l'ordinateur
+ 	 * @author Kevin
+ 	 *
+ 	 */
 	private class MouseListener implements EventHandler<MouseEvent>
 	{
 
