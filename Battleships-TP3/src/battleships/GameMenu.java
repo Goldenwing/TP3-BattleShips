@@ -22,12 +22,22 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Menu de l'application permettant de créer une nouvelle partie, voir ses meilleurs scores, de tricher et de quitter l'application.
+ * @author Laurie
+ *
+ */
 public class GameMenu extends Parent
 {
 	
 	private BattleGame gameBattle;
 	private Game game;
 	
+	
+	/**
+	 * Création d'un menu pour l'application
+	 * @param game
+	 */
 	public GameMenu(Game game)
 	{
 		this.game = game;
@@ -62,43 +72,12 @@ public class GameMenu extends Parent
 		super.getChildren().add(menuBar);
 	}
 	
-//	public MenuBar setMenu()
-//	{
-//		
-//		MenuBar menuBar = new MenuBar();
-//		Menu menuGame = new Menu("Partie");
-//		Menu menuHelp = new Menu("?");
-//		
-//		MenuItem itemNewGame  = new MenuItem("Nouvelle Partie");
-//		itemNewGame.setAccelerator(KeyCombination.keyCombination("F2")); // raccourci
-//		itemNewGame.setOnAction(new menuListenerNewGame());
-//		
-//		MenuItem itemBestScores  = new MenuItem("Meilleurs Scores");
-//		itemBestScores.setOnAction(new menuListenerEndGame());
-//		
-//		MenuItem itemSeeBoats  = new MenuItem("Tricher");
-//		itemSeeBoats.setOnAction(new menuListenerSeeBoats());
-//		
-//		MenuItem itemEndGame  = new MenuItem("Quitter");
-//		itemEndGame.setOnAction(new menuListenerSeeScores());
-//		
-//		MenuItem itemHelp  = new MenuItem("Aide");
-//		itemHelp.setOnAction(new menuListenerHelp());
-//		
-//		MenuItem itemSeeMore  = new MenuItem("À propos");
-//		itemSeeMore.setOnAction(new menuListenerSeeMore());
-//		
-//		menuGame.getItems().addAll(itemNewGame,itemBestScores, itemSeeBoats, itemEndGame);
-//		menuHelp.getItems().addAll(itemHelp, itemSeeMore);
-//		
-//		menuBar.getMenus().addAll(menuGame, menuHelp);
-//		
-//		return menuBar;
-//		
-//	}
-	
 
-	
+	/**
+	 * Action lors du clique de l'utilisateur sur nouvelle partie
+	 * @author Laurie
+	 *
+	 */
 	private class menuListenerNewGame implements EventHandler<ActionEvent>
 	{
 
@@ -109,7 +88,11 @@ public class GameMenu extends Parent
 		}
 		
 	}
-	
+	/**
+	 * Action lors du clique de l'utilisateur sur quitter
+	 * @author Laurie
+	 *
+	 */
 	private class menuListenerEndGame implements EventHandler<ActionEvent>
 	{
 
@@ -120,6 +103,12 @@ public class GameMenu extends Parent
 		}
 		
 	}
+	
+	/**
+	 * Action lors du clique de l'utilisateur sur Tricher
+	 * @author Laurie
+	 *
+	 */
 	
 	private class menuListenerSeeBoats implements EventHandler<ActionEvent>
 	{
@@ -132,6 +121,11 @@ public class GameMenu extends Parent
 		
 	}
 	
+	/**
+	 * Action lors du clique de l'utilisateur sur meilleur score
+	 * @author Laurie
+	 *
+	 */
 	private class menuListenerSeeScores implements EventHandler<ActionEvent>
 	{
 		Stage stage;
@@ -164,6 +158,8 @@ public class GameMenu extends Parent
 			
 		}
 		
+		
+		
 		private class ButtonOKListener implements EventHandler<MouseEvent>
 		{
 			@Override
@@ -175,6 +171,11 @@ public class GameMenu extends Parent
 		
 	}
 	
+	/**
+	 * Action lors du clique de l'utilisateur sur Aide
+	 * @author Laurie
+	 *
+	 */
 	
 	private class menuListenerHelp implements EventHandler<ActionEvent>
 	{
@@ -208,6 +209,11 @@ public class GameMenu extends Parent
 		
 	}
 	
+	/**
+	 * Action lors du clique de l'utilisateur sur a propos
+	 * @author Laurie
+	 *
+	 */
 	private class menuListenerSeeMore implements EventHandler<ActionEvent>
 	{
 
