@@ -17,18 +17,22 @@ public class ModalWindow
 
 	private List<TextField> listField;
 	private Text errorText;
-
-	
+	private List<RadioButton> listRadioButton;
 
 	public Text getErrorText() 
 	{
 		return this.errorText;
 	}
 
+	public List<RadioButton> getListRadioButton()
+	{
+		return this.listRadioButton;
+	}
+
 	public ModalWindow()
 	{
 		this.listField = new ArrayList<TextField>();
-	
+		this.listRadioButton = new ArrayList<RadioButton>();	
 	}
 	
 	
@@ -42,23 +46,9 @@ public class ModalWindow
 		TextField nameField = new TextField(); 
 		this.listField.add(nameField);
 		
-		Text cruiserText = new Text("Veuillez entrer les coordonnées de votre croiseur (4)");
-		TextField xcruiserField = new TextField(); 
-		TextField ycruiserField = new TextField(); 
-		RadioButton rbVerticalCruiser = new RadioButton("Vertical");
-		RadioButton rbHorizontalCruiser = new RadioButton("Horizontal");
-		final ToggleGroup groupCruiser = new ToggleGroup();
-		rbVerticalCruiser.setToggleGroup(groupCruiser);
-		rbHorizontalCruiser.setToggleGroup(groupCruiser);
-		
-		this.listField.add(xcruiserField);
-		this.listField.add(ycruiserField);
-		
 		
 
-		
-		
-		Text aircraftText = new Text("Veuillez entrer les coordonnées de votre porte-avions (5)");
+		Text aircraftText = new Text("Veuillez entrer les coordonnÃ©es de votre porte-avions (5)");
 		TextField xAircraftField = new TextField(); 
 		TextField yAircraftField = new TextField(); 
 		RadioButton rbVerticalAircraft = new RadioButton("Vertical");
@@ -68,9 +58,26 @@ public class ModalWindow
 		rbHorizontalAircraft.setToggleGroup(groupAircraft);
 		this.listField.add(xAircraftField);
 		this.listField.add(yAircraftField);
+		this.listRadioButton.add(rbHorizontalAircraft);
+		this.listRadioButton.add(rbVerticalAircraft);
+		
+		Text cruiserText = new Text("Veuillez entrer les coordonnÃ©es de votre croiseur (4)");
+		TextField xcruiserField = new TextField(); 
+		TextField ycruiserField = new TextField(); 
+		RadioButton rbVerticalCruiser = new RadioButton("Vertical");
+		RadioButton rbHorizontalCruiser = new RadioButton("Horizontal");
+		final ToggleGroup groupCruiser = new ToggleGroup();
+		rbVerticalCruiser.setToggleGroup(groupCruiser);
+		rbHorizontalCruiser.setToggleGroup(groupCruiser);
+		this.listRadioButton.add(rbHorizontalCruiser);
+		this.listRadioButton.add(rbVerticalCruiser);
+		
+		this.listField.add(xcruiserField);
+		this.listField.add(ycruiserField);
 		
 		
-		Text destroyerText = new Text("Veuillez entrer les coordonnées de votre contre-torpilleur (3)");
+		
+		Text destroyerText = new Text("Veuillez entrer les coordonnÃ©es de votre contre-torpilleur (3)");
 		TextField xDestroyerField = new TextField(); 
 		TextField yDestroyerField = new TextField(); 
 		RadioButton rbVerticalDestroyer = new RadioButton("Vertical");
@@ -78,11 +85,12 @@ public class ModalWindow
 		final ToggleGroup groupDestroyer = new ToggleGroup();
 		rbVerticalDestroyer.setToggleGroup(groupDestroyer);
 		rbHorizontalDestroyer.setToggleGroup(groupDestroyer);
-		
+		this.listRadioButton.add(rbHorizontalDestroyer);
+		this.listRadioButton.add(rbVerticalDestroyer);
 		this.listField.add(xDestroyerField);
 		this.listField.add(yDestroyerField);
 		
-		Text submarineText = new Text("Veuillez entrer les coordonnées de votre sous-marin (3)");
+		Text submarineText = new Text("Veuillez entrer les coordonnÃ©es de votre sous-marin (3)");
 		TextField xSubmarineField = new TextField(); 
 		TextField ySubmarineField = new TextField(); 
 		RadioButton rbVerticalSubmarine = new RadioButton("Vertical");
@@ -90,11 +98,12 @@ public class ModalWindow
 		final ToggleGroup groupSubmarine = new ToggleGroup();
 		rbVerticalSubmarine.setToggleGroup(groupSubmarine);
 		rbHorizontalSubmarine.setToggleGroup(groupSubmarine);
-		
+		this.listRadioButton.add(rbHorizontalSubmarine);
+		this.listRadioButton.add(rbVerticalSubmarine);
 		this.listField.add(xSubmarineField);
 		this.listField.add(ySubmarineField);
 		
-		Text patrolText = new Text("Veuillez entrer les coordonnées de votre patrouilleur (2)");
+		Text patrolText = new Text("Veuillez entrer les coordonnÃ©es de votre patrouilleur (2)");
 		TextField xPatrolField = new TextField(); 
 		TextField yPatrolField = new TextField(); 
 		RadioButton rbVerticalPatrol = new RadioButton("Vertical");
@@ -102,6 +111,8 @@ public class ModalWindow
 		final ToggleGroup groupPatrol = new ToggleGroup();
 		rbVerticalPatrol.setToggleGroup(groupPatrol);
 		rbHorizontalPatrol.setToggleGroup(groupPatrol);
+		this.listRadioButton.add(rbHorizontalPatrol);
+		this.listRadioButton.add(rbVerticalPatrol);
 		this.listField.add(xPatrolField);
 		this.listField.add(yPatrolField);
 		
@@ -109,11 +120,16 @@ public class ModalWindow
 		Text yBoats = new Text("Y");
 		
 		
-//		Button okBtn = new Button("Ok");
-//		ActionEvent e;
-//		okBtn.setOnAction(new ButtonListener());
+
 		this.errorText = new Text("Valeur(s) incorrects");
 		this.errorText.setVisible(false);
+		
+		
+		for(int i = 0; i < 9.; i++)
+		{
+			this.listRadioButton.get(i).setSelected(true);
+			i++;
+		}
 		
 		gridPosition.setHgap(10);
 	    gridPosition.setVgap(10);
@@ -127,19 +143,19 @@ public class ModalWindow
 		gridPosition.add(xBoats, 1, 1);
 		gridPosition.add(yBoats, 2, 1);
 		
-		gridPosition.add(cruiserText, 0, 2);
-		gridPosition.add(xcruiserField, 1, 2);
-		gridPosition.add(ycruiserField, 2, 2);
-		gridPosition.add(rbHorizontalCruiser, 3, 2);
-		gridPosition.add(rbVerticalCruiser, 4, 2);
+		gridPosition.add(cruiserText, 0, 3);
+		gridPosition.add(xcruiserField, 1, 3);
+		gridPosition.add(ycruiserField, 2, 3);
+		gridPosition.add(rbHorizontalCruiser, 3, 3);
+		gridPosition.add(rbVerticalCruiser, 4, 3);
 
 		
 		
-		gridPosition.add(aircraftText, 0, 3);
-		gridPosition.add(xAircraftField , 1, 3);
-		gridPosition.add(yAircraftField, 2, 3);
-		gridPosition.add(rbHorizontalAircraft, 3, 3);
-		gridPosition.add(rbVerticalAircraft, 4, 3);
+		gridPosition.add(aircraftText, 0, 2);
+		gridPosition.add(xAircraftField , 1, 2);
+		gridPosition.add(yAircraftField, 2, 2);
+		gridPosition.add(rbHorizontalAircraft, 3, 2);
+		gridPosition.add(rbVerticalAircraft, 4, 2);
 		
 		gridPosition.add(destroyerText, 0, 4);
 		gridPosition.add(xDestroyerField, 1, 4);
@@ -160,7 +176,6 @@ public class ModalWindow
 		gridPosition.add(rbHorizontalPatrol, 3, 6);
 		gridPosition.add(rbVerticalPatrol, 4, 6);
 		
-//		gridPosition.add(okBtn, 1, 7);
 		return gridPosition;
 		
 	}
@@ -170,31 +185,5 @@ public class ModalWindow
 		return this.listField;
 	}
 	
-//	private class ButtonListener implements EventHandler<ActionEvent>
-//	{
-//		
-//		int [][] tableXY  = new int[2][5];
-//		
-//		@Override
-//		public void handle(ActionEvent arg0)
-//		{
-//			
-//			int compteur = 0;
-//			
-//			for(int j = 0; j < 5; j++)
-//			{
-//				for(int i = 0; i < 2; i++)
-//				{
-//					this.tableXY[i][j] = Integer.parseInt(ModalWindow.this.listField.get(compteur).getText());
-//					compteur++;
-//					
-//				}
-//			}
-//			ModalWindow.this.okClicked = true;
-//
-//			
-//		}
-//	
-//	}
-}
 
+}
