@@ -32,14 +32,17 @@ public class GameMenu extends Parent
 	
 	private BattleGame gameBattle;
 	private Game game;
+	private boolean seeBoats;
 	
 	
 	/**
 	 * Création d'un menu pour l'application
 	 * @param game
 	 */
-	public GameMenu(Game game)
+	public GameMenu(Game game, BattleGame battleGame)
 	{
+		this.seeBoats = false;
+		this.gameBattle = battleGame;
 		this.game = game;
 		MenuBar menuBar = new MenuBar();
 		Menu menuGame = new Menu("Partie");
@@ -117,6 +120,18 @@ public class GameMenu extends Parent
 		public void handle(ActionEvent arg0)
 		{
 			
+			if(!GameMenu.this.seeBoats)
+			{
+				GameMenu.this.gameBattle.seeBoatsEnemyGrid();
+				GameMenu.this.seeBoats = true;
+			}
+			else
+			{
+				GameMenu.this.gameBattle.resetEnemyGrid();
+				GameMenu.this.seeBoats = false;
+			}
+		
+		
 		}
 		
 	}
