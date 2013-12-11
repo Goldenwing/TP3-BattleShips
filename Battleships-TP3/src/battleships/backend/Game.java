@@ -145,10 +145,10 @@ public class Game
     				if ((x >= 1) && ((x + tableSizeBoats[j]) <= 11) && (y >= 1) && (y <= 10) && (verified == true))
     				{
     						
-    					 verified = true;
+    					
     					 Boats boatSended = boat.getBoatByNumber(j + 1);
     					 
-    					 this.gamer.setBoats(this.playerMatrix, x,  y, true, boatSended);
+    					 verified = this.gamer.setBoats(this.playerMatrix, x,  y, true, boatSended);
     				}
     				else
     				{
@@ -159,9 +159,9 @@ public class Game
     			{
     				if ((y >= 1) && ((y + tableSizeBoats[j]) <= 11) && (x >= 1) && (x <= 10) && (verified == true))
     				{
-    					 verified = true;
-    					 Boats boatSended = boat.getBoatByNumber(j);
-    					 this.gamer.setBoats(this.playerMatrix,x,  y, false, boatSended);
+    					
+    					 Boats boatSended = boat.getBoatByNumber(j + 1);
+    					 verified = this.gamer.setBoats(this.playerMatrix,x,  y, false, boatSended);
     				}
     				else
     				{
@@ -174,6 +174,11 @@ public class Game
     		
     		return verified;
     	}
+
+		public void setMatrix(Matrix matrix) 
+		{
+			this.playerMatrix = matrix;
+		}
         
 //        public static void main(String[] args)
 //        {
