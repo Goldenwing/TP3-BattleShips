@@ -26,17 +26,17 @@ import javafx.stage.Stage;
  */
 public class EnemyGridGame
 {
-	private ImageView[][] imageViewTab;
-	Game game;
+        private ImageView[][] imageViewTab;
+        Game game;
         
-	
-	/**
-	 * Constructeur de EnemyGridGame
-	 * @param game
-	 */
+        
+        /**
+         * Constructeur de EnemyGridGame
+         * @param game
+         */
     public EnemyGridGame(Game game)
     {
-    	this.game = game;
+            this.game = game;
         this.imageViewTab = new ImageView[11][11];        
     }
      
@@ -47,7 +47,7 @@ public class EnemyGridGame
      */
     public ImageView[][] getImageTab()
     {
-    	return this.imageViewTab;
+            return this.imageViewTab;
     }
         
     
@@ -74,46 +74,46 @@ public class EnemyGridGame
                                 
         for(int i = 0; i < nbSquare; i++)
         {
-        	if( i > 0)
+                if( i > 0)
             {
-	              xSquare += 70;
-	              ySquare = 70;
+                      xSquare += 70;
+                      ySquare = 70;
             }
-        	
-        	for(int j = 0; j < nbSquare; j++)
-	        {
-	        	ImageView waterTiles = new ImageView(new Image("file:Images/water.png"));
-	          
-	        	if(j > 0 && i > 0)
-	        	{
-	               ySquare += 70;
-	               waterTiles = new ImageView(new Image("file:Images/water.png"));
-	            }
-	        	
-	            else if(j == 0 && i > 0)
-	            {
-	               waterTiles = new ImageView(imageListNumber.get(i - 1));
-	            }
-	        	
-	            else if(j > 0 && i == 0)
-	            {
-	               ySquare += 70;
-	               waterTiles = new ImageView(imageListLetter.get(j - 1));
-	            }
-	
-	            this.imageViewTab[i][j] = waterTiles;
-	            waterTiles.setX(xSquare);
-	            waterTiles.setY(ySquare);
-	            rootEnemy.getChildren().add(waterTiles);
-	         }
+                
+                for(int j = 0; j < nbSquare; j++)
+                {
+                        ImageView waterTiles = new ImageView(new Image("file:Images/water.png"));
+                  
+                        if(j > 0 && i > 0)
+                        {
+                       ySquare += 70;
+                       waterTiles = new ImageView(new Image("file:Images/water.png"));
+                    }
+                        
+                    else if(j == 0 && i > 0)
+                    {
+                       waterTiles = new ImageView(imageListNumber.get(i - 1));
+                    }
+                        
+                    else if(j > 0 && i == 0)
+                    {
+                       ySquare += 70;
+                       waterTiles = new ImageView(imageListLetter.get(j - 1));
+                    }
+        
+                    this.imageViewTab[i][j] = waterTiles;
+                    waterTiles.setX(xSquare);
+                    waterTiles.setY(ySquare);
+                    rootEnemy.getChildren().add(waterTiles);
+                 }
         }
         
         for(int i = 1; i < nbSquare; i++)
         {
-        	for(int j = 1; j < nbSquare; j++)
-        	{
-        		 this.imageViewTab[i][j].setOnMouseClicked(new MouseListener());
-        	}
+                for(int j = 1; j < nbSquare; j++)
+                {
+                         this.imageViewTab[i][j].setOnMouseClicked(new MouseListener());
+                }
         }
        
         
@@ -121,117 +121,118 @@ public class EnemyGridGame
         rootEnemy.getChildren().add(name);
         return rootEnemy;      
      }
-	
+        
      
      
      /**
- 	 * Classe contenant les actions lorsqu'un utilisateur clique sur la grille de l'ordinateur
- 	 * @author Kevin
- 	 *
- 	 */
-	private class MouseListener implements EventHandler<MouseEvent>
-	{
+          * Classe contenant les actions lorsqu'un utilisateur clique sur la grille de l'ordinateur
+          * @author Kevin
+          *
+          */
+        private class MouseListener implements EventHandler<MouseEvent>
+        {
 
-		@Override
-		public void handle(MouseEvent arg0) 
-		{
-//			if clicked && boat, if clicked != boat, not clicked, already clicked
-			Matrix gameMatrix = EnemyGridGame.this.game.getComputerMatrix();
+                @Override
+                public void handle(MouseEvent arg0) 
+                {
+//                        if clicked && boat, if clicked != boat, not clicked, already clicked
+                        Matrix gameMatrix = EnemyGridGame.this.game.getComputerMatrix();
+                        
+                        ImageView imageView = (ImageView) arg0.getSource();
+                        
+                        int quickX = EnemyGridGame.this.getSquareX(imageView);
+                        int quickY = EnemyGridGame.this.getSquareY(imageView);
+                        
+                        if(gameMatrix.getSquareContentCheck(quickX, quickY, true) == true)
+                        {
+                                
+                        }
+                        else
+                        {
+                                gameMatrix.setSquareCheck(quickX, quickY, true, true);
+                                Image imageRedX = new Image("file:Images/water-red.png");
+                                Image imageWhiteX = new Image("file:Images/water-white.png");
+                                
+                                switch(gameMatrix.getSquareContentNumber(quickX, quickY, true))
+                                {
+                                        case 0:
+                                        {
+                                                imageView.setImage(imageWhiteX);
+                                                
+                                                break;
+                                        }
+                                        case 2: case 3: case 4: case 5:
+                                        {
+                                                imageView.setImage(imageRedX);
+
+                                                if(DidWeWin(gameMatrix))
+                                                {
+                                                	VictoryPanel();
+                                                }
+                                        }
+                                }
+                                
+                                
+                        }
+                }
+        }
+        
+        private int getSquareX(ImageView imageView)
+        {
+        	int x = 0;
+            
+        	for(int i = 0; i< 11;i++)
+            {
+        		for(int j = 0; j< 11;j++)
+                {
+        			if(this.imageViewTab[i][j] == imageView)
+                    {
+        				x = i;
+                    }
+                }
+            }
+            return x;
+        }
+        
+        private int getSquareY(ImageView imageView)
+        {
+        	int y = 0;
+                
+                for(int i = 0; i< 11;i++)
+                {
+                	for(int j = 0; j< 11;j++)
+                    {
+                		if(this.imageViewTab[i][j] == imageView)
+                        {
+                           y = j;
+                        }
+                    }
+                }
+            return y;
+        }
+        
+        private boolean DidWeWin(Matrix matrix)
+        {
+			int redCounter = 0;
+			boolean victory = false;
 			
-			ImageView imageView = (ImageView) arg0.getSource();
-			
-			int quickX = EnemyGridGame.this.getSquareX(imageView);
-			int quickY = EnemyGridGame.this.getSquareY(imageView);
-			
-			if(gameMatrix.getSquareContentCheck(quickX, quickY, true) == true)
+			for(int i = 1; i<11; i++)
 			{
-				
-			}
-			else
-			{
-				gameMatrix.setSquareCheck(quickX, quickY, true, true);
-				Image imageRedX = new Image("file:Images/water-red.png");
-				Image imageWhiteX = new Image("file:Images/water-white.png");
-				
-				switch(gameMatrix.getSquareContentNumber(quickX, quickY, true))
+				for(int j = 1; j<11; j++)
 				{
-					case 0:
+					if(matrix.getSquareContentCheck(i, j, true) == true && matrix.getSquareContentNumber(i, j, true) != 0)
 					{
-						imageView.setImage(imageWhiteX);
-						
-						break;
-					}
-					case 2: case 3: case 4: case 5:
-					{
-						imageView.setImage(imageRedX);
+						redCounter++;
 					}
 				}
-				
-				if(DidWeWin(imageRedX))
-				{
-					VictoryPanel();
-				}
 			}
-		}
-	}
-	
-	private int getSquareX(ImageView imageView)
-	{
-		int x = 0;
-		
-		for(int i = 0; i< 11;i++)
-		{
-			for(int j = 0; j< 11;j++)
+			
+			if(redCounter == 17)
 			{
-				if(this.imageViewTab[i][j] == imageView)
-				{
-					x = i;
-				}
+				victory = true;
 			}
-		}
-		return x;
-	}
-	
-	private int getSquareY(ImageView imageView)
-	{
-		int y = 0;
-		
-		for(int i = 0; i< 11;i++)
-		{
-			for(int j = 0; j< 11;j++)
-			{
-				if(this.imageViewTab[i][j] == imageView)
-				{
-					y = j;
-				}
-			}
-		}
-		return y;
-	}
-	
-	private boolean DidWeWin(Image redImage)
-	{
-		int redCounter = 0;
-		boolean victory = false;
-		ImageView red = new ImageView(redImage);
-		
-		for(int i = 0; i<11; i++)
-		{
-			for(int j = 0; j<11; j++)
-			{
-				if(this.imageViewTab[i][j] == red)
-				{
-					redCounter++;
-				}
-			}
-		}
-		
-		if(redCounter == 17)
-		{
-			victory = true;
-		}
-		
-		return victory;
+			
+			return victory;
 	}
 	
 	private void VictoryPanel()
