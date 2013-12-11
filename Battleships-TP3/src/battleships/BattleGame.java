@@ -79,7 +79,7 @@ public class BattleGame extends Application
 		this.setPieces();
 		MyGameGrid myGrid = new MyGameGrid();
 		
-		EnemyGridGame enemyGrid = new EnemyGridGame();
+		EnemyGridGame enemyGrid = new EnemyGridGame(game2);
 		this.root.getChildren().add(enemyGrid.setGrid());
 		this.root.getChildren().add(myGrid.setGrid(this.name));
 	}
