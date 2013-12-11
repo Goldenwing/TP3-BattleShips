@@ -78,10 +78,11 @@ public class BattleGame extends Application
 	{	
 		this.setPieces();
 		MyGameGrid myGrid = new MyGameGrid();
-		
-		EnemyGridGame enemyGrid = new EnemyGridGame(game2);
+		Group myGroup = myGrid.setGrid(this.name);
+		myGrid.ifBoats(this.game.getMatrix().getGameMatrix());
+		EnemyGridGame enemyGrid = new EnemyGridGame();
 		this.root.getChildren().add(enemyGrid.setGrid());
-		this.root.getChildren().add(myGrid.setGrid(this.name));
+		this.root.getChildren().add(myGroup);
 	}
 	
 	public void setPieces()
