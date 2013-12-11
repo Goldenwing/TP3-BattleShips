@@ -1,11 +1,14 @@
 package battleships.backend;
 
+import java.util.List;
 import java.util.Random;
 
-public class Game 
+import javafx.scene.control.RadioButton;
+
+public class Game
 {
 
-	public enum Boats
+        public enum Boats
     {
             AIRCRAFT(5, "Porte-avions"),
             BATTLESHIP(4, "Croiseur"),
@@ -27,79 +30,101 @@ public class Game
                     return this.size;
             }
             
-            public String getBoatName() 
+            public String getBoatName()
             {
                     return this.nameBoat;
             }
+            
+           public Boats getBoatByNumber(int number)
+           { 
+        	   
+        	   Boats boat = null;
+        	   switch (number) 
+        	   {
+               case 1:  boat = Boats.AIRCRAFT;
+                        break;
+               case 2:  boat =  Boats.BATTLESHIP;
+                        break;
+               case 3:  boat =  Boats.DESTROYER;
+                        break;
+               case 4:  boat =  Boats.SUBMARINE;
+                        break;
+               case 5:  boat =  Boats.PATROL;
+                        break;
+
+        	   }
+        	   
+        	   return boat;
+           }
     }
 
-	private final int GAME_SIZE = 10;
-	private Matrix playerMatrix;
-	private Matrix computerMatrix;
-	private Random PCBoatPlacer = new Random();
-	private ComputerPlayer enemy;
-	private HumanPlayer gamer;
-	
-	public Game()
-	{
-		this.playerMatrix = null;
-		this.computerMatrix = null;
-		
-		this.playerMatrix = new Matrix();
-		this.computerMatrix = new Matrix(true);
-		
-		this.enemy = null;
-		this.gamer = null;
-		
-		this.enemy = new ComputerPlayer();
-		this.gamer = new HumanPlayer("Link");
+        private final int GAME_SIZE = 10;
+        private Matrix playerMatrix;
+        private Matrix computerMatrix;
+        private Random PCBoatPlacer = new Random();
+        private ComputerPlayer enemy;
+        private HumanPlayer gamer;
+        
+        public Game()
+        {
+                this.playerMatrix = null;
+                this.computerMatrix = null;
+                
+                this.playerMatrix = new Matrix();
+                this.computerMatrix = new Matrix(true);
+                
+                this.enemy = null;
+                this.gamer = null;
+                
+                this.enemy = new ComputerPlayer();
+                this.gamer = new HumanPlayer("Link");
 
-		
-		enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.AIRCRAFT);
-		enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.BATTLESHIP);
-		enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.DESTROYER);
-		enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.SUBMARINE);
-		enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.PATROL);
-	}
-	
-	public Matrix getMatrix()
-	{
-		return this.playerMatrix;
-	}
-	 
+                
+                enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.AIRCRAFT);
+                enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.BATTLESHIP);
+                enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.DESTROYER);
+                enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.SUBMARINE);
+                enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.PATROL);
+        }
+        
+        public Matrix getMatrix()
+        {
+                return this.playerMatrix;
+        }
+        
 
-	public Matrix getComputerMatrix()
-	{
-		return this.computerMatrix;
-	}
-	 
-	public ComputerPlayer getEnemy() 
-	{
-		return enemy;
-	}
+        public Matrix getComputerMatrix()
+        {
+                return this.computerMatrix;
+        }
+        
+        public ComputerPlayer getEnemy()
+        {
+                return enemy;
+        }
 
-	public void setEnemy(ComputerPlayer enemy) 
-	{
-		this.enemy = enemy;
-	}
+        public void setEnemy(ComputerPlayer enemy)
+        {
+                this.enemy = enemy;
+        }
 
-	public HumanPlayer getGamer() 
-	{
-		return gamer;
-	}
+        public HumanPlayer getGamer()
+        {
+                return gamer;
+        }
 
-	public void setGamer(HumanPlayer gamer) 
-	{
-		this.gamer = gamer;
-	}
+        public void setGamer(HumanPlayer gamer)
+        {
+                this.gamer = gamer;
+        }
 
-	
-	public void setPlayerShips(String boat, int size, boolean direction)
-	{
-		//this.gamer.setBoats();
-	}
-	
-	  public boolean checkBoatsUser(int[][] tableXY, List<RadioButton> listRbuttonChecked)
+        
+        public void setPlayerShips(String boat, int size, boolean direction)
+        {
+                //this.gamer.setBoats();
+        }
+        
+        public boolean checkBoatsUser(int[][] tableXY, List<RadioButton> listRbuttonChecked)
     	{
     		 int []tableSizeBoats =  {5,4,3,3,2};
     		
@@ -121,8 +146,9 @@ public class Game
     				{
     						
     					 verified = true;
-    					 Boats boatSended = boat.getBoatByNumber(j);
-    					 this.gamer.setBoats(x,  y, true, boatSended);
+    					 Boats boatSended = boat.getBoatByNumber(j + 1);
+    					 
+    					 this.gamer.setBoats(this.playerMatrix, x,  y, true, boatSended);
     				}
     				else
     				{
@@ -135,7 +161,7 @@ public class Game
     				{
     					 verified = true;
     					 Boats boatSended = boat.getBoatByNumber(j);
-    					 this.gamer.setBoats(x,  y, false, boatSended);
+    					 this.gamer.setBoats(this.playerMatrix,x,  y, false, boatSended);
     				}
     				else
     				{
@@ -149,19 +175,17 @@ public class Game
     		return verified;
     	}
         
-}
-	
-//	public static void main(String[] args)
-//	{
-//		
-//		Game game = new Game();
-//		Matrix computerMatrix = game.getComputerMatrix();
-//		for(int i = 0; i < 10; i++)
-//		   {
-//		      for(int j = 0; j < 10; j++)
-//		      {
-//		         System.out.printf("%5d ", computerMatrix.getSquareContentNumber(i, j, true));
-//		      }
-//		      System.out.println();
-//		   }
-//	}
+//        public static void main(String[] args)
+//        {
+//                
+//                Game game = new Game();
+//                Matrix computerMatrix = game.getComputerMatrix();
+//                for(int i = 0; i < 10; i++)
+//                 {
+//                 for(int j = 0; j < 10; j++)
+//                 {
+//                 System.out.printf("%5d ", computerMatrix.getSquareContentNumber(i, j, true));
+//                 }
+//                 System.out.println();
+//                 }
+        }
