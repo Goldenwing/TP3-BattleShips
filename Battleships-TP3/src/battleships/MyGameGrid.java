@@ -4,6 +4,7 @@ package battleships;
 
 import java.util.List;
 
+import battleships.backend.MatrixTiles;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -16,6 +17,7 @@ public class MyGameGrid
 
 {
 	private ImageView[][] imageViewTab;
+	private Group myRoot;
 	
 	public MyGameGrid()
 	
@@ -34,9 +36,27 @@ public class MyGameGrid
 		
 	}
 	
+	public void ifBoats(MatrixTiles matrix[][])
+	{
+		
+		int nbSquare = 11;
+	
+		for(int i = 1; i < nbSquare; i++)
+		{
+			for(int j = 1; j <  nbSquare; j++)
+			{
+				if(matrix[i][j].getNumber() != 0)
+				{
+					this.imageViewTab[i][j].setImage(new Image("file:Images/boatPiece.png"));
+				}
+			}
+		} 
+				
+	}
+	
 	public Group setGrid(String nom)
 	{
-		Group myRoot = new Group();
+		this.myRoot = new Group();
 		
 		Text name = new Text(nom);
 		name.setX(1240);
@@ -86,7 +106,7 @@ public class MyGameGrid
 
 				this.imageViewTab[i][j] = waterTiles;
 
-				myRoot.getChildren().add(waterTiles);
+				this.myRoot.getChildren().add(waterTiles);
 			
 
 			}
@@ -94,9 +114,9 @@ public class MyGameGrid
 		
 		
 		
-		myRoot.getChildren().add(name);
+		this.myRoot.getChildren().add(name);
 		
-		return myRoot;
+		return this.myRoot;
 		
 	}
 	
