@@ -4,7 +4,7 @@ import java.util.List;
 
 import battleships.backend.Game;
 import battleships.backend.Matrix;
-
+import battleships.backend.MatrixTiles;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -254,4 +254,52 @@ public class EnemyGridGame
 		scoreDialog.show(); ;
 			scoreDialog.show();
 	}
-}
+
+
+
+		public void ifBoats(MatrixTiles matrix[][])
+		{
+			
+			int nbSquare = 11;
+		
+			for(int i = 1; i < nbSquare; i++)
+			{
+				for(int j = 1; j <  nbSquare; j++)
+				{
+					if(matrix[i][j].getNumber() != 0)
+					{
+						this.imageViewTab[i][j].setImage(new Image("file:Images/boatPiece.png"));
+					}
+				}
+			} 
+					
+		}
+
+
+		public void resetImage(MatrixTiles[][] matrix)
+		
+		{
+			int nbSquare = 11;
+			
+			for(int i = 1; i < nbSquare; i++)
+			{
+				for(int j = 1; j <  nbSquare; j++)
+				{
+					if(matrix[i][j].isClicked())
+					{
+						
+						this.imageViewTab[i][j].setImage(new Image("file:Images/water-red.png"));
+					
+					}
+						
+					
+					else
+					{
+						this.imageViewTab[i][j].setImage(new Image("file:Images/water.png"));
+					}
+				}
+			}
+		}
+		
+	}
+
