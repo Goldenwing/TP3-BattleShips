@@ -42,7 +42,7 @@ public class BattleGame extends Application
 	private Game game;
 	int [][] tableXY;
 	private List<RadioButton> listRbuttonChecked;
-	
+	private EnemyGridGame enemyGrid;
 	
 	/**
 	 * Configuration du stage lors du lancement de l'application
@@ -54,7 +54,7 @@ public class BattleGame extends Application
 		
 		this.game = new Game();
 //		
-		GameMenu gameMenu = new GameMenu(game);
+		GameMenu gameMenu = new GameMenu(game, this);
 		this.root.getChildren().add(gameMenu);
 		stage.setTitle("Jeu de simulation de combat en territoire navale.  (Annie Belzile, Laurie Lavoie, Kevin Tanguay)"); 
         stage.setScene(scene); 
@@ -99,12 +99,17 @@ public class BattleGame extends Application
 		MyGameGrid myGrid = new MyGameGrid();
 		Group myGroup = myGrid.setGrid(this.name);
 		myGrid.ifBoats(this.game.getMatrix().getGameMatrix());
-		EnemyGridGame enemyGrid = new EnemyGridGame(this.game);
-		this.root.getChildren().add(enemyGrid.setGrid());
+		this.enemyGrid = new EnemyGridGame(this.game);
+		this.root.getChildren().add(this.enemyGrid.setGrid());
 		this.root.getChildren().add(myGroup);
 	}
 	
 	
+	public void seeBoatsEnemyGrid()
+	{
+		this.enemyGrid.ifBoats(this.game.getComputerMatrix().getComputerGameMatrix());
+	}
+
 	/**
 	 * Place deux images à droite dans l'interface
 	 */
@@ -122,10 +127,7 @@ public class BattleGame extends Application
 		
 	}
 	
-	public void setMenu()
-	{
-		
-	}
+
 	
 	/**
 	 * Appelle une fonction de Game qui vérifie si les données entrées par l'utilisateur sont correctes.
@@ -294,5 +296,11 @@ public class BattleGame extends Application
 			
 		}
 	
+	}
+
+	public void resetEnemyGrid()
+	{ 
+		this.enemyGrid.resetImage(this.game.getComputerMatrix().getComputerGameMatrix());
+		
 	}
 }
