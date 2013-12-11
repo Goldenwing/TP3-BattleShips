@@ -10,6 +10,12 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
+
+/**
+ * Classe JavaFX qui affiche une fenêtre lors d'une nouvelle partie qui demande le nom et les coordonnées des bateaux
+ * @author Laurie
+ *
+ */
 public class ModalWindow 
 
 {
@@ -19,15 +25,28 @@ public class ModalWindow
 	private Text errorText;
 	private List<RadioButton> listRadioButton;
 
+	/**
+	 * Retourne le text du message d'erreur
+	 * @return
+	 */
 	public Text getErrorText() 
 	{
 		return this.errorText;
 	}
+	
+	/**
+	 * Retourne la liste de boutton radio
+	 * @return
+	 */
 
 	public List<RadioButton> getListRadioButton()
 	{
 		return this.listRadioButton;
 	}
+	
+	/**
+	 * Constructeur
+	 */
 
 	public ModalWindow()
 	{
@@ -36,7 +55,11 @@ public class ModalWindow
 	}
 	
 	
-	
+	/**
+	 * Retourne un group contenant des Text, des TextField et des radio button
+	 * qui permettera à l'utilisateur d'entré ses données
+	 * @return
+	 */
 	
 	public GridPane setItemModal()
 	{
@@ -179,6 +202,11 @@ public class ModalWindow
 		return gridPosition;
 		
 	}
+	
+	/**
+	 * Retourne une liste de TextField
+	 * @return
+	 */
 
 	public List<TextField> getListField()
 	{
