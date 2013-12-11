@@ -5,6 +5,12 @@ import java.util.List;
 
 import javafx.scene.image.Image;
 
+
+/**
+ * Classe qui contient deux listes d'images
+ * @author Laurie
+ *
+ */
 public class ImageList 
 
 {
@@ -12,6 +18,11 @@ public class ImageList
 	{
 		
 	}
+	
+	/**
+	 * Retourne une liste d'images de chiffres 
+	 * @return
+	 */
 	public List<Image> imageListNumbers()
 	{
 		List<Image> imageListNumbers = new ArrayList<Image>();
@@ -27,6 +38,11 @@ public class ImageList
 		return imageListNumbers;
 		
 	}
+	
+	/**
+	 * Retourne une liste d'images de lettres
+	 * @return
+	 */
 	public List<Image> imageListLetters()
 	{
 		List<Image> imageListLetters = new ArrayList<Image>();
