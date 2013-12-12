@@ -23,7 +23,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * Menu de l'application permettant de créer une nouvelle partie, voir ses meilleurs scores, de tricher et de quitter l'application.
+ * Menu de l'application permettant de crÃ©er une nouvelle partie, voir ses meilleurs scores, de tricher et de quitter l'application.
  * @author Laurie
  *
  */
@@ -36,7 +36,7 @@ public class GameMenu extends Parent
 	
 	
 	/**
-	 * Création d'un menu pour l'application
+	 * CrÃ©ation d'un menu pour l'application
 	 * @param game
 	 */
 	public GameMenu(Game game, BattleGame battleGame)
@@ -64,7 +64,7 @@ public class GameMenu extends Parent
 		MenuItem itemHelp  = new MenuItem("Aide");
 		itemHelp.setOnAction(new menuListenerHelp());
 		
-		MenuItem itemSeeMore  = new MenuItem("À propos");
+		MenuItem itemSeeMore  = new MenuItem("A propos");
 		itemSeeMore.setOnAction(new menuListenerSeeMore());
 		
 		menuGame.getItems().addAll(itemNewGame,itemBestScores, itemSeeBoats, itemEndGame);
@@ -83,13 +83,13 @@ public class GameMenu extends Parent
 	 */
 	private class menuListenerNewGame implements EventHandler<ActionEvent>
 	{
-
+		Stage stage;
 		@Override
 		public void handle(ActionEvent arg0)
 		{
 			Group confirmNewGame = new Group();
 			Stage confirmNewGameDialog = new Stage();
-			confirmNewGameDialog.initModality(Modality.WINDOW_MODAL);
+			confirmNewGameDialog.initModality(Modality.APPLICATION_MODAL);
 			Scene corfirmNewGameScene = new Scene(confirmNewGame, 350,100, Color.LIGHTGRAY);
 			
 			Button buttonCancel = new Button("Annuler");
@@ -171,7 +171,7 @@ public class GameMenu extends Parent
 		{
 			Group scoreRoot = new Group();
 			Stage scoreDialog = new Stage();
-			scoreDialog.initModality(Modality.WINDOW_MODAL);
+			scoreDialog.initModality(Modality.APPLICATION_MODAL);
 			Scene scoreScene = new Scene(scoreRoot, 200,100, Color.LIGHTGRAY);
 			
 			Button buttonErase = new Button("Effacer les scores");
@@ -222,7 +222,7 @@ public class GameMenu extends Parent
 		{
 			Group proposRoot = new Group();
 			Stage proposDialog = new Stage();
-			proposDialog.initModality(Modality.WINDOW_MODAL);
+			proposDialog.initModality(Modality.APPLICATION_MODAL);
 			Scene scoreScene = new Scene(proposRoot, 300,200, Color.LIGHTGRAY);
 			
 			Image image = new Image("file:Images/battleship.gif");
@@ -232,7 +232,7 @@ public class GameMenu extends Parent
 				imageView.setLayoutY(60);
 			proposRoot.getChildren().add(imageView);
 			
-			Label infoLabel = new Label("Cette application à été réalisée par \n Annie Belzile, Laurie Lavoie et Kevin Tanguay \n dans le cadre du cours de Programmation III!");
+			Label infoLabel = new Label("Cette application a  ete realisee par \n Annie Belzile, Laurie Lavoie et Kevin Tanguay \n dans le cadre du cours de Programmation III!");
 				infoLabel.setLayoutY(5);
 			proposRoot.getChildren().add(infoLabel);
 			
@@ -259,7 +259,7 @@ public class GameMenu extends Parent
 		{
 			Group scoreRoot = new Group();
 			Stage scoreDialog = new Stage();
-			scoreDialog.initModality(Modality.WINDOW_MODAL);
+			scoreDialog.initModality(Modality.APPLICATION_MODAL);
 			Scene scoreScene = new Scene(scoreRoot, 300,200, Color.LIGHTGRAY);
 			
 			Label infoLabel = new Label("");
