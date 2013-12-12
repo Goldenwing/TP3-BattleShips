@@ -22,8 +22,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+
+
 /**
- * Menu de l'application permettant de crÃ©er une nouvelle partie, voir ses meilleurs scores, de tricher et de quitter l'application.
+ * Menu de l'application permettant de crÃƒÂ©er une nouvelle partie, voir ses meilleurs scores, de tricher et de quitter l'application.
  * @author Laurie
  *
  */
@@ -236,8 +238,9 @@ public class GameMenu extends Parent
 				imageView.setLayoutX(50);
 				imageView.setLayoutY(60);
 			proposRoot.getChildren().add(imageView);
-			
+
 			Label infoLabel = new Label("Cette application a  ete realisee par \n Annie Belzile, Laurie Lavoie et Kevin Tanguay \n dans le cadre du cours de Programmation III!");
+
 				infoLabel.setLayoutY(5);
 			proposRoot.getChildren().add(infoLabel);
 			
@@ -292,9 +295,9 @@ public class GameMenu extends Parent
 		    stage.close();
 			
 		    //Reset
-		    
-
-		    
+		    gameBattle.resetBattleGame();
+		    GameMenu.this.game = new Game();
+		    gameBattle.askPositionBoats();
 		}
 		
 	}
