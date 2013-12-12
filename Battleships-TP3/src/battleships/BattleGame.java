@@ -44,6 +44,9 @@ public class BattleGame extends Application
 	int [][] tableXY;
 	private List<RadioButton> listRbuttonChecked;
 	private EnemyGridGame enemyGrid;
+	private Group myGroup;
+	private Group enemyGroup;
+
 	
 	/**
 	 * Configuration du stage lors du lancement de l'application
@@ -67,6 +70,7 @@ public class BattleGame extends Application
 	
 	}
 	
+
 	/**
 	 * Affiche une fenêtre modale qui demande le nom et les coordonnées des bateaux
 	 */
@@ -88,9 +92,9 @@ public class BattleGame extends Application
         this.stagePosition.show();
 	}
 
+
 	/**
 	 * Crée un objet MyGameGrid et un objet EnemyGridGame qui sont les grilles graphiques
-	 * des matrices des joueurs.
 	 * 
 	 * @param game2 partie du jeu courant
 	 */
@@ -98,11 +102,12 @@ public class BattleGame extends Application
 	{	
 		this.setPieces();
 		MyGameGrid myGrid = new MyGameGrid();
-		Group myGroup = myGrid.setGrid(this.name);
+		this.myGroup = myGrid.setGrid(this.name); 
 		myGrid.ifBoats(this.game.getMatrix().getGameMatrix());
 		this.enemyGrid = new EnemyGridGame(this.game);
-		this.root.getChildren().add(this.enemyGrid.setGrid());
-		this.root.getChildren().add(myGroup);
+		this.enemyGroup = this.enemyGrid.setGrid();
+		this.root.getChildren().add(this.enemyGroup);
+		this.root.getChildren().add(this.myGroup);
 	}
 	
 	
@@ -112,7 +117,7 @@ public class BattleGame extends Application
 	}
 
 	/**
-	 * Place deux images à droite dans l'interface
+	 * Place deux images Ã  droite dans l'interface
 	 */
 	public void setPieces()
 	{
@@ -130,6 +135,7 @@ public class BattleGame extends Application
 	
 
 	
+
 	/**
 	 * Appelle une fonction de Game qui vérifie si les données entrées par l'utilisateur sont correctes.
 	 * @return verified vrai, si les données de l'utilisateurs sont correctes ou sinon faux
@@ -303,5 +309,10 @@ public class BattleGame extends Application
 	{ 
 		this.enemyGrid.resetImage(this.game.getComputerMatrix().getComputerGameMatrix());
 		
+	}
+
+	public void resetBattleGame() {
+		this.root.getChildren().remove(this.myGroup);
+		this.root.getChildren().remove(this.enemyGroup);
 	}
 }
