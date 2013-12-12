@@ -80,7 +80,7 @@ public class BattleGame extends Application
 		Button okBtn = new Button("Ok");
 		okBtn.setOnAction(new ButtonListener());
 		gridPosition.add(okBtn, 1, 7);
-		this.stagePosition.initModality(Modality.WINDOW_MODAL);
+		this.stagePosition.initModality(Modality.APPLICATION_MODAL);
         Scene scenePosition = new Scene(gridPosition, Color.WHITE);
         this.stagePosition.setTitle("Nouvelle Partie");
         this.stagePosition.setScene(scenePosition);
