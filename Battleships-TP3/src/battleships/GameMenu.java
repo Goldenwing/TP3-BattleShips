@@ -87,7 +87,29 @@ public class GameMenu extends Parent
 		@Override
 		public void handle(ActionEvent arg0)
 		{
+			Group confirmNewGame = new Group();
+			Stage confirmNewGameDialog = new Stage();
+			confirmNewGameDialog.initModality(Modality.WINDOW_MODAL);
+			Scene corfirmNewGameScene = new Scene(confirmNewGame, 350,100, Color.LIGHTGRAY);
 			
+			Button buttonCancel = new Button("Annuler");
+				buttonCancel.setLayoutX(185);
+				buttonCancel.setLayoutY(75);
+			Button buttonOk = new Button("Ok");
+				buttonOk.setLayoutX(125);
+				buttonOk.setLayoutY(75);
+			//ButtonOKListener okListener = new ButtonOKListener();
+			//buttonAccept.setOnMouseClicked(okListener);
+				
+			confirmNewGame.getChildren().add(buttonCancel);
+			confirmNewGame.getChildren().add(buttonOk);
+			
+			
+			confirmNewGameDialog.setTitle("Confirmation nouvelle partie");
+			confirmNewGameDialog.setScene(corfirmNewGameScene);
+			this.stage = confirmNewGameDialog;
+			confirmNewGameDialog.setResizable(false);
+			confirmNewGameDialog.show();
 		}
 		
 	}
