@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -83,31 +83,36 @@ public class GameMenu extends Parent
 	 */
 	private class menuListenerNewGame implements EventHandler<ActionEvent>
 	{
-		Stage stage;
+		Stage confirmNewGameDialog;
 		@Override
 		public void handle(ActionEvent arg0)
 		{
 			Group confirmNewGame = new Group();
+			Label lblConfirmQuestion = new Label("Etes-vous sur de vouloir commencer une nouvelle partie?");
 			Stage confirmNewGameDialog = new Stage();
 			confirmNewGameDialog.initModality(Modality.APPLICATION_MODAL);
 			Scene corfirmNewGameScene = new Scene(confirmNewGame, 350,100, Color.LIGHTGRAY);
+			lblConfirmQuestion.setLayoutX(25);
+			lblConfirmQuestion.setLayoutY(25);
 			
-			Button buttonCancel = new Button("Annuler");
-				buttonCancel.setLayoutX(185);
-				buttonCancel.setLayoutY(75);
-			Button buttonOk = new Button("Ok");
-				buttonOk.setLayoutX(125);
-				buttonOk.setLayoutY(75);
-			//ButtonOKListener okListener = new ButtonOKListener();
-			//buttonAccept.setOnMouseClicked(okListener);
-				
-			confirmNewGame.getChildren().add(buttonCancel);
-			confirmNewGame.getChildren().add(buttonOk);
+			Button buttonNo = new Button("Non");
+				buttonNo.setLayoutX(185);
+				buttonNo.setLayoutY(75);
+			Button buttonYes = new Button("Oui");
+				buttonYes.setLayoutX(125);
+				buttonYes.setLayoutY(75);
+
+			buttonYes.setOnAction(new ButtonYesListener());
+			buttonNo.setOnAction(new ButtonNoListener());
+		
+			confirmNewGame.getChildren().add(lblConfirmQuestion);
+			confirmNewGame.getChildren().add(buttonNo);
+			confirmNewGame.getChildren().add(buttonYes);
 			
 			
 			confirmNewGameDialog.setTitle("Confirmation nouvelle partie");
 			confirmNewGameDialog.setScene(corfirmNewGameScene);
-			this.stage = confirmNewGameDialog;
+			//this.stage = confirmNewGameDialog;
 			confirmNewGameDialog.setResizable(false);
 			confirmNewGameDialog.show();
 		}
@@ -274,6 +279,34 @@ public class GameMenu extends Parent
 			scoreDialog.show(); ;
 				scoreDialog.show();
 			
+		}
+		
+	}
+	
+	private class ButtonYesListener implements EventHandler<ActionEvent> {
+
+		@Override
+		public void handle(ActionEvent arg0) {
+			Node source = (Node) arg0.getSource();
+		    Stage stage  = (Stage) source.getScene().getWindow();
+		    stage.close();
+			
+		    //Reset
+		    
+
+		    
+		}
+		
+	}
+	
+	private class ButtonNoListener implements EventHandler<ActionEvent> {
+
+		@Override
+		public void handle(ActionEvent arg0) {
+			Node source = (Node) arg0.getSource();
+		    Stage stage  = (Stage) source.getScene().getWindow();
+		    
+		    stage.close();
 		}
 		
 	}
