@@ -3,7 +3,13 @@ package battleships.backend;
 import java.util.List;
 import java.util.Random;
 
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class Game
 {
@@ -37,10 +43,10 @@ public class Game
             
            public Boats getBoatByNumber(int number)
            { 
-        	   
-        	   Boats boat = null;
-        	   switch (number) 
-        	   {
+                   
+                   Boats boat = null;
+                   switch (number) 
+                   {
                case 1:  boat = Boats.AIRCRAFT;
                         break;
                case 2:  boat =  Boats.BATTLESHIP;
@@ -52,9 +58,9 @@ public class Game
                case 5:  boat =  Boats.PATROL;
                         break;
 
-        	   }
-        	   
-        	   return boat;
+                   }
+                   
+                   return boat;
            }
     }
 
@@ -125,60 +131,60 @@ public class Game
         }
         
         public boolean checkBoatsUser(int[][] tableXY, List<RadioButton> listRbuttonChecked)
-    	{
-    		 int []tableSizeBoats =  {5,4,3,3,2};
-    		
-    		 int x;
-    		 int y;
-    		 String textRb;
-    		 boolean verified = true;
-    		 Boats boat = Boats.AIRCRAFT;
-    		for(int j = 0; j < 5; j++)
-    		{
-    			
-    			x = tableXY[0][j];
-    			y = tableXY[1][j];
-    			textRb = listRbuttonChecked.get(j).getText();
-    	
-    			if(textRb.equals("Horizontal"))
-    			{
-    				if ((x >= 1) && ((x + tableSizeBoats[j]) <= 11) && (y >= 1) && (y <= 10) && (verified == true))
-    				{
-    						
-    					
-    					 Boats boatSended = boat.getBoatByNumber(j + 1);
-    					 
-    					 verified = this.gamer.setBoats(this.playerMatrix, x,  y, true, boatSended);
-    				}
-    				else
-    				{
-    					verified = false;
-    				}
-    			}
-    			else if (textRb == "Vertical")
-    			{
-    				if ((y >= 1) && ((y + tableSizeBoats[j]) <= 11) && (x >= 1) && (x <= 10) && (verified == true))
-    				{
-    					
-    					 Boats boatSended = boat.getBoatByNumber(j + 1);
-    					 verified = this.gamer.setBoats(this.playerMatrix,x,  y, false, boatSended);
-    				}
-    				else
-    				{
-    					verified = false;
-    				}
-    			}
-    			
-    			
-    		}
-    		
-    		return verified;
-    	}
+            {
+                     int []tableSizeBoats =  {5,4,3,3,2};
+                    
+                     int x;
+                     int y;
+                     String textRb;
+                     boolean verified = true;
+                     Boats boat = Boats.AIRCRAFT;
+                    for(int j = 0; j < 5; j++)
+                    {
+                            
+                            x = tableXY[0][j];
+                            y = tableXY[1][j];
+                            textRb = listRbuttonChecked.get(j).getText();
+            
+                            if(textRb.equals("Horizontal"))
+                            {
+                                    if ((x >= 1) && ((x + tableSizeBoats[j]) <= 11) && (y >= 1) && (y <= 10) && (verified == true))
+                                    {
+                                                    
+                                            
+                                             Boats boatSended = boat.getBoatByNumber(j + 1);
+                                             
+                                             verified = this.gamer.setBoats(this.playerMatrix, x,  y, true, boatSended);
+                                    }
+                                    else
+                                    {
+                                            verified = false;
+                                    }
+                            }
+                            else if (textRb == "Vertical")
+                            {
+                                    if ((y >= 1) && ((y + tableSizeBoats[j]) <= 11) && (x >= 1) && (x <= 10) && (verified == true))
+                                    {
+                                            
+                                             Boats boatSended = boat.getBoatByNumber(j + 1);
+                                             verified = this.gamer.setBoats(this.playerMatrix,x,  y, false, boatSended);
+                                    }
+                                    else
+                                    {
+                                            verified = false;
+                                    }
+                            }
+                            
+                            
+                    }
+                    
+                    return verified;
+            }
 
-		public void setMatrix(Matrix matrix) 
-		{
-			this.playerMatrix = matrix;
-		}
+                public void setMatrix(Matrix matrix) 
+                {
+                        this.playerMatrix = matrix;
+                }
         
 //        public static void main(String[] args)
 //        {
@@ -193,4 +199,47 @@ public class Game
 //                 }
 //                 System.out.println();
 //                 }
+                public boolean DidWeWin(Matrix matrix)
+                {
+        			int redCounter = 0;
+        			boolean victory = false;
+        			
+        			for(int i = 1; i<11; i++)
+        			{
+        				for(int j = 1; j<11; j++)
+        				{
+        					if(matrix.getSquareContentCheck(i, j, true) == true && matrix.getSquareContentNumber(i, j, true) != 0)
+        					{
+        						redCounter++;
+        					}
+        				}
+        			}
+        			
+        			if(redCounter == 17)
+        			{
+        				victory = true;
+        			}
+        			
+        			return victory;
+        	}
+        	
+        	public void VictoryPanel()
+        	{
+        		Group scoreRoot = new Group();
+        		Stage scoreDialog = new Stage();
+        		scoreDialog.initModality(Modality.WINDOW_MODAL);
+        		Scene scoreScene = new Scene(scoreRoot, 300,200, Color.LIGHTGRAY);
+        		
+        		Label infoLabel = new Label("VOUS ETES LE CHAMPION!!!");
+        			infoLabel.setLayoutX(5);
+        			infoLabel.setLayoutY(10);
+        		
+        		scoreRoot.getChildren().add(infoLabel);
+        		
+        		scoreDialog.setTitle("Victoire!!");
+        		scoreDialog.setScene(scoreScene);
+        		scoreDialog.setResizable(false);
+        		scoreDialog.show(); ;
+        			scoreDialog.show();
+        	}
         }
