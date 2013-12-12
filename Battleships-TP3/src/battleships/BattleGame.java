@@ -36,6 +36,7 @@ public class BattleGame extends Application
 //	private List<TextField> listField;
 	private Group root;
 	private Stage stagePosition;
+	private Scene scene;
 	private ModalWindow modal;
 	private String name;
 	private ImageView[] tabImage;
@@ -50,7 +51,7 @@ public class BattleGame extends Application
 	public void start(Stage stage)
 	{
 		this.root = new Group();
-		Scene scene = new Scene(this.root, 1920, 1000, Color.LIGHTGRAY);
+		this.scene = new Scene(this.root, 1920, 1000, Color.LIGHTGRAY);
 		
 		this.game = new Game();
 //		
