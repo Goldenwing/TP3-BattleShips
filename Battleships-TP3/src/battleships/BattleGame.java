@@ -14,10 +14,10 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,9 +29,9 @@ import javafx.stage.Stage;
 
 /**
  * Classe JavaFx principal du jeu qui contient la méthode start, les objets graphiques de l'application et une partie.
- * Cette classe lance les tests au démarrage de l'application
+ * Cette classe lance les tests au démarrage de l'application.
  * 
- * @author Laurie
+ * @author Laurie Lavoie
  *
  */
 public class BattleGame extends Application
@@ -64,19 +64,17 @@ public class BattleGame extends Application
 //                
                 GameMenu gameMenu = new GameMenu(game, this);
                 this.root.getChildren().add(gameMenu);
-                stage.setTitle("Jeu de simulation de combat en territoire navale.  (Annie Belzile, Laurie Lavoie, Kevin Tanguay)"); 
-        stage.setScene(scene); 
+                stage.setTitle("Battleships  (Annie Belzile, Laurie Lavoie, Kevin Tanguay)"); 
+                stage.setScene(scene); 
        
-//        stage.setResizable(false);
-        stage.show(); 
+//        		stage.setResizable(false);
+                stage.show(); 
                 this.askPositionBoats();
-
-        
         }
         
 
         /**
-         * Affiche une fenêtre modale qui demande le nom et les coordonnées des bateaux
+         * Affiche une fenêtre modale qui demande le nom et les coordonnées des bateaux du joueur.
          */
         public void askPositionBoats()
         {
@@ -89,16 +87,17 @@ public class BattleGame extends Application
                 Button okBtn = new Button("Ok");
                 okBtn.setOnAction(new ButtonListener());
                 gridPosition.add(okBtn, 1, 7);
+                
                 this.stagePosition.initModality(Modality.APPLICATION_MODAL);
-        Scene scenePosition = new Scene(gridPosition, Color.WHITE);
-        this.stagePosition.setTitle("Nouvelle Partie");
-        this.stagePosition.setScene(scenePosition);
-        this.stagePosition.show();
+                Scene scenePosition = new Scene(gridPosition, Color.WHITE);
+                this.stagePosition.setTitle("Nouvelle Partie");
+                this.stagePosition.setScene(scenePosition);
+                this.stagePosition.show();
         }
 
 
         /**
-         * Crée un objet MyGameGrid et un objet EnemyGridGame qui sont les grilles graphiques
+         * Crée un objet MyGameGrid et un objet EnemyGridGame, les deux grilles graphiques.
          * 
          * @param game2 partie du jeu courant
          */
@@ -114,14 +113,16 @@ public class BattleGame extends Application
                 this.root.getChildren().add(this.myGroup);
         }
         
-        
+        /**
+         * Appelle la méthode pour révéler l'emplacement des bateaux ennemis.
+         */
         public void seeBoatsEnemyGrid()
         {
                 this.enemyGrid.ifBoats(this.game.getComputerMatrix().getComputerGameMatrix());
         }
 
         /**
-         * Place deux images Ã  droite dans l'interface
+         * Place deux images à  droite dans l'interface.
          */
         public void setPieces()
         {
@@ -133,20 +134,15 @@ public class BattleGame extends Application
                 ImageView redPieces = new ImageView(new Image("file:Images/red.png"));
                 redPieces.setX(1675);
                 redPieces.setY(500);
-                this.root.getChildren().add(redPieces);
-                
+                this.root.getChildren().add(redPieces); 
         }
-        
-
-        
-
+       
         /**
          * Appelle une fonction de Game qui vérifie si les données entrées par l'utilisateur sont correctes.
          * @return verified vrai, si les données de l'utilisateurs sont correctes ou sinon faux
          */
         public boolean verifiedSettingBoats()
         {
-//                boolean verified = this.game.checkBoatsUser(this.tableXY, this.listRbuttonChecked);
                 boolean verified = this.game.checkBoatsUser(this.tableXY, this.listRbuttonChecked);
                 return verified;
         }
@@ -154,7 +150,7 @@ public class BattleGame extends Application
         
         /**
          * Le main de l'application
-         * Lance les tests lors du démarrage
+         * Lance les tests lors du démarrage.
          * @param args
          */
         public static void main(String[] args)
@@ -176,7 +172,7 @@ public class BattleGame extends Application
         /**
          * Lance les test JUnit des classes du backend
          * @param result
-         * @return
+         * @return true si aucune erreures, faux si des erreures sont présentes.
          */
         public static boolean runTests(Result result)
         {                        
@@ -200,15 +196,13 @@ public class BattleGame extends Application
         }
 
         /**
-         * Classe contenant les actions du bouton ok de la fenêtre modal où l'utilisateur entre ses donneés
+         * Classe contenant les actions du bouton "Ok" de la fenêtre modale où l'utilisateur entre ses donneés.
          * @author Laurie
          *
          */
         private class ButtonListener implements EventHandler<ActionEvent>
         {
-                
-
-                
+        	
                 @Override
                 public void handle(ActionEvent arg0)
                 {
@@ -232,12 +226,12 @@ public class BattleGame extends Application
                         {
                                 for(int i = 0; i < 2; i++)
                                 {
-                                        int textLenght = BattleGame.this.modal.getListField().get(compteur).getText().length();
-                                        if(textLenght == 1 || textLenght == 2)
+                                        int textLength = BattleGame.this.modal.getListField().get(compteur).getText().length();
+                                        if(textLength == 1 || textLength == 2)
                                         {
                                                 char checkIfnumber = BattleGame.this.modal.getListField().get(compteur).getText().charAt(0);
                                                 boolean checkSecondChar = true;
-                                                if(textLenght == 2)
+                                                if(textLength == 2)
                                                 {
                                                         char checkIfSecondNumber = BattleGame.this.modal.getListField().get(compteur).getText().charAt(1);
                                                         if(checkIfSecondNumber == 48)
@@ -309,17 +303,29 @@ public class BattleGame extends Application
         
         }
 
+        /**
+         * Appelle la méthode qui remet la grille ennemie comme neuve, pour débuter une nouvelle partie.
+         */
         public void resetEnemyGrid()
         { 
                 this.enemyGrid.resetImage(this.game.getComputerMatrix().getComputerGameMatrix());
                 
         }
 
-        public void resetBattleGame() {
+        /**
+         * Éfface le jeu présentement en cours pour en débuter une nouvelle.
+         */
+        public void resetBattleGame() 
+        {
                 this.root.getChildren().remove(this.myGroup);
                 this.root.getChildren().remove(this.enemyGroup);
         }
         
+        /**
+         * Création de la fenêtre de victoire, lorsque la partie est gagnée.
+         * La fenètre te demandera si tu voudra enregistrer ta partie dans les "Meilleurs scores", et
+         * ensuite te demandera si tu voudra jouer une autre partie.
+         */
         public void VictoryPanel()
         {
         	Group scoreRoot = new Group();
@@ -352,6 +358,11 @@ public class BattleGame extends Application
     			scoreDialog.show();
         }
         
+        /**
+         * Contient tout les commandes pour les boutons de la fenètre modale.
+         * @author Kevin
+         *
+         */
         private class ScoreYesListener implements EventHandler<MouseEvent>
     	{
 
@@ -360,6 +371,7 @@ public class BattleGame extends Application
 			{
 				
 				//Laurie, toi tu sais comment traiter des fichiers Textes ici! :)
+				//Ici, on écrit le score du joueur dans le fichier.
 			}
     		
     	}
@@ -408,13 +420,13 @@ public class BattleGame extends Application
 				{
 					
 					Node source = (Node) arg0.getSource();
-                			Stage stage  = (Stage) source.getScene().getWindow();
-                			stage.close();
+                	Stage stage  = (Stage) source.getScene().getWindow();
+                	stage.close();
                         
-			                //Reset
-			                resetBattleGame();
-			                BattleGame.this.game = new Game();
-			                askPositionBoats();
+                    //Reset
+                    resetBattleGame();
+                    BattleGame.this.game = new Game();
+                    askPositionBoats();
 				}
         		
         	}
