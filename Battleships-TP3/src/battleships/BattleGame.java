@@ -51,6 +51,7 @@ public class BattleGame extends Application
         int [][] tableXY;
         private List<RadioButton> listRbuttonChecked;
         private EnemyGridGame enemyGrid;
+        private MyGameGrid myGrid;
         private Group myGroup;
         private Group enemyGroup;
 
@@ -113,14 +114,15 @@ public class BattleGame extends Application
         public void setGrids(Game game2)
         {        
                 this.setPieces();
-                MyGameGrid myGrid = new MyGameGrid();
-                this.myGroup = myGrid.setGrid(this.name); 
+                this.myGrid = new MyGameGrid();
+                this.myGroup = this.myGrid.setGrid(this.name); 
                 this.game.getGamer().setPlayerName(this.name);
-                myGrid.ifBoats(this.game.getMatrix().getGameMatrix());
+                this.myGrid.ifBoats(this.game.getMatrix().getGameMatrix());
                 this.enemyGrid = new EnemyGridGame(this.game, this);
                 this.enemyGroup = this.enemyGrid.setGrid();
                 this.root.getChildren().add(this.enemyGroup);
                 this.root.getChildren().add(this.myGroup);
+                this.game.getEnemy().shootEnemy(this.game.getMatrix());
         }
         
         /**
@@ -136,7 +138,12 @@ public class BattleGame extends Application
                 }
 
 
-                /**
+                public MyGameGrid getMyGrid() {
+			return this.myGrid;
+		}
+
+
+				/**
          * Place deux images à  droite dans l'interface.
          */
         public void setPieces()
@@ -308,14 +315,11 @@ public class BattleGame extends Application
                                 
                                  BattleGame.this.stagePosition.close();
                                  BattleGame.this.modal.getErrorText().setVisible(false);
-                                 
                                  BattleGame.this.setGrids(BattleGame.this.game);
-                                        
                         }
                         
-                        
                 }
-        
+                
         }
 
         /**
@@ -515,3 +519,4 @@ public class BattleGame extends Application
     				Platform.exit();
     			}
         	}
+}
