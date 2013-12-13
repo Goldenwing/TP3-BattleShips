@@ -19,8 +19,10 @@ public abstract class Player {
      */
     public abstract void setBoats(Matrix gameGrid, boolean direction, Boats boat);
     /**
-     * Methode permettant de gerer le combat naval. 
+     * Methode permettant de gerer le combat naval. Elle permet de vérifier dans la grille ennemi si la case
+     * choisie est occupee par un bateau ou si elle est libre. La tache est automatisee dans le cas de
+     * ComputerPlayer.
      * @param gameGrid La grille de jeu en memoire de type Matrix
      */
-    public abstract boolean shootEnemy(Matrix gameGrid);
+    public abstract void shootEnemy(Matrix gameGrid);
 }
