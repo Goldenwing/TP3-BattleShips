@@ -1,20 +1,25 @@
 /**
 * La classe qui contient toute la logique derrière le jeu de BattleShips.
- * Battleships est un jeu qui se joue 1-à-1, soit contre un autre joueur, ou un joueur ordinateur.
- * Chaque joueur place ses cinq bateaux de tailles différentes dans un cadre de 10x10 et le but du jeu c'est de
- * réussir à deviner l'emplacement des cinq bateaux de l'ennemi avant qu'il découvre les notres. Lorsque nous découvrons 
- * chaque pièce des cinq bateaux (donc, quand nous les coulons), nous gagnons la bataille. Le jeu se fait chacun son tour, en devinant
- * une case par tour. Chaque case à sa propre numérotation (une lettre suivit d'un chiffre).
- * 
- * @author Kevin Tanguay
- */
+* Battleships est un jeu qui se joue 1-à-1, soit contre un autre joueur, ou un joueur ordinateur.
+* Chaque joueur place ses cinq bateaux de tailles différentes dans un cadre de 10x10 et le but du jeu c'est de
+* réussir à deviner l'emplacement des cinq bateaux de l'ennemi avant qu'il découvre les notres. Lorsque nous découvrons
+* chaque pièce des cinq bateaux (donc, quand nous les coulons), nous gagnons la bataille. Le jeu se fait chacun son tour, en devinant
+* une case par tour. Chaque case à sa propre numérotation (une lettre suivit d'un chiffre).
+*
+* @author Kevin Tanguay
+*/
 package battleships.backend;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
 import battleships.BattleGame;
-
 import javafx.scene.control.RadioButton;
 
 
@@ -49,20 +54,20 @@ public class Game
             }
             
            public Boats getBoatByNumber(int number)
-           { 
+           {
                    
                    Boats boat = null;
-                   switch (number) 
+                   switch (number)
                    {
-               case 1:  boat = Boats.AIRCRAFT;
+               case 1: boat = Boats.AIRCRAFT;
                         break;
-               case 2:  boat =  Boats.BATTLESHIP;
+               case 2: boat = Boats.BATTLESHIP;
                         break;
-               case 3:  boat =  Boats.DESTROYER;
+               case 3: boat = Boats.DESTROYER;
                         break;
-               case 4:  boat =  Boats.SUBMARINE;
+               case 4: boat = Boats.SUBMARINE;
                         break;
-               case 5:  boat =  Boats.PATROL;
+               case 5: boat = Boats.PATROL;
                         break;
 
                    }
@@ -85,22 +90,22 @@ public class Game
         }
         
         /**
-         * La première fois que le jeu est parti, le BattleGame est passé en paramètres.
-         * @param interfaceGame		l'instance de l'application visuelle.
-         */
+* La première fois que le jeu est parti, le BattleGame est passé en paramètres.
+* @param interfaceGame                l'instance de l'application visuelle.
+*/
         public Game(BattleGame interfaceGame)
         {
-        	this.battleGame = interfaceGame;
+                this.battleGame = interfaceGame;
             startGame();
         }
         
         /**
-         * La méthode qui initialise tout les objets nécéssaires pour le début d'un jeu.
-         * Cette méthode créée les matrices, ainsi que les joueurs, et place les bateaux ennemis.
-         */
+* La méthode qui initialise tout les objets nécéssaires pour le début d'un jeu.
+* Cette méthode créée les matrices, ainsi que les joueurs, et place les bateaux ennemis.
+*/
         public void startGame()
         {
-        	this.playerMatrix = null;
+                this.playerMatrix = null;
             this.computerMatrix = null;
             
             this.playerMatrix = new Matrix();
@@ -121,77 +126,77 @@ public class Game
         }
         
         /**
-         * Les deux prochaines méthodes retournes les deux matrices présentement en jeu.
-         * Soit celui du joueur, ou de l'ordinateur.
-         * @return	la matrice joueure.
-         */
+* Les deux prochaines méthodes retournes les deux matrices présentement en jeu.
+* Soit celui du joueur, ou de l'ordinateur.
+* @return        la matrice joueure.
+*/
         public Matrix getMatrix()
         {
                 return this.playerMatrix;
         }
         
         
-        public void setMatrix(Matrix matrix) 
+        public void setMatrix(Matrix matrix)
         {
-        	this.playerMatrix = matrix;
+                this.playerMatrix = matrix;
         }
         
-		/**
-		 * Retourne la matrice de l'ordinateur.
-		 * @return	l'instance de la matrice ennemie.
-		 */
+                /**
+                 * Retourne la matrice de l'ordinateur.
+                 * @return        l'instance de la matrice ennemie.
+                 */
         public Matrix getComputerMatrix()
         {
                 return this.computerMatrix;
         }
         
         /**
-         * Retourne l'instance de l'ennemie.
-         * @return	l'instance de l'ennemie.
-         */
+* Retourne l'instance de l'ennemie.
+* @return        l'instance de l'ennemie.
+*/
         public ComputerPlayer getEnemy()
         {
                 return enemy;
         }
 
         /**
-         * Initialise l'instance de l'ennemie.
-         * @param enemy	la nouvelle instance de l'ennemie.
-         */
+* Initialise l'instance de l'ennemie.
+* @param enemy        la nouvelle instance de l'ennemie.
+*/
         public void setEnemy(ComputerPlayer enemy)
         {
                 this.enemy = enemy;
         }
 
         /**
-         * retourne l'instance du joueur.
-         * @return	l'instance du joueur.
-         */
+* retourne l'instance du joueur.
+* @return        l'instance du joueur.
+*/
         public HumanPlayer getGamer()
         {
                 return gamer;
         }
 
         /**
-         * Initialise une nouvelle instance du joueur.
-         * @param gamer	la nouvelle instance du joueur.
-         */
+* Initialise une nouvelle instance du joueur.
+* @param gamer        la nouvelle instance du joueur.
+*/
         public void setGamer(HumanPlayer gamer)
         {
                 this.gamer = gamer;
         }
         
         /**
-         * Vérifie que le bateau désiré à l'endroit voulu convient à l'espacement disponible.
-         * Si le bateau est trop gros pour l'espace désiré, le bateau ne sera pas placé.
-         * 
-         * @param tableXY				Un tableau contenant les choix de l'utilisateur pour les placements sur la grille.
-         * @param listRbuttonChecked	Une liste contenant les choix de l'utilsateur pour les placements verticaux/horizontaux.
-         * @return						Vrai si possible, faux si impossible.
-         */
+* Vérifie que le bateau désiré à l'endroit voulu convient à l'espacement disponible.
+* Si le bateau est trop gros pour l'espace désiré, le bateau ne sera pas placé.
+*
+* @param tableXY                                Un tableau contenant les choix de l'utilisateur pour les placements sur la grille.
+* @param listRbuttonChecked        Une liste contenant les choix de l'utilsateur pour les placements verticaux/horizontaux.
+* @return                                                Vrai si possible, faux si impossible.
+*/
         public boolean checkBoatsUser(int[][] tableXY, List<RadioButton> listRbuttonChecked)
             {
-                     int []tableSizeBoats =  {5,4,3,3,2};
+                     int []tableSizeBoats = {5,4,3,3,2};
                     
                      int x;
                      int y;
@@ -213,7 +218,7 @@ public class Game
                                             
                                              Boats boatSent = boat.getBoatByNumber(j + 1);
                                              
-                                             verified = this.gamer.setBoats(this.playerMatrix, x,  y, true, boatSent);
+                                             verified = this.gamer.setBoats(this.playerMatrix, x, y, true, boatSent);
                                     }
                                     else
                                     {
@@ -226,7 +231,7 @@ public class Game
                                     {
                                             
                                              Boats boatSent = boat.getBoatByNumber(j + 1);
-                                             verified = this.gamer.setBoats(this.playerMatrix,x,  y, false, boatSent);
+                                             verified = this.gamer.setBoats(this.playerMatrix,x, y, false, boatSent);
                                     }
                                     else
                                     {
@@ -241,43 +246,147 @@ public class Game
             }
 
         /**
-         * Méthode qui vérifie si tous les bateaux ennemis on été coulés, ce qui veux dire qu'on remporte la partie.
-         * 
-         * @param matrix l'instance de la matrice logique.
-         * @return	vrai si la victoire est remportée! Faux si pas encore.
-         */
+* Méthode qui vérifie si tous les bateaux ennemis on été coulés, ce qui veux dire qu'on remporte la partie.
+*
+* @param matrix l'instance de la matrice logique.
+* @return        vrai si la victoire est remportée! Faux si pas encore.
+*/
         public boolean DidWeWin(Matrix matrix)
         {
-        	int redCounter = 0;
-        	boolean victory = false;
-        			
-        	for(int i = 1; i<11; i++)
-        	{
-        		for(int j = 1; j<11; j++)
-        		{
-        			if(matrix.getSquareContentCheck(i, j, true) == true && matrix.getSquareContentNumber(i, j, true) != 0)
-        			{
-        				redCounter++;
-        			}
-        		}
-        	}
-        			
-        	if(redCounter == 17)
-        	{
-        		victory = true;
-        	}
-        			
-        	return victory;
+                int redCounter = 0;
+                boolean victory = false;
+                                
+                for(int i = 1; i<11; i++)
+                {
+                        for(int j = 1; j<11; j++)
+                        {
+                                if(matrix.getSquareContentCheck(i, j, true) == true && matrix.getSquareContentNumber(i, j, true) != 0)
+                                {
+                                        redCounter++;
+                                }
+                        }
+                }
+                                
+                if(redCounter == 17)
+                {
+                        victory = true;
+                }
+                                
+                return victory;
        }
-        	
+                
         /**
-         * Appelle la méthode qui affiche la fenètre modale pour nous féliciter.
-         */
+* Appelle la méthode qui affiche la fenètre modale pour nous féliciter.
+*/
        public void VictoryPanel()
        {
-    	   this.battleGame.VictoryPanel();
+             this.battleGame.VictoryPanel();
        }
-        	
+                
+                
+     
+       
+      public void checkIfFile()
+      {
+    		 File file = new File("bestScores.txt");
+    		 int nbLine = 0;
+        	 if (!file.exists())
+        	 {
+        		 try
+                 {
+                     BufferedWriter writer = new BufferedWriter(new FileWriter(new File("bestScores.txt")));
+                     writer.write("<game><name>" + this.battleGame.getName() + "</name><nbShots> " + this.battleGame.getEnemyGrid().getNbShots() + "</nbShots></game> \r\n");
+                     writer.close();
+       
+                 }
+                
+                 catch (IOException e)
+                 {
+                	 e.printStackTrace();
+                 }
+        	 }
+        	 else
+        	 {
+        		  try
+                  {    
+                     BufferedReader buff = new BufferedReader(new FileReader("bestScores.txt"));
+                         
+                     try
+                     {
+                     	String line;
+                 
+                     	while ((line = buff.readLine()) != null)
+                     	{
+                             nbLine++;
+                     	}
+                     } 
+                     finally
+                     {
+                     	buff.close();
+                     }
+                         
+                  }
+                  catch (IOException ioe)
+                  {
+                 	 System.out.println("Erreur --" + ioe.toString());
+                 	
+                  }
+        			 writeInFile(nbLine);
+        			 
+        	 }
+        	 
+        
+        	 
+      }
+
+      
+    private boolean readBestScores()
+    {
+    	
+    	
+    	
+    	return true;
+    }
+      
+	private void writeInFile(int nbLine)
+	{
+		if(nbLine <= 3)
+		{
+			if(readBestScores())
+			{
+				BufferedWriter bfw;
+				BufferedReader bfr;
+				try 
+				{
+					bfw = new BufferedWriter(new FileWriter("bestScores.txt", true));
+					bfr = new BufferedReader(new FileReader("bestScores.txt"));
+					bfr.readLine();
+					bfr.close();
+					bfw.write("<game><name>" + this.battleGame.getName() + "</name><nbShots> " + this.battleGame.getEnemyGrid().getNbShots() + "</nbShots></game>\r\n");
+					bfw.flush();
+					bfw.close();
+				}
+				catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				}
+			
+			}
+			else
+			{
+				
+			}
+		}
+//		else if(nbLine == 3)
+//		{
+//			while(!readBestScores())
+//			{
+//				
+//			}
+//		}
+		
+	}
+       
         	
      }
 
