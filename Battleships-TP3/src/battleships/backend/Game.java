@@ -3,10 +3,16 @@ package battleships.backend;
 import java.util.List;
 import java.util.Random;
 
+import battleships.BattleGame;
+
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -70,29 +76,40 @@ public class Game
         private Random PCBoatPlacer = new Random();
         private ComputerPlayer enemy;
         private HumanPlayer gamer;
+        private BattleGame battleGame;
         
         public Game()
         {
-                this.playerMatrix = null;
-                this.computerMatrix = null;
-                
-                this.playerMatrix = new Matrix();
-                this.computerMatrix = new Matrix(true);
-                
-                this.enemy = null;
-                this.gamer = null;
-                
-                this.enemy = new ComputerPlayer();
-                this.gamer = new HumanPlayer("Link");
-
-                
-                enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.AIRCRAFT);
-                enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.BATTLESHIP);
-                enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.DESTROYER);
-                enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.SUBMARINE);
-                enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.PATROL);
+            startGame();
         }
         
+        public Game(BattleGame interfaceGame)
+        {
+        	this.battleGame = interfaceGame;
+            startGame();
+        }
+        
+        public void startGame()
+        {
+        	this.playerMatrix = null;
+            this.computerMatrix = null;
+            
+            this.playerMatrix = new Matrix();
+            this.computerMatrix = new Matrix(true);
+            
+            this.enemy = null;
+            this.gamer = null;
+            
+            this.enemy = new ComputerPlayer();
+            this.gamer = new HumanPlayer("Link");
+
+            
+            enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.AIRCRAFT);
+            enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.BATTLESHIP);
+            enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.DESTROYER);
+            enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.SUBMARINE);
+            enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.PATROL);
+        }
         public Matrix getMatrix()
         {
                 return this.playerMatrix;
@@ -225,21 +242,9 @@ public class Game
         	
         	public void VictoryPanel()
         	{
-        		Group scoreRoot = new Group();
-        		Stage scoreDialog = new Stage();
-        		scoreDialog.initModality(Modality.WINDOW_MODAL);
-        		Scene scoreScene = new Scene(scoreRoot, 300,200, Color.LIGHTGRAY);
-        		
-        		Label infoLabel = new Label("VOUS ETES LE CHAMPION!!!");
-        			infoLabel.setLayoutX(5);
-        			infoLabel.setLayoutY(10);
-        		
-        		scoreRoot.getChildren().add(infoLabel);
-        		
-        		scoreDialog.setTitle("Victoire!!");
-        		scoreDialog.setScene(scoreScene);
-        		scoreDialog.setResizable(false);
-        		scoreDialog.show(); ;
-        			scoreDialog.show();
+        		this.battleGame.VictoryPanel();
         	}
+        	
+        	
         }
+
