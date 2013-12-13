@@ -136,5 +136,20 @@ public class MyGameGrid
 		
 	}
 	
+	/**
+	 * Methode appelee par ComputerPlayer permettant de placer soit un point blanc ou un point
+	 * rouge sur la grille du joueur humain selon si c'est un coup reussi ou rate 
+	 * @param matrix la grille du joueur humain
+	 * @param x la coordonnee en X de la case a changer
+	 * @param y la coordonnee en Y de la case a changer
+	 */
+	public void changeStateSquare(Matrix matrix, int x, int y) {
+		if (matrix.getSquareContentNumber(x, y, false) == 0) {
+			this.imageViewTab[x][y].setImage(new Image("file:Images/water-white.png"));
+		}
+		else {
+			this.imageViewTab[x][y].setImage(new Image("file:Images/water-red.png"));
+		}	
+	}	
 	
 }
