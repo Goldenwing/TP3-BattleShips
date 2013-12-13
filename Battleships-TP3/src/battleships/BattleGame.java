@@ -407,7 +407,14 @@ public class BattleGame extends Application
 				public void handle(MouseEvent arg0) 
 				{
 					
-					//New Game
+					Node source = (Node) arg0.getSource();
+                			Stage stage  = (Stage) source.getScene().getWindow();
+                			stage.close();
+                        
+			                //Reset
+			                resetBattleGame();
+			                BattleGame.this.game = new Game();
+			                askPositionBoats();
 				}
         		
         	}
