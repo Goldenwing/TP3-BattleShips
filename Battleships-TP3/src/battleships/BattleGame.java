@@ -70,18 +70,19 @@ public class BattleGame extends Application
                 stage.setTitle("Battleships  (Annie Belzile, Laurie Lavoie, Kevin Tanguay)"); 
                 stage.setScene(scene); 
        
-//        		stage.setResizable(false);
+//                        stage.setResizable(false);
                 stage.show(); 
                 this.askPositionBoats();
         }
         
 
-        public String getName() {
-			return this.name;
-		}
+        public String getName()
+        {
+        	return this.name;
+        }
 
 
-		/**
+                /**
          * Affiche une fenêtre modale qui demande le nom et les coordonnées des bateaux du joueur.
          */
         public void askPositionBoats()
@@ -131,11 +132,11 @@ public class BattleGame extends Application
         }
 
         public EnemyGridGame getEnemyGrid() {
-			return this.enemyGrid;
-		}
+                        return this.enemyGrid;
+                }
 
 
-		/**
+                /**
          * Place deux images à  droite dans l'interface.
          */
         public void setPieces()
@@ -216,7 +217,7 @@ public class BattleGame extends Application
          */
         private class ButtonListener implements EventHandler<ActionEvent>
         {
-        	
+                
                 @Override
                 public void handle(ActionEvent arg0)
                 {
@@ -340,14 +341,14 @@ public class BattleGame extends Application
          * La fenètre te demandera si tu voudra enregistrer ta partie dans les "Meilleurs scores", et
          * ensuite te demandera si tu voudra jouer une autre partie.
          */
-        public void VictoryPanel()
+        public void VictoryPanel(int playerHit)
         {
         	Group scoreRoot = new Group();
     		Stage scoreDialog = new Stage();
     		scoreDialog.initModality(Modality.WINDOW_MODAL);
     		Scene scoreScene = new Scene(scoreRoot, 200,200, Color.LIGHTGRAY);
     		
-    		Label infoLabel = new Label("Félicitations, vous êtes le champion!! \n \n Vous avez réussit en " + "" + " coups! \n" +
+    		Label infoLabel = new Label("Félicitations, vous êtes le champion!! \n \n Vous avez réussit en " + playerHit + " coups! \n" +
     				" Voulez-vous enregistrer votre score?");
     			infoLabel.setLayoutX(5);
     			infoLabel.setLayoutY(10);
@@ -378,87 +379,139 @@ public class BattleGame extends Application
          *
          */
         private class ScoreYesListener implements EventHandler<MouseEvent>
-    	{
+            {
 
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				
-				//Laurie, toi tu sais comment traiter des fichiers Textes ici! :)
-				//Ici, on écrit le score du joueur dans le fichier.
-				
-				BattleGame.this.game.checkIfFile();
-				BattleGame.this.modalStage.close();
-				
-			}
-    		
-    	}
-    	
-    	private class ScoreNoListener implements EventHandler<MouseEvent>
-    	{
+                        @Override
+                        public void handle(MouseEvent arg0) 
+                        {                           
+                                BattleGame.this.game.checkIfFile();
+                                BattleGame.this.modalStage.close();
+                        }
+                    
+            }
+            
+            private class ScoreNoListener implements EventHandler<MouseEvent>
+            {
 
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				BattleGame.this.modalStage.close();
-				Group playAgainRoot = new Group();
-        		Stage playAgainDialog = new Stage();
-        		playAgainDialog.initModality(Modality.WINDOW_MODAL);
-        		Scene scoreScene = new Scene(playAgainRoot, 200,100, Color.LIGHTGRAY);
+                 @Override
+                 public void handle(MouseEvent arg0) 
+                 {
+	                   BattleGame.this.modalStage.close();
+	                   Group playAgainRoot = new Group();
+	                   Stage playAgainDialog = new Stage();
+	                   playAgainDialog.initModality(Modality.WINDOW_MODAL);
+	                   Scene scoreScene = new Scene(playAgainRoot, 200,100, Color.LIGHTGRAY);
+	                        
+	                   Label infoLabel = new Label("Voulez-vous rejouer?");
+	                         infoLabel.setLayoutX(5);
+	                         infoLabel.setLayoutY(10);
+	                                
+	                   Button buttonYesPlay = new Button("Oui!");
+	                   buttonYesPlay.setLayoutX(10);
+	                   buttonYesPlay.setLayoutY(80);
+	                   buttonYesPlay.setOnMouseClicked(new PlayYesListener());
+	                        
+	                   Button buttonNoPlay = new Button("Non");
+	                   buttonNoPlay.setLayoutX(80);
+	                   buttonNoPlay.setLayoutY(80);
+	                   buttonNoPlay.setOnMouseClicked(new PlayNoListener());
+	                        
+	                   playAgainRoot.getChildren().addAll(infoLabel, buttonYesPlay, buttonNoPlay);
+	                        
+	                   playAgainDialog.setTitle("Victoire!!");
+	                   playAgainDialog.setScene(scoreScene);
+	                   playAgainDialog.setResizable(false);
+	                   playAgainDialog.show(); 
+	                   playAgainDialog.show();
+                                
+                 }
+                    
+	            private class PlayYesListener implements EventHandler<MouseEvent>
+	            {
+	            	@Override
+	                public void handle(MouseEvent arg0) 
+	                {
+		                  Node source = (Node) arg0.getSource();
+		                  Stage stage  = (Stage) source.getScene().getWindow();
+		                  stage.close();
+		                        
+		                  //Reset
+		                  resetBattleGame();
+		                  BattleGame.this.game = new Game();
+		                  askPositionBoats();
+	                }
+	                        
+	             }
+                        
+                    private class PlayNoListener implements EventHandler<MouseEvent>
+                    {
+                    	@Override
+                        public void handle(MouseEvent arg0) 
+                         {
+                    		Platform.exit();
+                         }
+                    }
+            }
+            
+        /**
+        * Création de la fenêtre de défaite, lorsque la partie est perdue.
+        * La fenètre te demandera si tu voudra jouer une autre partie.
+        */
+        public void DefeatPanel(int computerHit)
+        {
+        	Group scoreRoot = new Group();
+        	Stage scoreDialog = new Stage();
+        	scoreDialog.initModality(Modality.WINDOW_MODAL);
+        	Scene scoreScene = new Scene(scoreRoot, 200,200, Color.LIGHTGRAY);
         		
-        		Label infoLabel = new Label("Voulez-vous rejouer?");
-        			infoLabel.setLayoutX(5);
-        			infoLabel.setLayoutY(10);
+        	Label infoLabel = new Label("Malheureusement, l'adversaire vous à vaincu. Il à réussit en " + computerHit + "coups. \n " +
+        			"Meilleur chance la prochaine fois! \n \n \n  Voulez vous rejouer?");
+        	infoLabel.setLayoutX(5);
+        	infoLabel.setLayoutY(10);
         			
-        		Button buttonYesPlay = new Button("Oui!");
-        		buttonYesPlay.setLayoutX(10);
-        		buttonYesPlay.setLayoutY(80);
-        		buttonYesPlay.setOnMouseClicked(new PlayYesListener());
+        	Button buttonYesPlay = new Button("Oui!");
+        	buttonYesPlay.setLayoutX(10);
+        	buttonYesPlay.setLayoutY(100);
+        	buttonYesPlay.setOnMouseClicked(new PlayYesListener());
         		
-        		Button buttonNoPlay = new Button("Non");
-        		buttonNoPlay.setLayoutX(80);
-        		buttonNoPlay.setLayoutY(80);
-        		buttonNoPlay.setOnMouseClicked(new PlayNoListener());
+        	Button buttonNoPlay = new Button("Non");
+        	buttonNoPlay.setLayoutX(80);
+        	buttonNoPlay.setLayoutY(100);
+        	buttonNoPlay.setOnMouseClicked(new PlayNoListener());
         		
-        		playAgainRoot.getChildren().addAll(infoLabel, buttonYesPlay, buttonNoPlay);
+        	scoreRoot.getChildren().addAll(infoLabel, buttonYesPlay, buttonNoPlay);
         		
-        		playAgainDialog.setTitle("Victoire!!");
-        		playAgainDialog.setScene(scoreScene);
-        		playAgainDialog.setResizable(false);
-        		playAgainDialog.show(); 
-        		playAgainDialog.show();
-				
-			}
-    		
-			private class PlayYesListener implements EventHandler<MouseEvent>
+        	scoreDialog.setTitle("Défaite...");
+        	scoreDialog.setScene(scoreScene);
+        	scoreDialog.setResizable(false);
+        	this.modalStage = scoreDialog;
+        	scoreDialog.show(); ;
+        		scoreDialog.show();
+        	}
+        	
+        	private class  PlayYesListener implements EventHandler<MouseEvent>
         	{
 
-				@Override
-				public void handle(MouseEvent arg0) 
-				{
-					
-					Node source = (Node) arg0.getSource();
+    			@Override
+    			public void handle(MouseEvent arg0) 
+    			{
+    				Node source = (Node) arg0.getSource();
                 	Stage stage  = (Stage) source.getScene().getWindow();
                 	stage.close();
                         
-                    //Reset
                     resetBattleGame();
                     BattleGame.this.game = new Game();
                     askPositionBoats();
-				}
-        		
+    				
+    			}
         	}
-			
-			private class PlayNoListener implements EventHandler<MouseEvent>
+        	
+        	private class  PlayNoListener implements EventHandler<MouseEvent>
         	{
 
-				@Override
-				public void handle(MouseEvent arg0) 
-				{
-					
-					Platform.exit();
-				}
-        		
+    			@Override
+    			public void handle(MouseEvent arg0) 
+    			{
+    				Platform.exit();
+    			}
         	}
-    	}
-}
