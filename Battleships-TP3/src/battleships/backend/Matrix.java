@@ -1,6 +1,6 @@
-/** Classe qui appartient à la logique derrière l'application visuelle. Cette classe va construire le champ de mines, et
-* qui va gérer toute la logique appartenant au champ de mines. Elle contient les méthodes ayant rapport à l'information nécéssaire
-* à la matrice du champ de mines.
+ 	/** Classe qui appartient à la logique derrière l'application visuelle. Cette classe va construire la matrice des bateaux et
+* qui va gérer toute la logique appartenant à la plateforme des bateaux. Elle contient les méthodes ayant rapport à l'information nécéssaire
+* à la matrice des bateaux.
 *
 * @author Kevin Tanguay
 */
@@ -19,60 +19,83 @@ public class Matrix
         
         /**
          * Construit la matrice de jeu. Elle place les dimensions, et initialise les cases.
-         *
-         * @param level                Le niveau de jeu choisi.
+         *@see SetMatrix.
          */
         public Matrix()
         {
-                this.gameMatrix = null;
-                this.gameMatrix = setSize();
-                
-                for(int x = 1; x < 11; x++)
-                {
-                        for(int y= 1 ; y < 11; y++)
-                        {
-                                MatrixTiles gameTile = new MatrixTiles(0, false, null);
-                                this.gameMatrix[x][y] = gameTile;
-                        }
-                }
+                this.gameMatrix = SetMatrix(this.gameMatrix);
         }
         
-        public MatrixTiles[][] getGameMatrix() {
-			return this.gameMatrix;
-		}
-
-		public void setGameMatrix(MatrixTiles[][] gameMatrix) {
-			this.gameMatrix = gameMatrix;
-		}
-
-		public MatrixTiles[][] getComputerGameMatrix() {
-			return this.computerGameMatrix;
-		}
-		
-	
-		
-		
-		public Matrix(boolean computer)
+        /**
+         * Même chose, pour la matrice ennemie.
+         * @param computer
+         * @see SetMatrix.
+         */
+        public Matrix(boolean computer)
         {
-                this.computerGameMatrix = null;
-                this.computerGameMatrix = setSize();
-                
-                for(int x = 1; x < 11; x++)
-                {
-                        for(int y= 1 ; y < 11; y++)
-                        {
-                                MatrixTiles gameTile = new MatrixTiles(0, false, null);
-                                this.computerGameMatrix[x][y] = gameTile;
-                        }
-                }
+                this.computerGameMatrix = SetMatrix(this.computerGameMatrix);
         }
-
+        
+        /**
+         * Initialize la matrice en paramètre.
+         * @param gameMatrix Soit la matrice du joueur ou de l'ordinateur.
+         * @see SetSize.
+         */
+        public MatrixTiles[][] SetMatrix(MatrixTiles[][] gameMatrix)
+        {
+        	gameMatrix = null;
+            gameMatrix = setSize();
+            
+            for(int x = 1; x < 11; x++)
+            {
+                    for(int y= 1 ; y < 11; y++)
+                    {
+                            MatrixTiles gameTile = new MatrixTiles(0, false, null);
+                            gameMatrix[x][y] = gameTile;
+                    }
+            }
+            
+            return gameMatrix;
+        }
+        
+        
+        /**
+         * Construit les dimensions de la matrice, soit 11 par 11.
+         * @return la matrice, maintnant dimensionnée.
+         */
         public MatrixTiles[][] setSize()
         {
-                MatrixTiles[][] matrix = new MatrixTiles[11][11];
-                return matrix;
+        	MatrixTiles[][] matrix = new MatrixTiles[11][11];
+        	return matrix;
+        }
+        
+        public MatrixTiles[][] getGameMatrix() 
+        {
+        	return this.gameMatrix;
         }
 
+        public void setGameMatrix(MatrixTiles[][] gameMatrix) 
+        {
+            this.gameMatrix = gameMatrix;
+        }
+
+        public MatrixTiles[][] getComputerGameMatrix() 
+        {
+        	return this.computerGameMatrix;
+        }
+
+        /**
+         * Méthode pour vérifier si l'emplacement désirée du bateau par le joueur ou l'ordinateur est un espace valide,
+         * s'il à assez d'espace pour placer le bateau.
+         * 
+         * @param boat			Le bateau en question.
+         * @param direction		Soit horizontale ou verticale.
+         * @param x				La case du début de l'emplacement en X.
+         * @param y				La case du début de l'emplacement en Y.
+         * @param matrix		La matrice qui est présentement en jeu.
+         * @see QuickCheck
+         * @return				True si l'espace marche, faux le cas échéant.
+         */
         public boolean checkSpace(Boats boat, boolean direction, int x, int y, MatrixTiles matrix[][])
         {
                 int size = boat.getSize();
@@ -91,7 +114,17 @@ public class Matrix
                 return valid;
         }
         
-        public boolean quickCheck(int x, int y, int boatSize, boolean direction,MatrixTiles matrix[][])
+        /**
+         * Vérifie dans la matrice du jeu si l'emplacement du bateau fonctionne.
+         * 
+         * @param x				La première case du bateau, en X.
+         * @param y				La première case du bateau, en Y.
+         * @param boatSize		La grosseure du bateau.
+         * @param direction		Soit horizontale ou verticale.
+         * @param matrix		L'instance de la matrice.
+         * @return				Vrai si l'emplacement est possible, faux le cas échéant.
+         */
+        public boolean quickCheck(int x, int y, int boatSize, boolean direction,MatrixTiles[][] matrix)
         {
                 boolean valid = true;
                 
@@ -123,22 +156,13 @@ public class Matrix
                 }
                 return valid;
         }
-
-        /**
-         * Retourne la matrice présentement en jeu.
-         * @return         La matrice en question.
-         */
-
-//        public MatrixTiles[][] getMatrix()
-//        {
-//                return this.gameMatrix;
-//        }
         
         /**
          * Retourne le numéro de la case selon son emplacement spécifique sur la grille.
          * @param x                La coordonnée en X de la case spécifiée.
          * @param y                La coordonnée en Y de la case spécifiée.
-         * @return                le numéro de la case spécifique.
+         * @param computer		   Si on désire la grille du joueur ou de l'ordinateur.
+         * @return                 Le numéro de la case spécifique.
          *
          * @see MatrixTiles.getNumber()
          */
@@ -159,6 +183,7 @@ public class Matrix
          *
          * @param x                La coordonnée en X de la case spécifiée.
          * @param y                La coordonnée en Y de la case spécifiée.
+         * @param computer		   Si on désire la grille ennemie ou du joueur.
          * @return                vrai si déjà cochée, false le cas échéant.
          *
          * @see MatrixTiles.isClicked()
@@ -178,9 +203,11 @@ public class Matrix
         
         /**
          * Place l'information dans la case spécifique de la grille. Soit un numéro, et la condition cochée.
-         * @param x                        L'emplacement X de la case désirée.
-         * @param y                        L'emplacement Y de la case désirée.
-         * @param boat                le numéro du bateau de la case spécifique.
+         * @param x            L'emplacement X de la case désirée.
+         * @param y            L'emplacement Y de la case désirée.
+         * @param boat         Le numéro du bateau de la case spécifique.
+         * @param computer	   Si on le place dans la grille ennemie, ou du joueur.
+         * @param name		   Le nom du bateau.
          */
 
         public void setSquareContent(int x, int y, Boats boat, boolean computer, String name)
@@ -204,7 +231,8 @@ public class Matrix
          *
          * @param x                        L'emplacement X de la case.
          * @param y                        L'emplacement Y de la case.
-         * @param check                Le boolean qui décide si la case est cochée ou pas.
+         * @param check                    Le boolean qui décide si la case est cochée ou pas.
+         * @param computer				   Si on veux la grille ennemie, ou du joueur.
          */
 
         public void setSquareCheck(int x, int y, boolean check, boolean computer)
@@ -214,21 +242,4 @@ public class Matrix
                 else
                 this.computerGameMatrix[x][y].setClicked(check);
         }
-        
-//        public static void main(String[] args)
-//        {
-//                
-//                Matrix game = new Matrix();
-//                for(int i = 0; i < 10; i++)
-//                 {
-//                 for(int j = 0; j < 10; j++)
-//                 {
-//                 System.out.printf("%5d ", game.getSquareContentNumber(i, j));
-//                 }
-//                 System.out.println();
-//                 }
-//        }
-
-        
 }
-
