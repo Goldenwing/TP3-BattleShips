@@ -363,7 +363,6 @@ public class Game
                   }
                   catch (IOException ioe)
                   {
-                 	 System.out.println("Erreur --" + ioe.toString());
                  	
                   }
         			 writeInFile(nbLine);
@@ -544,7 +543,6 @@ public class Game
                    }
                    
                    
-               	System.out.println(score);
                    
                    if(Integer.parseInt(score) >= this.battleGame.getEnemyGrid().getNbShots())
                 	   
@@ -553,7 +551,6 @@ public class Game
                    	betterScore = true;
                    }
                    
-                   System.out.println(lineScore);
                    
                 
 //                	      bfw.write(lineScore + "\r\n");
@@ -588,7 +585,6 @@ public class Game
            	BufferedWriter bfw = new BufferedWriter(new FileWriter("bestScores.txt"));
            	for(int i = 0; i < 3; i++)
            	{
-           		System.out.println(tabLineText[i]);
            		bfw.write(tabLineText[i]);
            	}
            	
@@ -605,7 +601,6 @@ public class Game
         }
         catch (IOException ioe)
         {
-       	 System.out.println("Erreur --" + ioe.toString());
        	
         }
     }
