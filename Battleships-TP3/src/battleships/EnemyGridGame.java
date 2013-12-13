@@ -57,11 +57,11 @@ public class EnemyGridGame
         
     
     public int getNbShots() {
-		return this.nbShots;
-	}
+                return this.nbShots;
+        }
 
 
-	/**
+        /**
      * Configure le visuel de  la grille de l'ordinateur en ajoutant des imageView dans le groupe.
      * @return
      */
@@ -142,65 +142,66 @@ public class EnemyGridGame
         private class MouseListener implements EventHandler<MouseEvent>
         {
 
-                @Override
-                public void handle(MouseEvent arg0) 
-                {
-//                        if clicked && boat, if clicked != boat, not clicked, already clicked
-                        Matrix gameMatrix = EnemyGridGame.this.game.getComputerMatrix();
-                        
-                        ImageView imageView = (ImageView) arg0.getSource();
-                        
-                        int quickX = EnemyGridGame.this.getSquareX(imageView);
-                        int quickY = EnemyGridGame.this.getSquareY(imageView);
-                        
-                        if(gameMatrix.getSquareContentCheck(quickX, quickY, true) == true)
-                        {
-                                
-                        }
-                        else
-                        {
-                        	
-                        	
-                        		EnemyGridGame.this.nbShots++;
-                                gameMatrix.setSquareCheck(quickX, quickY, true, true);
-                                Image imageRedX = new Image("file:Images/water-red.png");
-                                Image imageWhiteX = new Image("file:Images/water-white.png");
-                                
-                                switch(gameMatrix.getSquareContentNumber(quickX, quickY, true))
-                                {
-                                        case 0:
-                                        {
-                                                imageView.setImage(imageWhiteX);
-                                                
-                                                break;
-                                        }
-                                        case 2: case 3: case 4: case 5:
-                                        {
-                                                imageView.setImage(imageRedX);
+        	@Override
+            public void handle(MouseEvent arg0) 
+            {
+//                    if clicked && boat, if clicked != boat, not clicked, already clicked
+                    Matrix gameMatrix = EnemyGridGame.this.game.getComputerMatrix();
+                    
+                    ImageView imageView = (ImageView) arg0.getSource();
+                    
+                    int quickX = EnemyGridGame.this.getSquareX(imageView);
+                    int quickY = EnemyGridGame.this.getSquareY(imageView);
+                    
+                    if(gameMatrix.getSquareContentCheck(quickX, quickY, true) == true)
+                    {
+                            
+                    }
+                    else
+                    {
+                            gameMatrix.setSquareCheck(quickX, quickY, true, true);
+                            Image imageRedX = new Image("file:Images/water-red.png");
+                            Image imageWhiteX = new Image("file:Images/water-white.png");
+                            
+                            switch(gameMatrix.getSquareContentNumber(quickX, quickY, true))
+                            {
+                                    case 0:
+                                    {
+                                            imageView.setImage(imageWhiteX);
+                                            EnemyGridGame.this.game.UpHitCounter(false);
+                                            
+                                            break;
+                                    }
+                                    case 2: case 3: case 4: case 5:
+                                    {
+                                            imageView.setImage(imageRedX);
 
-                                                if(DidWeWin(gameMatrix))
-                                                {
-                                                	EnemyGridGame.this.battleGame.VictoryPanel();
-                                                }
-                                        }
-                                }
-                                
-                                
-                        }
-                }
+                                            EnemyGridGame.this.game.UpHitCounter(false);
+                                            if(EnemyGridGame.this.game.DidWeWin(gameMatrix))
+                                            {
+                                            	EnemyGridGame.this.game.VictoryPanel();
+                                            }
+                                            
+                                            break;
+                                    }
+                            }
+                            
+                            
+                    }
+            }
         }
         
         private int getSquareX(ImageView imageView)
         {
-        	int x = 0;
+                int x = 0;
             
-        	for(int i = 0; i< 11;i++)
+                for(int i = 0; i< 11;i++)
             {
-        		for(int j = 0; j< 11;j++)
+                        for(int j = 0; j< 11;j++)
                 {
-        			if(this.imageViewTab[i][j] == imageView)
+                                if(this.imageViewTab[i][j] == imageView)
                     {
-        				x = i;
+                                        x = i;
                     }
                 }
             }
@@ -209,13 +210,13 @@ public class EnemyGridGame
         
         private int getSquareY(ImageView imageView)
         {
-        	int y = 0;
+                int y = 0;
                 
                 for(int i = 0; i< 11;i++)
                 {
-                	for(int j = 0; j< 11;j++)
+                        for(int j = 0; j< 11;j++)
                     {
-                		if(this.imageViewTab[i][j] == imageView)
+                                if(this.imageViewTab[i][j] == imageView)
                         {
                            y = j;
                         }
@@ -224,102 +225,57 @@ public class EnemyGridGame
             return y;
         }
         
-        private boolean DidWeWin(Matrix matrix)
-        {
-			int redCounter = 0;
-			boolean victory = false;
-			
-			for(int i = 1; i<11; i++)
-			{
-				for(int j = 1; j<11; j++)
-				{
-					if(matrix.getSquareContentCheck(i, j, true) == true && matrix.getSquareContentNumber(i, j, true) != 0)
-					{
-						redCounter++;
-					}
-				}
-			}
-			
-			if(redCounter == 17)
-			{
-				victory = true;
-			}
-			
-			return victory;
-	}
-	
-	private void VictoryPanel()
-	{
-		Group scoreRoot = new Group();
-		Stage scoreDialog = new Stage();
-		scoreDialog.initModality(Modality.WINDOW_MODAL);
-		Scene scoreScene = new Scene(scoreRoot, 300,200, Color.LIGHTGRAY);
-		
-		Label infoLabel = new Label("VOUS ETES LE CHAMPION!!!");
-			infoLabel.setLayoutX(5);
-			infoLabel.setLayoutY(10);
-		
-		scoreRoot.getChildren().add(infoLabel);
-		
-		scoreDialog.setTitle("Victoire!!");
-		scoreDialog.setScene(scoreScene);
-		scoreDialog.setResizable(false);
-		scoreDialog.show(); ;
-		scoreDialog.show();
-	}
+        
+        public void ifBoats(MatrixTiles matrix[][])
+                {
+                        
+                        int nbSquare = 11;
+                
+                        for(int i = 1; i < nbSquare; i++)
+                        {
+                                for(int j = 1; j <  nbSquare; j++)
+                                {
+                                        if(matrix[i][j].getNumber() != 0)
+                                        {
+                                                this.imageViewTab[i][j].setImage(new Image("file:Images/boatPiece.png"));
+                                        }
+                                }
+                        } 
+                                        
+                }
 
 
-
-		public void ifBoats(MatrixTiles matrix[][])
-		{
-			
-			int nbSquare = 11;
-		
-			for(int i = 1; i < nbSquare; i++)
-			{
-				for(int j = 1; j <  nbSquare; j++)
-				{
-					if(matrix[i][j].getNumber() != 0)
-					{
-						this.imageViewTab[i][j].setImage(new Image("file:Images/boatPiece.png"));
-					}
-				}
-			} 
-					
-		}
-
-
-		public void resetImage(MatrixTiles[][] matrix)
-		
-		{
-			int nbSquare = 11;
-			
-			for(int i = 1; i < nbSquare; i++)
-			{
-				for(int j = 1; j <  nbSquare; j++)
-				{
-					if(matrix[i][j].isClicked())
-					{
-						if(matrix[i][j].getNumber() != 0)
-						{
-							this.imageViewTab[i][j].setImage(new Image("file:Images/water-red.png"));
-						}
-						else
-						{
-							this.imageViewTab[i][j].setImage(new Image("file:Images/water-white.png"));
-						}
-						
-					
-					}
-						
-					
-					else
-					{
-						this.imageViewTab[i][j].setImage(new Image("file:Images/water.png"));
-					}
-				}
-			}
-		}
-		
-	}
+                public void resetImage(MatrixTiles[][] matrix)
+                
+                {
+                        int nbSquare = 11;
+                        
+                        for(int i = 1; i < nbSquare; i++)
+                        {
+                                for(int j = 1; j <  nbSquare; j++)
+                                {
+                                        if(matrix[i][j].isClicked())
+                                        {
+                                                if(matrix[i][j].getNumber() != 0)
+                                                {
+                                                        this.imageViewTab[i][j].setImage(new Image("file:Images/water-red.png"));
+                                                }
+                                                else
+                                                {
+                                                        this.imageViewTab[i][j].setImage(new Image("file:Images/water-white.png"));
+                                                }
+                                                
+                                        
+                                        }
+                                                
+                                        
+                                        else
+                                        {
+                                                this.imageViewTab[i][j].setImage(new Image("file:Images/water.png"));
+                                        }
+                                }
+                        }
+                }
+                
+        }
 
