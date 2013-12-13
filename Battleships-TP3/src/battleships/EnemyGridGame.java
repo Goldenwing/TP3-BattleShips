@@ -27,16 +27,21 @@ import javafx.stage.Stage;
 public class EnemyGridGame
 {
         private ImageView[][] imageViewTab;
-        Game game;
+        private Game game;
+        private int nbShots;
+        private BattleGame battleGame;
         
         
         /**
          * Constructeur de EnemyGridGame
          * @param game
+         * @param battleGame 
          */
-    public EnemyGridGame(Game game)
+    public EnemyGridGame(Game game, BattleGame battleGame)
     {
-            this.game = game;
+        this.game = game;
+        this.battleGame = battleGame;
+        this.nbShots = 0;
         this.imageViewTab = new ImageView[11][11];        
     }
      
@@ -51,7 +56,12 @@ public class EnemyGridGame
     }
         
     
-    /**
+    public int getNbShots() {
+		return this.nbShots;
+	}
+
+
+	/**
      * Configure le visuel de  la grille de l'ordinateur en ajoutant des imageView dans le groupe.
      * @return
      */
@@ -149,6 +159,9 @@ public class EnemyGridGame
                         }
                         else
                         {
+                        	
+                        	
+                        		EnemyGridGame.this.nbShots++;
                                 gameMatrix.setSquareCheck(quickX, quickY, true, true);
                                 Image imageRedX = new Image("file:Images/water-red.png");
                                 Image imageWhiteX = new Image("file:Images/water-white.png");
@@ -165,9 +178,9 @@ public class EnemyGridGame
                                         {
                                                 imageView.setImage(imageRedX);
 
-                                                if(EnemyGridGame.this.game.DidWeWin(gameMatrix))
+                                                if(DidWeWin(gameMatrix))
                                                 {
-                                                	EnemyGridGame.this.game.VictoryPanel();
+                                                	EnemyGridGame.this.battleGame.VictoryPanel();
                                                 }
                                         }
                                 }
@@ -179,15 +192,15 @@ public class EnemyGridGame
         
         private int getSquareX(ImageView imageView)
         {
-                int x = 0;
+        	int x = 0;
             
-                for(int i = 0; i< 11;i++)
+        	for(int i = 0; i< 11;i++)
             {
-                        for(int j = 0; j< 11;j++)
+        		for(int j = 0; j< 11;j++)
                 {
-                                if(this.imageViewTab[i][j] == imageView)
+        			if(this.imageViewTab[i][j] == imageView)
                     {
-                                        x = i;
+        				x = i;
                     }
                 }
             }
@@ -196,13 +209,13 @@ public class EnemyGridGame
         
         private int getSquareY(ImageView imageView)
         {
-                int y = 0;
+        	int y = 0;
                 
                 for(int i = 0; i< 11;i++)
                 {
-                        for(int j = 0; j< 11;j++)
+                	for(int j = 0; j< 11;j++)
                     {
-                                if(this.imageViewTab[i][j] == imageView)
+                		if(this.imageViewTab[i][j] == imageView)
                         {
                            y = j;
                         }
@@ -211,48 +224,102 @@ public class EnemyGridGame
             return y;
         }
         
-        public void ifBoats(MatrixTiles matrix[][])
-                {
-                        
-                        int nbSquare = 11;
-                
-                        for(int i = 1; i < nbSquare; i++)
-                        {
-                                for(int j = 1; j <  nbSquare; j++)
-                                {
-                                        if(matrix[i][j].getNumber() != 0)
-                                        {
-                                                this.imageViewTab[i][j].setImage(new Image("file:Images/boatPiece.png"));
-                                        }
-                                }
-                        } 
-                                        
-                }
+        private boolean DidWeWin(Matrix matrix)
+        {
+			int redCounter = 0;
+			boolean victory = false;
+			
+			for(int i = 1; i<11; i++)
+			{
+				for(int j = 1; j<11; j++)
+				{
+					if(matrix.getSquareContentCheck(i, j, true) == true && matrix.getSquareContentNumber(i, j, true) != 0)
+					{
+						redCounter++;
+					}
+				}
+			}
+			
+			if(redCounter == 17)
+			{
+				victory = true;
+			}
+			
+			return victory;
+	}
+	
+	private void VictoryPanel()
+	{
+		Group scoreRoot = new Group();
+		Stage scoreDialog = new Stage();
+		scoreDialog.initModality(Modality.WINDOW_MODAL);
+		Scene scoreScene = new Scene(scoreRoot, 300,200, Color.LIGHTGRAY);
+		
+		Label infoLabel = new Label("VOUS ETES LE CHAMPION!!!");
+			infoLabel.setLayoutX(5);
+			infoLabel.setLayoutY(10);
+		
+		scoreRoot.getChildren().add(infoLabel);
+		
+		scoreDialog.setTitle("Victoire!!");
+		scoreDialog.setScene(scoreScene);
+		scoreDialog.setResizable(false);
+		scoreDialog.show(); ;
+		scoreDialog.show();
+	}
 
 
-                public void resetImage(MatrixTiles[][] matrix)
-                
-                {
-                        int nbSquare = 11;
-                        
-                        for(int i = 1; i < nbSquare; i++)
-                        {
-                                for(int j = 1; j <  nbSquare; j++)
-                                {
-                                        if(matrix[i][j].isClicked())
-                                        {
-                                                
-                                                this.imageViewTab[i][j].setImage(new Image("file:Images/water-red.png"));
-                                        
-                                        }
-                                                
-                                        
-                                        else
-                                        {
-                                                this.imageViewTab[i][j].setImage(new Image("file:Images/water.png"));
-                                        }
-                                }
-                        }
-                }
-                
-        }
+
+		public void ifBoats(MatrixTiles matrix[][])
+		{
+			
+			int nbSquare = 11;
+		
+			for(int i = 1; i < nbSquare; i++)
+			{
+				for(int j = 1; j <  nbSquare; j++)
+				{
+					if(matrix[i][j].getNumber() != 0)
+					{
+						this.imageViewTab[i][j].setImage(new Image("file:Images/boatPiece.png"));
+					}
+				}
+			} 
+					
+		}
+
+
+		public void resetImage(MatrixTiles[][] matrix)
+		
+		{
+			int nbSquare = 11;
+			
+			for(int i = 1; i < nbSquare; i++)
+			{
+				for(int j = 1; j <  nbSquare; j++)
+				{
+					if(matrix[i][j].isClicked())
+					{
+						if(matrix[i][j].getNumber() != 0)
+						{
+							this.imageViewTab[i][j].setImage(new Image("file:Images/water-red.png"));
+						}
+						else
+						{
+							this.imageViewTab[i][j].setImage(new Image("file:Images/water-white.png"));
+						}
+						
+					
+					}
+						
+					
+					else
+					{
+						this.imageViewTab[i][j].setImage(new Image("file:Images/water.png"));
+					}
+				}
+			}
+		}
+		
+	}
+
