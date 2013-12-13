@@ -1,3 +1,13 @@
+/**
+* La classe qui contient toute la logique derrière le jeu de BattleShips.
+ * Battleships est un jeu qui se joue 1-à-1, soit contre un autre joueur, ou un joueur ordinateur.
+ * Chaque joueur place ses cinq bateaux de tailles différentes dans un cadre de 10x10 et le but du jeu c'est de
+ * réussir à deviner l'emplacement des cinq bateaux de l'ennemi avant qu'il découvre les notres. Lorsque nous découvrons 
+ * chaque pièce des cinq bateaux (donc, quand nous les coulons), nous gagnons la bataille. Le jeu se fait chacun son tour, en devinant
+ * une case par tour. Chaque case à sa propre numérotation (une lettre suivit d'un chiffre).
+ * 
+ * @author Kevin Tanguay
+ */
 package battleships.backend;
 
 import java.util.List;
@@ -83,12 +93,20 @@ public class Game
             startGame();
         }
         
+        /**
+         * La première fois que le jeu est parti, le BattleGame est passé en paramètres.
+         * @param interfaceGame		l'instance de l'application visuelle.
+         */
         public Game(BattleGame interfaceGame)
         {
         	this.battleGame = interfaceGame;
             startGame();
         }
         
+        /**
+         * La méthode qui initialise tout les objets nécéssaires pour le début d'un jeu.
+         * Cette méthode créée les matrices, ainsi que les joueurs, et place les bateaux ennemis.
+         */
         public void startGame()
         {
         	this.playerMatrix = null;
@@ -110,43 +128,76 @@ public class Game
             enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.SUBMARINE);
             enemy.setBoats(this.computerMatrix, PCBoatPlacer.nextBoolean(), Boats.PATROL);
         }
+        
+        /**
+         * Les deux prochaines méthodes retournes les deux matrices présentement en jeu.
+         * Soit celui du joueur, ou de l'ordinateur.
+         * @return	la matrice joueure.
+         */
         public Matrix getMatrix()
         {
                 return this.playerMatrix;
         }
         
-
+        
+        public void setMatrix(Matrix matrix) 
+        {
+        	this.playerMatrix = matrix;
+        }
+        
+		/**
+		 * Retourne la matrice de l'ordinateur.
+		 * @return	l'instance de la matrice ennemie.
+		 */
         public Matrix getComputerMatrix()
         {
                 return this.computerMatrix;
         }
         
+        /**
+         * Retourne l'instance de l'ennemie.
+         * @return	l'instance de l'ennemie.
+         */
         public ComputerPlayer getEnemy()
         {
                 return enemy;
         }
 
+        /**
+         * Initialise l'instance de l'ennemie.
+         * @param enemy	la nouvelle instance de l'ennemie.
+         */
         public void setEnemy(ComputerPlayer enemy)
         {
                 this.enemy = enemy;
         }
 
+        /**
+         * retourne l'instance du joueur.
+         * @return	l'instance du joueur.
+         */
         public HumanPlayer getGamer()
         {
                 return gamer;
         }
 
+        /**
+         * Initialise une nouvelle instance du joueur.
+         * @param gamer	la nouvelle instance du joueur.
+         */
         public void setGamer(HumanPlayer gamer)
         {
                 this.gamer = gamer;
         }
-
         
-        public void setPlayerShips(String boat, int size, boolean direction)
-        {
-                //this.gamer.setBoats();
-        }
-        
+        /**
+         * Vérifie que le bateau désiré à l'endroit voulu convient à l'espacement disponible.
+         * Si le bateau est trop gros pour l'espace désiré, le bateau ne sera pas placé.
+         * 
+         * @param tableXY				Un tableau contenant les choix de l'utilisateur pour les placements sur la grille.
+         * @param listRbuttonChecked	Une liste contenant les choix de l'utilsateur pour les placements verticaux/horizontaux.
+         * @return						Vrai si possible, faux si impossible.
+         */
         public boolean checkBoatsUser(int[][] tableXY, List<RadioButton> listRbuttonChecked)
             {
                      int []tableSizeBoats =  {5,4,3,3,2};
@@ -169,9 +220,9 @@ public class Game
                                     {
                                                     
                                             
-                                             Boats boatSended = boat.getBoatByNumber(j + 1);
+                                             Boats boatSent = boat.getBoatByNumber(j + 1);
                                              
-                                             verified = this.gamer.setBoats(this.playerMatrix, x,  y, true, boatSended);
+                                             verified = this.gamer.setBoats(this.playerMatrix, x,  y, true, boatSent);
                                     }
                                     else
                                     {
@@ -183,8 +234,8 @@ public class Game
                                     if ((y >= 1) && ((y + tableSizeBoats[j]) <= 11) && (x >= 1) && (x <= 10) && (verified == true))
                                     {
                                             
-                                             Boats boatSended = boat.getBoatByNumber(j + 1);
-                                             verified = this.gamer.setBoats(this.playerMatrix,x,  y, false, boatSended);
+                                             Boats boatSent = boat.getBoatByNumber(j + 1);
+                                             verified = this.gamer.setBoats(this.playerMatrix,x,  y, false, boatSent);
                                     }
                                     else
                                     {
@@ -198,53 +249,44 @@ public class Game
                     return verified;
             }
 
-                public void setMatrix(Matrix matrix) 
-                {
-                        this.playerMatrix = matrix;
-                }
-        
-//        public static void main(String[] args)
-//        {
-//                
-//                Game game = new Game();
-//                Matrix computerMatrix = game.getComputerMatrix();
-//                for(int i = 0; i < 10; i++)
-//                 {
-//                 for(int j = 0; j < 10; j++)
-//                 {
-//                 System.out.printf("%5d ", computerMatrix.getSquareContentNumber(i, j, true));
-//                 }
-//                 System.out.println();
-//                 }
-                public boolean DidWeWin(Matrix matrix)
-                {
-        			int redCounter = 0;
-        			boolean victory = false;
+        /**
+         * Méthode qui vérifie si tous les bateaux ennemis on été coulés, ce qui veux dire qu'on remporte la partie.
+         * 
+         * @param matrix l'instance de la matrice logique.
+         * @return	vrai si la victoire est remportée! Faux si pas encore.
+         */
+        public boolean DidWeWin(Matrix matrix)
+        {
+        	int redCounter = 0;
+        	boolean victory = false;
         			
-        			for(int i = 1; i<11; i++)
-        			{
-        				for(int j = 1; j<11; j++)
-        				{
-        					if(matrix.getSquareContentCheck(i, j, true) == true && matrix.getSquareContentNumber(i, j, true) != 0)
-        					{
-        						redCounter++;
-        					}
-        				}
-        			}
-        			
-        			if(redCounter == 17)
-        			{
-        				victory = true;
-        			}
-        			
-        			return victory;
-        	}
-        	
-        	public void VictoryPanel()
+        	for(int i = 1; i<11; i++)
         	{
-        		this.battleGame.VictoryPanel();
+        		for(int j = 1; j<11; j++)
+        		{
+        			if(matrix.getSquareContentCheck(i, j, true) == true && matrix.getSquareContentNumber(i, j, true) != 0)
+        			{
+        				redCounter++;
+        			}
+        		}
         	}
+        			
+        	if(redCounter == 17)
+        	{
+        		victory = true;
+        	}
+        			
+        	return victory;
+       }
+        	
+        /**
+         * Appelle la méthode qui affiche la fenètre modale pour nous féliciter.
+         */
+       public void VictoryPanel()
+       {
+    	   this.battleGame.VictoryPanel();
+       }
         	
         	
-        }
+     }
 
