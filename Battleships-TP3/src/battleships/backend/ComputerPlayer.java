@@ -24,11 +24,12 @@ import battleships.backend.Game.Boats;
         private GoodShot lastGoodShot;
         private BattleGame battleGame;
             
-        public ComputerPlayer(Game game) 
+        public ComputerPlayer(Game game, BattleGame battleGame) 
         {
             this.playerName = "HAL-9000";
             this.lastGoodShot = null;
             this.game = game;
+            this.battleGame = battleGame;
         }
     
     @Override
@@ -61,7 +62,7 @@ import battleships.backend.Game.Boats;
     }
 
     @Override
-    public boolean shootEnemy(Matrix gameGrid) { //"intelligence" artificielle O_o
+    public void shootEnemy(Matrix gameGrid) { //"intelligence" artificielle O_o
             
             boolean isMyTurn = true; //Signale que c'est a l'autre joueur a jouer
             int coordX = 1;
@@ -69,8 +70,8 @@ import battleships.backend.Game.Boats;
             
             if (this.lastGoodShot == null) { //Partir d'un coup random ou du dernier bon coup
                     do {
-                            coordX = coordinateNumber.nextInt(this.GAME_SIZE);
-                    coordY = coordinateNumber.nextInt(this.GAME_SIZE);
+                    		coordX = coordinateNumber.nextInt(this.GAME_SIZE);
+                            coordY = coordinateNumber.nextInt(this.GAME_SIZE);
                     } while(gameGrid.getSquareContentCheck(coordX, coordY, false));
             } else {
                     coordX = this.lastGoodShot.getCoordX();
@@ -107,7 +108,7 @@ import battleships.backend.Game.Boats;
 	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
 	                                                this.battleGame.getMyGrid().changeStateSquare(true, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
 	                                        }
-	                                } while(this.lastGoodShot.getCoordY() < this.GAME_SIZE - 1 && this.lastGoodShot.getShotsRemaining() != 0);
+	                                } while(this.lastGoodShot.getCoordY() < this.GAME_SIZE);
 	                                
 	                                do { //On regarde en bas
 	                                        GoodShot goodShotAttempt = new GoodShot(coordX, coordY);
@@ -119,7 +120,7 @@ import battleships.backend.Game.Boats;
 	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
 	                                                this.battleGame.getMyGrid().changeStateSquare(true, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
 	                                        }
-	                                } while(this.lastGoodShot.getCoordY() >= 0 && this.lastGoodShot.getShotsRemaining() != 0);
+	                                } while(this.lastGoodShot.getCoordY() >= 0);
 	                                
 	                                do { //On regarde a gauche
 	                                        GoodShot goodShotAttempt = new GoodShot(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
@@ -131,7 +132,7 @@ import battleships.backend.Game.Boats;
 	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
 	                                                this.battleGame.getMyGrid().changeStateSquare(true, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
 	                                        }
-	                                } while(this.lastGoodShot.getCoordX() >= 0 && this.lastGoodShot.getShotsRemaining() != 0);
+	                                } while(this.lastGoodShot.getCoordX() >= 0);
 	                                
 	                                do { //On regarde a droite
 	                                        GoodShot goodShotAttempt = new GoodShot(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
@@ -143,11 +144,10 @@ import battleships.backend.Game.Boats;
 	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
 	                                                this.battleGame.getMyGrid().changeStateSquare(true, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
 	                                        }
-	                                } while(this.lastGoodShot.getCoordX() < this.GAME_SIZE - 1 && this.lastGoodShot.getShotsRemaining() != 0);
+	                                } while(this.lastGoodShot.getCoordX() < this.GAME_SIZE);
                                 }
                         }
             } while(isMyTurn);
-            return isMyTurn;
     }
         
     public String getPlayerName() {
