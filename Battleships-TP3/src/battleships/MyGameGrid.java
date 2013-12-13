@@ -4,6 +4,8 @@ package battleships;
 
 import java.util.List;
 
+import battleships.backend.Game;
+import battleships.backend.Matrix;
 import battleships.backend.MatrixTiles;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -24,6 +26,7 @@ public class MyGameGrid
 {
 	private ImageView[][] imageViewTab;
 	private Group myRoot;
+	private Game game;
 	
 	/**
 	 * Constructeur, initialise le tableau d'images
@@ -46,7 +49,7 @@ public class MyGameGrid
 	
 
 	/**
-	 * Parcours le tableau pour vérifier s'il y a des bateaux dans la matrice. S'il en a, il a un changement d'image
+	 * Parcours le tableau pour vÃ©rifier s'il y a des bateaux dans la matrice. S'il en a, il a un changement d'image
 	 * @param matrix Tableau de MatrixTiles du joueur utilisateur
 	 */
 	public void ifBoats(MatrixTiles matrix[][])
@@ -68,7 +71,7 @@ public class MyGameGrid
 	}
 	/**
      * Configure le visuel de  la grille de l'ordinateur en ajoutant des imageView dans le groupe.
-     * @return le group contenant les éléments graphiques de la grille
+     * @return le group contenant les Ã©lÃ©ments graphiques de la grille
      */
 	public Group setGrid(String nom)
 	{
@@ -139,17 +142,16 @@ public class MyGameGrid
 	/**
 	 * Methode appelee par ComputerPlayer permettant de placer soit un point blanc ou un point
 	 * rouge sur la grille du joueur humain selon si c'est un coup reussi ou rate 
-	 * @param matrix la grille du joueur humain
+	 * @param isHit booleen, true est un coup reussi, false est un coup rate
 	 * @param x la coordonnee en X de la case a changer
 	 * @param y la coordonnee en Y de la case a changer
 	 */
-	public void changeStateSquare(Matrix matrix, int x, int y) {
-		if (matrix.getSquareContentNumber(x, y, false) == 0) {
+	public void changeStateSquare(Boolean isHit, int x, int y) {
+		if (!isHit) {
 			this.imageViewTab[x][y].setImage(new Image("file:Images/water-white.png"));
 		}
 		else {
 			this.imageViewTab[x][y].setImage(new Image("file:Images/water-red.png"));
 		}	
 	}	
-	
 }
