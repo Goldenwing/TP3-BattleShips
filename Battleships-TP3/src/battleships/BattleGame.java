@@ -1,6 +1,9 @@
 package battleships;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +76,12 @@ public class BattleGame extends Application
         }
         
 
-        /**
+        public String getName() {
+			return this.name;
+		}
+
+
+		/**
          * Affiche une fenêtre modale qui demande le nom et les coordonnées des bateaux du joueur.
          */
         public void askPositionBoats()
@@ -106,8 +114,9 @@ public class BattleGame extends Application
                 this.setPieces();
                 MyGameGrid myGrid = new MyGameGrid();
                 this.myGroup = myGrid.setGrid(this.name); 
+                this.game.getGamer().setPlayerName(this.name);
                 myGrid.ifBoats(this.game.getMatrix().getGameMatrix());
-                this.enemyGrid = new EnemyGridGame(this.game);
+                this.enemyGrid = new EnemyGridGame(this.game, this);
                 this.enemyGroup = this.enemyGrid.setGrid();
                 this.root.getChildren().add(this.enemyGroup);
                 this.root.getChildren().add(this.myGroup);
@@ -121,7 +130,12 @@ public class BattleGame extends Application
                 this.enemyGrid.ifBoats(this.game.getComputerMatrix().getComputerGameMatrix());
         }
 
-        /**
+        public EnemyGridGame getEnemyGrid() {
+			return this.enemyGrid;
+		}
+
+
+		/**
          * Place deux images à  droite dans l'interface.
          */
         public void setPieces()
@@ -372,6 +386,10 @@ public class BattleGame extends Application
 				
 				//Laurie, toi tu sais comment traiter des fichiers Textes ici! :)
 				//Ici, on écrit le score du joueur dans le fichier.
+				
+				BattleGame.this.game.checkIfFile();
+				BattleGame.this.modalStage.close();
+				
 			}
     		
     	}
@@ -407,7 +425,7 @@ public class BattleGame extends Application
         		playAgainDialog.setTitle("Victoire!!");
         		playAgainDialog.setScene(scoreScene);
         		playAgainDialog.setResizable(false);
-        		playAgainDialog.show(); ;
+        		playAgainDialog.show(); 
         		playAgainDialog.show();
 				
 			}
