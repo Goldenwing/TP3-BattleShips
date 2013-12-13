@@ -1,3 +1,4 @@
+/**
 * La classe qui contient toute la logique derrière le jeu de BattleShips.
  * Battleships est un jeu qui se joue 1-à-1, soit contre un autre joueur, ou un joueur ordinateur.
  * Chaque joueur place ses cinq bateaux de tailles différentes dans un cadre de 10x10 et le but du jeu c'est de
@@ -15,11 +16,19 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.List;
 import java.util.Random;
 
-import battleships.BattleGame;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+
+import battleships.BattleGame;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -125,7 +134,7 @@ public class Game
             this.enemy = null;
             this.gamer = null;
             
-            this.enemy = new ComputerPlayer(this);
+            this.enemy = new ComputerPlayer(this, this.battleGame);
             this.gamer = new HumanPlayer("Link");
 
             
@@ -311,109 +320,334 @@ public class Game
        {
     	   this.battleGame.DefeatPanel(this.computerHit);
        }
-        	
-       public void checkIfFile()
-       {
-                      File file = new File("bestScores.txt");
-                      int nbLine = 0;
-                      
-                  if (!file.exists())
-                  {
-                          try
-                  {
-                      BufferedWriter writer = new BufferedWriter(new FileWriter(new File("bestScores.txt")));
-                      writer.write("<game><name>" + this.battleGame.getName() + "</name><nbShots> " + this.playerHit + "</nbShots></game> \r\n");
-                      writer.close();
-        
-                  }
-                 
-                  catch (IOException e)
-                  {
-                          e.printStackTrace();
-                  }
-                  }
-                  else
-                  {
-                           try
-                   {    
-                      BufferedReader buff = new BufferedReader(new FileReader("bestScores.txt"));
-                          
-                      try
-                      {
-                              String line;
-                  
-                              while ((line = buff.readLine()) != null)
-                              {
-                              nbLine++;
-                              }
-                      } 
-                      finally
-                      {
-                              buff.close();
-                      }
-                          
-                   }
-                   catch (IOException ioe)
-                   {
-                           System.out.println("Erreur --" + ioe.toString());
-                          
-                   }
-                                  writeInFile(nbLine);
-                                  
-                  }
-                  
-         
-                  
-       }
-
        
-     private boolean readBestScores()
-     {
-             
-             
-             
-             return true;
-     }
-       
-         private void writeInFile(int nbLine)
-         {
-                 if(nbLine <= 3)
+      public void checkIfFile()
+      {
+    		 File file = new File("bestScores.txt");
+    		 int nbLine = 0;
+        	 if (!file.exists())
+        	 {
+        		 try
                  {
-                         if(readBestScores())
-                         {
-                                 BufferedWriter bfw;
-                                 BufferedReader bfr;
-                                 try 
-                                 {
-                                         bfw = new BufferedWriter(new FileWriter("bestScores.txt", true));
-                                         bfr = new BufferedReader(new FileReader("bestScores.txt"));
-                                         bfr.readLine();
-                                         bfr.close();
-                                         bfw.write("<game><name>" + this.battleGame.getName() + "</name><nbShots> " + this.playerHit + "</nbShots></game>\r\n");
-                                         bfw.flush();
-                                         bfw.close();
-                                 }
-                                 catch (IOException e) {
-                                 // TODO Auto-generated catch block
-                                 e.printStackTrace();
-                                 }
-                         
-                         }
-                         else
-                         {
-                                 
-                         }
+                     BufferedWriter writer = new BufferedWriter(new FileWriter(new File("bestScores.txt")));
+                     writer.write("<game><name>" + this.battleGame.getName() + "</name><nbShots> " + this.battleGame.getEnemyGrid().getNbShots() + "</nbShots></game> \r\n");
+                     writer.close();
+       
                  }
-//                 else if(nbLine == 3)
-//                 {
-//                         while(!readBestScores())
-//                         {
-//                                 
-//                         }
-//                 }
+                
+                 catch (IOException e)
+                 {
+                	 e.printStackTrace();
+                 }
+        	 }
+        	 else
+        	 {
+        		  try
+                  {    
+                     BufferedReader buff = new BufferedReader(new FileReader("bestScores.txt"));
+                         
+                     try
+                     {
+                     	String line= "";
                  
-         }
+                     	while ((line = buff.readLine()) != null)
+                     	{
+                             nbLine++;
+                     	}
+                     } 
+                     finally
+                     {
+                     	buff.close();
+                     }
+                         
+                  }
+                  catch (IOException ioe)
+                  {
+                 	 System.out.println("Erreur --" + ioe.toString());
+                 	
+                  }
+        			 writeInFile(nbLine);
+        			 
+        	 }
+        	 
         
-                 
+        	 
       }
+
+      
+    private boolean readBestScores()
+    {
+
+    	 File file = new File("bestScores.txt");
+    	 int line = 0;
+    	 String nom;
+         String score = "";
+         String lineScore = "";
+      
+         
+         Document doc = null;
+         boolean betterScore = false;
+         
+         try
+         {    
+            BufferedReader buff = new BufferedReader(new FileReader("bestScores.txt"));
+                
+            try
+            {
+            	
+        
+            	while ((lineScore = buff.readLine()) != null && !betterScore)
+            	{	
+            		
+            		
+            		   XPathFactory xpathFactory = XPathFactory.newInstance();
+            	         XPath xpath = xpathFactory.newXPath();
+            		
+            		InputSource source = new InputSource(new StringReader(lineScore));
+            		
+            		 line++;
+            		 try
+                     {
+                             doc = (Document) xpath.evaluate("/", source, XPathConstants.NODE);
+                     }
+                     catch (XPathExpressionException e)
+                     {        
+                             e.printStackTrace();
+                     }
+                     
+//                     if(message.contains("quitter"))
+//                     {
+                    try
+                     {
+                         score = xpath.evaluate("/game/nbShots", doc);
+                         
+                                
+                     }
+                    catch (XPathExpressionException e)
+                    {
+                    		 e.printStackTrace();
+                    }
+                    
+                    
+                    if(score.contains(" "))
+                    {
+                    	score = score.replaceAll(" ","");
+                    }
+                    
+                
+                    if(Integer.parseInt(score) >= this.battleGame.getEnemyGrid().getNbShots())
+                    {
+                    	betterScore = true;
+                    }
+                    
+                    
+                    
+            	}
+            } 
+            finally
+            {
+            	buff.close();
+            }
+                
+         }
+         catch (IOException ioe)
+         {
+        	 System.out.println("Erreur --" + ioe.toString());
+        	
+         }
+           
+         
+         
+//         try
+//         {
+//                 doc = (Document) xpath.evaluate("/", source, XPathConstants.NODE);
+//         }
+//         catch (XPathExpressionException e)
+//         {        
+//                 e.printStackTrace();
+//         }
+//         
+////         if(message.contains("quitter"))
+////         {
+//        	 try
+//             {
+//                     score = xpath.evaluate("/game/nbShots", doc);
+//                    
+//             }
+//        	 catch (XPathExpressionException e)
+//             {
+//        		 e.printStackTrace();
+//             }
+//         }
+    	
+    	return betterScore;
+    }
+      
+    
+    private void changeBestScore()
+    {
+    	File file = new File("bestScores.txt");
+   	 	int line = 0;
+   	 	String nom;
+        String score = "";
+        String lineScore = "";
+        String firstScore = "";
+        String secondScore = "";
+        String thridScore = "";
+        String tabLineText[] = new String[3];
+        File fileChange = new File("changeScore.txt");
+        Document doc = null;
+        
+        
+        try
+        {    
+           BufferedReader buff = new BufferedReader(new FileReader("bestScores.txt"));
+           
+               
+           try
+           {
+           	
+       		boolean betterScore = false;
+           	while ((lineScore = buff.readLine()) != null)
+           	{
+           		
+           		
+           		boolean isAlreadyBest = false;
+           		XPathFactory xpathFactory = XPathFactory.newInstance();
+           		XPath xpath = xpathFactory.newXPath();
+           		InputSource source = new InputSource(new StringReader(lineScore));
+           
+           		 try
+                    {
+                            doc = (Document) xpath.evaluate("/", source, XPathConstants.NODE);
+                    }
+                    catch (XPathExpressionException e)
+                    {        
+                            e.printStackTrace();
+                    }
+                    
+
+                   try
+                    {
+                        score = xpath.evaluate("/game/nbShots", doc);
+                        
+                               
+                    }
+                   catch (XPathExpressionException e)
+                   {
+                   		 e.printStackTrace();
+                   }
+//                   
+                   if(score.contains(" "))
+                   {
+                   	score = score.replaceAll(" ","");
+                   }
+                   
+                   
+               	System.out.println(score);
+                   
+                   if(Integer.parseInt(score) >= this.battleGame.getEnemyGrid().getNbShots())
+                	   
+           
+                   {
+                   	betterScore = true;
+                   }
+                   
+                   System.out.println(lineScore);
+                   
+                
+//                	      bfw.write(lineScore + "\r\n");
+                	  
+                       
+                	 
+                	 
+                	   
+                   
+                   if(!betterScore || (betterScore && isAlreadyBest))
+                   {
+//                	      bfw.write(lineScore + "\r\n");
+                	  
+                	   tabLineText[line] = lineScore + "\r\n";
+                	 
+                	   
+                   }
+                   else if(!isAlreadyBest && betterScore)
+                   {
+                	   tabLineText[line] = "<game><name>" + this.battleGame.getName() + "</name><nbShots>" + this.battleGame.getEnemyGrid().getNbShots() + "</nbShots></game>\r\n";
+                	   isAlreadyBest = true;
+                	   
+                   }
+                   line++;
+                  
+                   
+                   
+           	}
+           	
+           	
+           	buff.close();	
+           	BufferedWriter bfw = new BufferedWriter(new FileWriter("bestScores.txt"));
+           	for(int i = 0; i < 3; i++)
+           	{
+           		System.out.println(tabLineText[i]);
+           		bfw.write(tabLineText[i]);
+           	}
+           	
+              bfw.close();
+//             
+            
+           } 
+           finally
+           {
+        	 
+    
+           }
+               
+        }
+        catch (IOException ioe)
+        {
+       	 System.out.println("Erreur --" + ioe.toString());
+       	
+        }
+    }
+	private void writeInFile(int nbLine)
+	{
+		if(nbLine <= 3)
+		{
+			if(nbLine < 3)
+			{
+				BufferedWriter bfw;
+				BufferedReader bfr;
+				try 
+				{
+					bfw = new BufferedWriter(new FileWriter("bestScores.txt", true));
+					bfr = new BufferedReader(new FileReader("bestScores.txt"));
+					bfr.readLine();
+					bfr.close();
+					bfw.write("<game><name>" + this.battleGame.getName() + "</name><nbShots>" + this.battleGame.getEnemyGrid().getNbShots() + "</nbShots></game>\r\n");
+					bfw.flush();
+					bfw.close();
+				}
+				catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				}
+			
+			}
+			else if(nbLine == 3 && readBestScores())
+			{
+				changeBestScore();
+			}
+		}
+//		else if(nbLine == 3)
+//		{
+//			while(!readBestScores())
+//			{
+//				
+//			}
+//		}
+		
+	}
+       
+        	
+     }
 
