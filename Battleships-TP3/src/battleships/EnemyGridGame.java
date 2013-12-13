@@ -188,6 +188,7 @@ public class EnemyGridGame
                             
                             
                     }
+                    EnemyGridGame.this.game.getEnemy().shootEnemy(EnemyGridGame.this.game.getMatrix());       
             }
         }
         
