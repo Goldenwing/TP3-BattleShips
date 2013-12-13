@@ -1,13 +1,15 @@
 package battleships.backend;
 
 import java.util.Random;
+
+import battleships.BattleGame;
 import battleships.backend.Game.Boats;
 
 
 /**
  * Extension de la super-classe Player qui permet d'instancier une intelligence artificielle simulant
  * un joueur. ComputerPlayer utilise majoritairement de fonctions aleatoires afin de placer les bateaux
- *  et tirer sur l'ennemi.
+ * et tirer sur l'ennemi.
  * @author Annie Belzile
  *
  */
@@ -20,6 +22,7 @@ import battleships.backend.Game.Boats;
         private Random coordinateNumber = new Random();
         private Game game;
         private GoodShot lastGoodShot;
+        private BattleGame battleGame;
             
         public ComputerPlayer(Game game) 
         {
@@ -61,14 +64,14 @@ import battleships.backend.Game.Boats;
     public boolean shootEnemy(Matrix gameGrid) { //"intelligence" artificielle O_o
             
             boolean isMyTurn = true; //Signale que c'est a l'autre joueur a jouer
-            int coordX = 0;
-            int coordY = 0;
+            int coordX = 1;
+            int coordY = 1;
             
             if (this.lastGoodShot == null) { //Partir d'un coup random ou du dernier bon coup
                     do {
-                            coordX = coordinateNumber.nextInt(this.GAME_SIZE -1);
-                    coordY = coordinateNumber.nextInt(this.GAME_SIZE -1);
-                    } while(gameGrid.getSquareContentCheck(coordX, coordY, true));
+                            coordX = coordinateNumber.nextInt(this.GAME_SIZE);
+                    coordY = coordinateNumber.nextInt(this.GAME_SIZE);
+                    } while(gameGrid.getSquareContentCheck(coordX, coordY, false));
             } else {
                     coordX = this.lastGoodShot.getCoordX();
                     coordY = this.lastGoodShot.getCoordY();
@@ -76,14 +79,16 @@ import battleships.backend.Game.Boats;
             
             //On shoot des bombes!
             do {
-                        if(gameGrid.getSquareContentNumber(coordX, coordY, true) == 0) { //Coup dans l'eau
+                        if(gameGrid.getSquareContentNumber(coordX, coordY, false) == 0) { //Coup dans l'eau
                                 isMyTurn = false;
                                 this.lastGoodShot = null;
-                                gameGrid.setSquareCheck(coordX, coordY, true, true);
+                                gameGrid.setSquareCheck(coordX, coordY, true, false);
                                 this.game.UpHitCounter(true);
+                                this.battleGame.getMyGrid().changeStateSquare(false, coordX, coordY);
                         }
                         else { //Hit!
-                                gameGrid.setSquareCheck(coordX, coordY, true, true);
+                                gameGrid.setSquareCheck(coordX, coordY, true, false);
+                                this.battleGame.getMyGrid().changeStateSquare(true, coordX, coordY);
                                 this.game.UpHitCounter(true);
                                 
                                 if(this.game.DidWeWin(gameGrid))
@@ -99,7 +104,8 @@ import battleships.backend.Game.Boats;
 	                                                isMyTurn = true;
 	                                                this.lastGoodShot = goodShotAttempt;
 	                                                this.lastGoodShot.setShotsRemaining(this.lastGoodShot.getShotsRemaining() - 1);
-	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, true);
+	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
+	                                                this.battleGame.getMyGrid().changeStateSquare(true, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
 	                                        }
 	                                } while(this.lastGoodShot.getCoordY() < this.GAME_SIZE - 1 && this.lastGoodShot.getShotsRemaining() != 0);
 	                                
@@ -110,7 +116,8 @@ import battleships.backend.Game.Boats;
 	                                                isMyTurn = true;
 	                                                this.lastGoodShot = goodShotAttempt;
 	                                                this.lastGoodShot.setShotsRemaining(this.lastGoodShot.getShotsRemaining() - 1);
-	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, true);
+	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
+	                                                this.battleGame.getMyGrid().changeStateSquare(true, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
 	                                        }
 	                                } while(this.lastGoodShot.getCoordY() >= 0 && this.lastGoodShot.getShotsRemaining() != 0);
 	                                
@@ -121,7 +128,8 @@ import battleships.backend.Game.Boats;
 	                                                isMyTurn = true;
 	                                                this.lastGoodShot = goodShotAttempt;
 	                                                this.lastGoodShot.setShotsRemaining(this.lastGoodShot.getShotsRemaining() - 1);
-	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, true);
+	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
+	                                                this.battleGame.getMyGrid().changeStateSquare(true, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
 	                                        }
 	                                } while(this.lastGoodShot.getCoordX() >= 0 && this.lastGoodShot.getShotsRemaining() != 0);
 	                                
@@ -132,7 +140,8 @@ import battleships.backend.Game.Boats;
 	                                                isMyTurn = true;
 	                                                this.lastGoodShot = goodShotAttempt;
 	                                                this.lastGoodShot.setShotsRemaining(this.lastGoodShot.getShotsRemaining() - 1);
-	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, true);
+	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
+	                                                this.battleGame.getMyGrid().changeStateSquare(true, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
 	                                        }
 	                                } while(this.lastGoodShot.getCoordX() < this.GAME_SIZE - 1 && this.lastGoodShot.getShotsRemaining() != 0);
                                 }
@@ -148,7 +157,7 @@ import battleships.backend.Game.Boats;
     ///////private methods
     
     private GoodShot checkSquareUp(int x, int y, Matrix gameGrid) {
-            if (gameGrid.getSquareContentNumber(x, y + 1, true) == 0) {
+            if (gameGrid.getSquareContentNumber(x, y + 1, false) == 0) {
                     return null;
             }
             else {
@@ -158,7 +167,7 @@ import battleships.backend.Game.Boats;
     }
     
     private GoodShot checkSquareDown(int x, int y, Matrix gameGrid) {
-            if (gameGrid.getSquareContentNumber(x, y - 1, true) == 0) {
+            if (gameGrid.getSquareContentNumber(x, y - 1, false) == 0) {
                     return null;
             }
             else {
@@ -168,7 +177,7 @@ import battleships.backend.Game.Boats;
     }
     
     private GoodShot checkSquareLeft(int x, int y, Matrix gameGrid) {
-            if (gameGrid.getSquareContentNumber(x - 1, y, true) == 0) {
+            if (gameGrid.getSquareContentNumber(x - 1, y, false) == 0) {
                     return null;
             }
             else {
@@ -178,7 +187,7 @@ import battleships.backend.Game.Boats;
     }
     
     private GoodShot checkSquareRight(int x, int y, Matrix gameGrid) {
-            if (gameGrid.getSquareContentNumber(x + 1, y, true) == 0) {
+            if (gameGrid.getSquareContentNumber(x + 1, y, false) == 0) {
                     return null;
             }
             else {
