@@ -64,7 +64,7 @@ public class BattleGame extends Application
         public void start(Stage stage)
         {
                 this.root = new Group();
-                this.scene = new Scene(this.root, 1366, 768, Color.LIGHTGRAY);
+                this.scene = new Scene(this.root, 1024, 500, Color.LIGHTGRAY);
                 
                 this.game = new Game(this);
 //                
@@ -121,7 +121,7 @@ public class BattleGame extends Application
                 this.game.getGamer().setPlayerName(this.name);
                 this.myGrid.ifBoats(this.game.getMatrix().getGameMatrix());
                 this.enemyGrid = new EnemyGridGame(this.game, this);
-                this.enemyGroup = this.enemyGrid.setGrid("Computer");
+                this.enemyGroup = this.enemyGrid.setGrid();
                 this.root.getChildren().add(this.enemyGroup);
                 this.root.getChildren().add(this.myGroup);
                 this.game.getEnemy().shootEnemy(this.game.getMatrix());
@@ -151,13 +151,13 @@ public class BattleGame extends Application
         public void setPieces()
         {
                 ImageView whitePieces = new ImageView(new Image("file:Images/white.png"));
-                whitePieces.setX(1675);
-                whitePieces.setY(250);
+                whitePieces.setX(835);
+                whitePieces.setY(125);
                 
                 this.root.getChildren().add(whitePieces);
                 ImageView redPieces = new ImageView(new Image("file:Images/red.png"));
-                redPieces.setX(1675);
-                redPieces.setY(500);
+                redPieces.setX(835);
+                redPieces.setY(250);
                 this.root.getChildren().add(redPieces); 
         }
        
@@ -179,19 +179,19 @@ public class BattleGame extends Application
          */
         public static void main(String[] args)
         {
-                JUnitCore junit = new JUnitCore(); 
-                Result resultGame = junit.run(GameTest.class);
-                runTests(resultGame);
-                Result resultMatrix = junit.run(MatrixTest.class);
-                runTests(resultMatrix);
-                Result resultPlayer = junit.run(Player.class);
-                
-                if (runTests(resultGame) && runTests(resultMatrix)  && runTests(resultPlayer))
-                {
-                        String s = new File("").getAbsolutePath();
-                        System.out.println(s);
+//                JUnitCore junit = new JUnitCore(); 
+//                Result resultGame = junit.run(GameTest.class);
+//                runTests(resultGame);
+//                Result resultMatrix = junit.run(MatrixTest.class);
+//                runTests(resultMatrix);
+//                Result resultPlayer = junit.run(Player.class);
+//                
+//                if (runTests(resultGame) && runTests(resultMatrix)  && runTests(resultPlayer))
+//                {
+//                        String s = new File("").getAbsolutePath();
+//                        System.out.println(s);
                         Application.launch(BattleGame.class, args);
-                }   
+                //}   
         }
         
         /**
