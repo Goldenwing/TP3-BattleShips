@@ -22,9 +22,9 @@ public class HumanPlayer extends Player {
  
         
         @Override
-        public boolean shootEnemy(Matrix gameGrid) {
-                        return false;
-                // TODO Auto-generated method stub
+        public void shootEnemy(Matrix gameGrid) {
+                        
+                
                 
         }
         
