@@ -29,17 +29,9 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 import battleships.BattleGame;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+
 import javafx.scene.control.RadioButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+
 
 public class Game
 {
@@ -94,7 +86,7 @@ public class Game
            }
     }
 
-        private final int GAME_SIZE = 10;
+      
         private Matrix playerMatrix;
         private Matrix computerMatrix;
         private Random PCBoatPlacer = new Random();
@@ -321,6 +313,11 @@ public class Game
     	   this.battleGame.DefeatPanel(this.computerHit);
        }
        
+       /**
+        * Vérifie si le fichier bestScores.txt existe
+        * S'il existe la fonction appelle la fonction writeInFile, sinon il crée le fichier
+        * et met le score du joeur dans le fichier en xml
+        */
       public void checkIfFile()
       {
     		 File file = new File("bestScores.txt");
@@ -349,6 +346,7 @@ public class Game
                      try
                      {
                      	String line= "";
+                     	line = "Allo";
                  
                      	while ((line = buff.readLine()) != null)
                      	{
@@ -373,13 +371,19 @@ public class Game
         	 
       }
 
+      /**
+       * Lit dans le fichier pour voir si le score du joueur est meilleur que ceux dans le fichier.
+       * La fonction retourne vrai si le score est meilleur.
+       * La fonction retourne faux si le score n'est pas meilleur.
+       * @return betterScore
+       */
       
     private boolean readBestScores()
     {
 
-    	 File file = new File("bestScores.txt");
+   
     	 int line = 0;
-    	 String nom;
+
          String score = "";
          String lineScore = "";
       
@@ -455,46 +459,28 @@ public class Game
         	
          }
            
-         
-         
-//         try
-//         {
-//                 doc = (Document) xpath.evaluate("/", source, XPathConstants.NODE);
-//         }
-//         catch (XPathExpressionException e)
-//         {        
-//                 e.printStackTrace();
-//         }
-//         
-////         if(message.contains("quitter"))
-////         {
-//        	 try
-//             {
-//                     score = xpath.evaluate("/game/nbShots", doc);
-//                    
-//             }
-//        	 catch (XPathExpressionException e)
-//             {
-//        		 e.printStackTrace();
-//             }
-//         }
+
     	
     	return betterScore;
     }
       
+    /**
+     * La fonction cherche le score que le joueur a battu
+     * Si le score n'est pas meilleur il lit dans le fichier et met la ligne correspondante dans un tableau
+     * et si le score est meilleur il ajoute le score du joueur dans le tableau
+     * Après la fonction remplace les trois éléments du tableau dans le fichier texte
+     */
     
     private void changeBestScore()
     {
-    	File file = new File("bestScores.txt");
+    	
    	 	int line = 0;
-   	 	String nom;
+   	 	
         String score = "";
         String lineScore = "";
-        String firstScore = "";
-        String secondScore = "";
-        String thridScore = "";
+
         String tabLineText[] = new String[3];
-        File fileChange = new File("changeScore.txt");
+   
         Document doc = null;
         
         
@@ -506,12 +492,13 @@ public class Game
            try
            {
            	
-       		boolean betterScore = false;
+       
+       		boolean isAlreadyBest = false;
            	while ((lineScore = buff.readLine()) != null)
            	{
            		
-           		
-           		boolean isAlreadyBest = false;
+           		boolean betterScore = false;
+           	
            		XPathFactory xpathFactory = XPathFactory.newInstance();
            		XPath xpath = xpathFactory.newXPath();
            		InputSource source = new InputSource(new StringReader(lineScore));
@@ -604,6 +591,12 @@ public class Game
        	
         }
     }
+    
+    /**
+     * Si le fichier comporte moins de trois ligne , il y a ajout du score du joueur dans le fichier
+     * Sinon, la fonction appelle la méthode changeBestScore
+     * @param nbLine nombre de ligne dans le fichier
+     */
 	private void writeInFile(int nbLine)
 	{
 		if(nbLine <= 3)
