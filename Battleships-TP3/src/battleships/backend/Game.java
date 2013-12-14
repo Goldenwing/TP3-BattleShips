@@ -418,8 +418,7 @@ public class Game
                              e.printStackTrace();
                      }
                      
-//                     if(message.contains("quitter"))
-//                     {
+//                  
                     try
                      {
                          score = xpath.evaluate("/game/nbShots", doc);
@@ -616,7 +615,7 @@ public class Game
 					bfw.close();
 				}
 				catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 				}
 			
@@ -626,13 +625,7 @@ public class Game
 				changeBestScore();
 			}
 		}
-//		else if(nbLine == 3)
-//		{
-//			while(!readBestScores())
-//			{
-//				
-//			}
-//		}
+
 		
 	}
        
