@@ -7,14 +7,16 @@ import battleships.backend.Matrix;
 import battleships.backend.MatrixTiles;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * Classe JavaFX de la grille qui contient les coordonnées des bateaux de l'ordinateur.
@@ -67,14 +69,14 @@ public class EnemyGridGame
      {
         Group rootEnemy = new Group();
                 
-        Text name = new Text("Ordinateur");
-        name.setX(385);
-        name.setY(870);
+        Text name = new Text(this.game.getEnemy().getPlayerName());
+        name.setX(200);
+        name.setY(450);
         name.setFont(new Font(20));
         int nbSquare = 11;
         
-        int xSquare = 50; // coordonnees x de l'image
-        int ySquare = 70; // coordonnees y de l'image
+        int xSquare = 25; // coordonnees x de l'image
+        int ySquare = 35; // coordonnees y de l'image
         ImageList imageList =  new ImageList();
         List<Image> imageListNumber = imageList.imageListNumbers();
         List<Image> imageListLetter = imageList.imageListLetters();
@@ -84,8 +86,8 @@ public class EnemyGridGame
         {
                 if( i > 0)
             {
-                      xSquare += 70;
-                      ySquare = 70;
+                      xSquare += 35;
+                      ySquare = 35;
             }
                 
                 for(int j = 0; j < nbSquare; j++)
@@ -94,7 +96,7 @@ public class EnemyGridGame
                   
                         if(j > 0 && i > 0)
                         {
-                       ySquare += 70;
+                       ySquare += 35;
                        waterTiles = new ImageView(new Image("file:Images/water.png"));
                     }
                         
@@ -105,7 +107,7 @@ public class EnemyGridGame
                         
                     else if(j > 0 && i == 0)
                     {
-                       ySquare += 70;
+                       ySquare += 35;
                        waterTiles = new ImageView(imageListLetter.get(j - 1));
                     }
         
@@ -157,8 +159,7 @@ public class EnemyGridGame
                     }
                     else
                     {
-                    	
-                    		EnemyGridGame.this.nbShots++;
+                    	EnemyGridGame.this.nbShots++;
                             gameMatrix.setSquareCheck(quickX, quickY, true, true);
                             Image imageRedX = new Image("file:Images/water-red.png");
                             Image imageWhiteX = new Image("file:Images/water-white.png");
