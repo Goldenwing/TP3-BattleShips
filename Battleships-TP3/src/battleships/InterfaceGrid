@@ -1,0 +1,35 @@
+package battleships;
+
+import battleships.backend.MatrixTiles;
+import javafx.scene.Group;
+import javafx.scene.image.ImageView;
+
+/**
+ * Interface des grilles graphiques du jeu.
+ * Les classes EnemyGridGame et MyGameGrid vont implémentés cette interface.
+ * @author Laurie
+ *
+ */
+public interface InterfaceGrid
+
+{
+	/**
+	 * Retourne un le tableau d'imageView qui forme la grille du joueur ou de l'ordinateur
+	 * @return
+	 */
+	public ImageView[][] getImageTabViewMyGrid();
+	/**
+	 * Vérifie s'il y a des bateaux de placer dans la matrice du joueur
+	 * Si oui, il a changement d'image des imageView qui forment la grille du joueur ou de l'ordinateur
+	 * @param matrix
+	 */
+	public void ifBoats(MatrixTiles matrix[][]);
+	
+	/**
+	 * Retourne un Group qui contient un Grid qui contient des imageView pour former une grille
+	 * avec le nom du joueur sous cette grille.
+	 * @param nom
+	 * @return
+	 */
+	public Group setGrid(String nom);
+}
