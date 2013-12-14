@@ -1,0 +1,26 @@
+La bataille navale, appelée aussi touché-coulé, est un jeu de société dans lequel 
+deux joueurs doivent placer des « navires » sur une grille tenue secrète et tenter de 
+« toucher » les navires adverses. Le gagnant est celui qui parvient à torpiller 
+complètement les navires de l'adversaire avant que tous les siens ne le soient.
+
+Chaque joueur possède les mêmes navires, dont le nombre 
+et le type dépendent des règles du jeu choisies.
+
+Une disposition peut ainsi comporter :
+
+    1 porte-avions (5 cases)
+    1 croiseur (4 cases)
+    1 contre-torpilleurs (3 cases)
+    1 sous-marin (3 cases)
+    1 torpilleur (2 cases)
+
+
+Qu'elle soit en version électronique ou non, la grille de jeu est toujours
+ la même, numérotée de 1 à 10 horizontalement et de A à J verticalement.
+
+Conventionnellement, les joueurs placent des pions blancs sur
+ la grille lorsque les coordonnées n'ont pas touché de bateau 
+ adverse, et rouge lorsqu'une touche a été faite.
+
+http://fr.wikipedia.org/wiki/Bataille_navale_%28jeu%29
+
