@@ -34,10 +34,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
+
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
+
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -104,7 +104,7 @@ public class GameMenu extends Parent
 	 */
 	private class menuListenerNewGame implements EventHandler<ActionEvent>
 	{
-		Stage confirmNewGameDialog;
+		
 		@Override
 		public void handle(ActionEvent arg0)
 		{
