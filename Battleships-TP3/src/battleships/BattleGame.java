@@ -1,9 +1,8 @@
 package battleships;
 
-import java.io.BufferedWriter;
+
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +61,7 @@ public class BattleGame extends Application
         public void start(Stage stage)
         {
                 this.root = new Group();
-                this.scene = new Scene(this.root, 1920, 1000, Color.LIGHTGRAY);
+                this.scene = new Scene(this.root, 1366, 768, Color.LIGHTGRAY);
                 
                 this.game = new Game(this);
 //                
