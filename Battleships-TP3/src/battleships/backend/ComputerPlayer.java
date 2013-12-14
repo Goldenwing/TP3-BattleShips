@@ -70,8 +70,8 @@ import battleships.backend.Game.Boats;
             
             if (this.lastGoodShot == null) { //Partir d'un coup random ou du dernier bon coup
                     do {
-                    		coordX = coordinateNumber.nextInt(this.GAME_SIZE);
-                            coordY = coordinateNumber.nextInt(this.GAME_SIZE);
+                    		coordX = coordinateNumber.nextInt(this.GAME_SIZE) + 1;
+                            coordY = coordinateNumber.nextInt(this.GAME_SIZE) + 1;
                     } while(gameGrid.getSquareContentCheck(coordX, coordY, false));
             } else {
                     coordX = this.lastGoodShot.getCoordX();
@@ -91,24 +91,31 @@ import battleships.backend.Game.Boats;
                                 gameGrid.setSquareCheck(coordX, coordY, true, false);
                                 this.battleGame.getMyGrid().changeStateSquare(true, coordX, coordY);
                                 this.game.UpHitCounter(true);
-                                
-                                if(this.game.DidWeWin(gameGrid))
+                                isMyTurn= true;
+                                this.lastGoodShot = new GoodShot(coordX, coordY);
+                                /*if(this.game.DidWeWin(gameGrid))
                             	{
                             		this.game.DefeatPanel();
                             	}
                                 else
-                                {
+                                {*/
 	                                do { //On regarde en haut
 	                                        GoodShot goodShotAttempt = new GoodShot(coordX, coordY);
 	                                        goodShotAttempt = checkSquareUp(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), gameGrid);
 	                                        if (goodShotAttempt != null) {
 	                                                isMyTurn = true;
 	                                                this.lastGoodShot = goodShotAttempt;
-	                                                this.lastGoodShot.setShotsRemaining(this.lastGoodShot.getShotsRemaining() - 1);
 	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
 	                                                this.battleGame.getMyGrid().changeStateSquare(true, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
 	                                        }
-	                                } while(this.lastGoodShot.getCoordY() < this.GAME_SIZE);
+	                                        else {
+	                                        	isMyTurn = false;
+	                                        	this.battleGame.getMyGrid().changeStateSquare(false, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
+	                                        	gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
+	                                        	this.lastGoodShot = null;
+	                                        }
+	                                        
+	                                } while(isMyTurn || this.lastGoodShot.getCoordY() < this.GAME_SIZE + 1);
 	                                
 	                                do { //On regarde en bas
 	                                        GoodShot goodShotAttempt = new GoodShot(coordX, coordY);
@@ -116,11 +123,16 @@ import battleships.backend.Game.Boats;
 	                                        if (goodShotAttempt != null) {
 	                                                isMyTurn = true;
 	                                                this.lastGoodShot = goodShotAttempt;
-	                                                this.lastGoodShot.setShotsRemaining(this.lastGoodShot.getShotsRemaining() - 1);
 	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
 	                                                this.battleGame.getMyGrid().changeStateSquare(true, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
 	                                        }
-	                                } while(this.lastGoodShot.getCoordY() >= 0);
+	                                        else {
+	                                        	isMyTurn = false;
+	                                        	this.battleGame.getMyGrid().changeStateSquare(false, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
+	                                        	gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
+	                                        	this.lastGoodShot = null;
+	                                        }
+	                                } while(isMyTurn || this.lastGoodShot.getCoordY() >= 0);
 	                                
 	                                do { //On regarde a gauche
 	                                        GoodShot goodShotAttempt = new GoodShot(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
@@ -128,11 +140,16 @@ import battleships.backend.Game.Boats;
 	                                        if (goodShotAttempt != null) {
 	                                                isMyTurn = true;
 	                                                this.lastGoodShot = goodShotAttempt;
-	                                                this.lastGoodShot.setShotsRemaining(this.lastGoodShot.getShotsRemaining() - 1);
 	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
 	                                                this.battleGame.getMyGrid().changeStateSquare(true, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
 	                                        }
-	                                } while(this.lastGoodShot.getCoordX() >= 0);
+	                                        else {
+	                                        	isMyTurn = false;
+	                                        	this.battleGame.getMyGrid().changeStateSquare(false, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
+	                                        	gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
+	                                        	this.lastGoodShot = null;
+	                                        }
+	                                } while(isMyTurn || this.lastGoodShot.getCoordX() >= 0);
 	                                
 	                                do { //On regarde a droite
 	                                        GoodShot goodShotAttempt = new GoodShot(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
@@ -140,13 +157,18 @@ import battleships.backend.Game.Boats;
 	                                        if (goodShotAttempt != null) {
 	                                                isMyTurn = true;
 	                                                this.lastGoodShot = goodShotAttempt;
-	                                                this.lastGoodShot.setShotsRemaining(this.lastGoodShot.getShotsRemaining() - 1);
 	                                                gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
 	                                                this.battleGame.getMyGrid().changeStateSquare(true, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
 	                                        }
-	                                } while(this.lastGoodShot.getCoordX() < this.GAME_SIZE);
+	                                        else {
+	                                        	isMyTurn = false;
+	                                        	this.battleGame.getMyGrid().changeStateSquare(false, this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY());
+	                                        	gameGrid.setSquareCheck(this.lastGoodShot.getCoordX(), this.lastGoodShot.getCoordY(), true, false);
+	                                        	this.lastGoodShot = null;
+	                                        }
+	                                } while(isMyTurn || this.lastGoodShot.getCoordX() < this.GAME_SIZE + 1);
                                 }
-                        }
+                      /*  }*/
             } while(isMyTurn);
     }
         
@@ -161,7 +183,7 @@ import battleships.backend.Game.Boats;
                     return null;
             }
             else {
-                    GoodShot newGoodShot = new GoodShot(x, y + 1, null);
+                    GoodShot newGoodShot = new GoodShot(x, y + 1);
                     return newGoodShot;
             }
     }
@@ -171,7 +193,7 @@ import battleships.backend.Game.Boats;
                     return null;
             }
             else {
-                    GoodShot newGoodShot = new GoodShot(x, y - 1, null);
+                    GoodShot newGoodShot = new GoodShot(x, y - 1);
                     return newGoodShot;
             }
     }
@@ -181,7 +203,7 @@ import battleships.backend.Game.Boats;
                     return null;
             }
             else {
-                    GoodShot newGoodShot = new GoodShot(x - 1, y, null);
+                    GoodShot newGoodShot = new GoodShot(x - 1, y);
                     return newGoodShot;
             }
     }
@@ -191,7 +213,7 @@ import battleships.backend.Game.Boats;
                     return null;
             }
             else {
-                    GoodShot newGoodShot = new GoodShot(x + 1, y, null);
+                    GoodShot newGoodShot = new GoodShot(x + 1, y);
                     return newGoodShot;
             }
     }
