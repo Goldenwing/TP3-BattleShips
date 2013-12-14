@@ -2,8 +2,10 @@ package battleships;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
 
@@ -34,10 +36,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
-
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -219,7 +219,7 @@ public class GameMenu extends Parent
 				scoreRoot.add(buttonErase, 0, line);
 				scoreRoot.add(buttonAccept, 1, line);
 			
-			scoreDialog.setTitle("Les demineurs les plus rapides");
+			scoreDialog.setTitle("Les meilleures parties");
 			scoreDialog.setScene(scoreScene);
 			this.stage = scoreDialog;
 			scoreDialog.setResizable(false);
@@ -364,6 +364,85 @@ public class GameMenu extends Parent
 		@Override
 		public void handle(ActionEvent arg0)
 		{
+			Group scoreRoot = new Group();
+			Stage scoreDialog = new Stage();
+			scoreDialog.initModality(Modality.APPLICATION_MODAL);
+			Scene scoreScene = new Scene(scoreRoot, 500,450, Color.LIGHTGRAY);
+			
+	
+			
+			scoreDialog.setTitle("Comment jouer?");
+			String textHelp = "";
+			
+			 File file = new File("rules.txt");
+    		
+        	 if (file.exists())
+        	 {
+
+       		  try
+                 {    
+                    BufferedReader buff = new BufferedReader(new FileReader("rules.txt"));
+                     int x = 5;
+                     int y = 10;
+                    try
+                    {
+                    	String line= "";
+                    	
+                
+                    	while ((line = buff.readLine()) != null)
+                    	{
+                            textHelp = line;
+                 			 
+                        	
+                     		Label infoLabel = new Label(textHelp);
+                			infoLabel.setLayoutX(x);
+                			infoLabel.setLayoutY(  y+= 15);
+                		
+                		scoreRoot.getChildren().add(infoLabel);
+                    	}
+                    } 
+                    finally
+                    {
+                    	buff.close();
+                    }
+                        
+                 }
+                 catch (IOException ioe)
+                 {
+                	
+                 }
+        	 }
+        	 
+        			 
+        	
+     		Label infoLabel = new Label(textHelp);
+			infoLabel.setLayoutX(5);
+			infoLabel.setLayoutY(10);
+		
+		scoreRoot.getChildren().add(infoLabel);
+			
+			scoreDialog.setScene(scoreScene);
+			scoreDialog.setResizable(false);
+			scoreDialog.show(); ;
+				scoreDialog.show();
+			
+		}
+		
+	}
+	
+	/**
+	 * Action lors du clique de l'utilisateur sur a propos
+	 * @author Laurie
+	 *
+	 */
+	private class menuListenerSeeMore implements EventHandler<ActionEvent>
+	{
+
+		@Override
+		public void handle(ActionEvent arg0)
+		{
+			
+			
 			Group proposRoot = new Group();
 			Stage proposDialog = new Stage();
 			proposDialog.initModality(Modality.APPLICATION_MODAL);
@@ -387,37 +466,6 @@ public class GameMenu extends Parent
 	        proposDialog.show(); ;
 		    	proposDialog.show();
 			
-		}
-		
-	}
-	
-	/**
-	 * Action lors du clique de l'utilisateur sur a propos
-	 * @author Laurie
-	 *
-	 */
-	private class menuListenerSeeMore implements EventHandler<ActionEvent>
-	{
-
-		@Override
-		public void handle(ActionEvent arg0)
-		{
-			Group scoreRoot = new Group();
-			Stage scoreDialog = new Stage();
-			scoreDialog.initModality(Modality.APPLICATION_MODAL);
-			Scene scoreScene = new Scene(scoreRoot, 300,200, Color.LIGHTGRAY);
-			
-			Label infoLabel = new Label("");
-				infoLabel.setLayoutX(5);
-				infoLabel.setLayoutY(10);
-			
-			scoreRoot.getChildren().add(infoLabel);
-			
-			scoreDialog.setTitle("Comment jouer?");
-			scoreDialog.setScene(scoreScene);
-			scoreDialog.setResizable(false);
-			scoreDialog.show(); ;
-				scoreDialog.show();
 			
 		}
 		
