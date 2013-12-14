@@ -2,15 +2,18 @@ package battleships;
 
 
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
 import battleships.backend.Game;
 import battleships.backend.Matrix;
+import battleships.backend.Player;
+import battleships.backend.tests.GameTest;
+import battleships.backend.tests.MatrixTest;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -118,7 +121,7 @@ public class BattleGame extends Application
                 this.game.getGamer().setPlayerName(this.name);
                 this.myGrid.ifBoats(this.game.getMatrix().getGameMatrix());
                 this.enemyGrid = new EnemyGridGame(this.game, this);
-                this.enemyGroup = this.enemyGrid.setGrid();
+                this.enemyGroup = this.enemyGrid.setGrid("Computer");
                 this.root.getChildren().add(this.enemyGroup);
                 this.root.getChildren().add(this.myGroup);
                 this.game.getEnemy().shootEnemy(this.game.getMatrix());
@@ -176,18 +179,19 @@ public class BattleGame extends Application
          */
         public static void main(String[] args)
         {
-//                JUnitCore junit = new JUnitCore(); 
-//                Result resultGame = junit.run(GameTest.class);
-//                runTests(resultGame);
-//                Result resultMatrix = junit.run(MatrixTest.class);
-//                runTests(resultMatrix);
-//                
-//                if (runTests(resultGame) && runTests(resultMatrix))
-//                {
-//                        String s = new File("").getAbsolutePath();
-//                        System.out.println(s);
+                JUnitCore junit = new JUnitCore(); 
+                Result resultGame = junit.run(GameTest.class);
+                runTests(resultGame);
+                Result resultMatrix = junit.run(MatrixTest.class);
+                runTests(resultMatrix);
+                Result resultPlayer = junit.run(Player.class);
+                
+                if (runTests(resultGame) && runTests(resultMatrix)  && runTests(resultPlayer))
+                {
+                        String s = new File("").getAbsolutePath();
+                        System.out.println(s);
                         Application.launch(BattleGame.class, args);
-//                }   
+                }   
         }
         
         /**
