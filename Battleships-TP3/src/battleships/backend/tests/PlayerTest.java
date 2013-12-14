@@ -3,6 +3,7 @@ package battleships.backend.tests;
 import org.junit.Assert;
 import org.junit.Test;
 
+import battleships.BattleGame;
 import battleships.backend.*;
 
 /**
@@ -20,9 +21,10 @@ public class PlayerTest {
 	
 	@Test
 	public void NewComputerPlayerConstructor() {
-		ComputerPlayer player = new ComputerPlayer();
+		Game game = new Game();
+		BattleGame battleGame = new BattleGame();
+		ComputerPlayer player = new ComputerPlayer(game, battleGame);
 		Assert.assertEquals("HAL-9000", player.getPlayerName());
-		Assert.assertEquals(null, player.getLastGoodShot());
 	}
 	
 	//SetBoats() methods tests
