@@ -1,5 +1,5 @@
 /**
- * Cette classe sert à tester la classe Matrix. Elle vérifie toute les méthodes de celle-ci.
+ * Cette classe sert Ã  tester la classe Matrix. Elle vÃ©rifie toute les mÃ©thodes de celle-ci.
  * 
  * @author Kevin Tanguay
  */
@@ -31,7 +31,7 @@ public class MatrixTest
 				}
 			}
 		}
-		//vérifie si la grille est bien initialisée.
+		//vÃ©rifie si la grille est bien initialisÃ©e.
 		Assert.assertEquals(100, counter);
 	}
 	
@@ -51,7 +51,7 @@ public class MatrixTest
 				}
 			}
 		}
-		//vérifie si la grille est bien initialisée.
+		//vÃ©rifie si la grille est bien initialisÃ©e.
 		Assert.assertEquals(100, counter);
 	}
 	
@@ -138,7 +138,7 @@ public class MatrixTest
 		Assert.assertEquals(5, test.getSquareContentNumber(0, 0, false));
 	}
 	
-	//le test de SetSquareContent est exactement le même test, je ne le répètera pas.
+	//le test de SetSquareContent est exactement le mÃªme test, je ne le rÃ©pÃ¨tera pas.
 	
 	@Test
 	public void testgetSquareContentCheck()
@@ -150,6 +150,6 @@ public class MatrixTest
 		Assert.assertTrue(test.getSquareContentCheck(0,0,false));
 	}
 	
-	//le test de SetSquareCheck est exactement le même test, je ne le répètera pas.
+	//le test de SetSquareCheck est exactement le mÃªme test, je ne le rÃ©pÃ¨tera pas.
 	
 }
