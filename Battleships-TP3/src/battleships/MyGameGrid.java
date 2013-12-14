@@ -5,13 +5,13 @@ package battleships;
 import java.util.List;
 
 import battleships.backend.Game;
-
+import battleships.backend.Matrix;
 import battleships.backend.MatrixTiles;
-
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -78,14 +78,14 @@ public class MyGameGrid
 		this.myRoot = new Group();
 		
 		Text name = new Text(nom);
-		name.setX(1240);
-		name.setY(870);
+		name.setX(600);
+		name.setY(450);
 		name.setFont(new Font(20));
 
 		int nbSquare = 11;
 		
-		int xSquare = 875; // coordonnees x de l'image
-		int ySquare = 70; // coordonnees y de l'image
+		int xSquare = 425; // coordonnees x de l'image
+		int ySquare = 35; // coordonnees y de l'image
 		ImageList imageList =  new ImageList();
 		
 		List<Image> imageListNumber = imageList.imageListNumbers();
@@ -96,8 +96,8 @@ public class MyGameGrid
 		{
 			if( i > 0)
 			{
-				xSquare += 70;
-				ySquare = 70;
+				xSquare += 35;
+				ySquare = 35;
 			}
 			for(int j = 0; j <  nbSquare; j++)
 			{
@@ -106,7 +106,7 @@ public class MyGameGrid
                 
                 if(j > 0 && i > 0)
                 {
-                        ySquare += 70;
+                        ySquare += 35;
                         waterTiles = new ImageView(new Image("file:Images/water.png"));
                 }
                 else if(j == 0 && i > 0)
@@ -116,7 +116,7 @@ public class MyGameGrid
                 
                 else if(j > 0 && i == 0)
                 {
-                	 ySquare += 70;
+                	 ySquare += 35;
                 	 waterTiles = new ImageView(imageListLetter.get(j - 1));
                 }
 				waterTiles.setX(xSquare);
