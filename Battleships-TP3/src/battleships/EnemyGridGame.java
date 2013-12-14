@@ -7,16 +7,14 @@ import battleships.backend.Matrix;
 import battleships.backend.MatrixTiles;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
+
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+
 
 /**
  * Classe JavaFX de la grille qui contient les coordonnées des bateaux de l'ordinateur.
@@ -159,6 +157,8 @@ public class EnemyGridGame
                     }
                     else
                     {
+                    	
+                    		EnemyGridGame.this.nbShots++;
                             gameMatrix.setSquareCheck(quickX, quickY, true, true);
                             Image imageRedX = new Image("file:Images/water-red.png");
                             Image imageWhiteX = new Image("file:Images/water-white.png");
