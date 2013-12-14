@@ -5,13 +5,13 @@ package battleships;
 import java.util.List;
 
 import battleships.backend.Game;
-import battleships.backend.Matrix;
+
 import battleships.backend.MatrixTiles;
-import javafx.event.EventHandler;
+
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
